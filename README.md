@@ -24,12 +24,12 @@ Este archivo lo previsualice con grip (pip install grip)
 
 El la api se baja de [aca] (https://github.com/rubenlagus/TelegramBots/releases/download/v2.3.3.7/telegrambots-2.3.3.7-jar-with-dependencies.jar) y la subí a mi maven con:
 
-mvn install:install-file \ <br/>
+mvn install:install-file \
 -Dfile=telegrambots-2.3.3.7-jar-with-dependencies.jar \ <br/>
--DgroupId=telegrambot \ <br/>
--DartifactId=telegrambot \ <br/>
--Dversion=2.3.3.7-full \ <br/>
--Dpackaging=jar \ <br/>
+-DgroupId=telegrambot \
+-DartifactId=telegrambot \
+-Dversion=2.3.3.7-full \
+-Dpackaging=jar \
 -DgeneratePom=true <br/>
 
 
