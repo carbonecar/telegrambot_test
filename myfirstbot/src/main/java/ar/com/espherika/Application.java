@@ -8,8 +8,8 @@ public class Application {
 
 	public static void main(String[] args) {
 
-		System.out.println("hola mundo");
 
+		
 		TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
 
 		try {
@@ -18,5 +18,8 @@ public class Application {
 			BotLogger.error("ERRROR: ", e);
 		}
 	}
+	
+	
+	private 
 
 }
