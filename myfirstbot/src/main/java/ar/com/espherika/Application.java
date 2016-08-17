@@ -9,7 +9,7 @@ public class Application {
 	public static void main(String[] args) {
 
 
-		
+
 		TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
 
 		try {
@@ -18,8 +18,8 @@ public class Application {
 			BotLogger.error("ERRROR: ", e);
 		}
 	}
+
+
 	
-	
-	private 
 
 }
