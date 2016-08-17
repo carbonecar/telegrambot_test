@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://interfaces.cartilla.osde.com.ar" xmlns:soapenc12="http://www.w3.org/2003/05/soap-encoding" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://interfaces.cartilla.osde.com.ar" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap11="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://entities.cartilla.osde.com.ar" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc11="http://schemas.xmlsoap.org/soap/encoding/">
+  <wsdl:types>
+    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://interfaces.cartilla.osde.com.ar">
+      <xsd:element name="getCantidadPrestadoresCartillaUrgencias">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in0" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in1" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in2" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in3" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getCantidadPrestadoresCartillaUrgenciasResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPlanesCartilla">
+        <xsd:complexType/>
+      </xsd:element>
+      <xsd:element name="getPlanesCartillaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfPlanCartilla"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPlanesUrgenciasCartilla">
+        <xsd:complexType/>
+      </xsd:element>
+      <xsd:element name="getPlanesUrgenciasCartillaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfPlanCartilla"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPlanes">
+        <xsd:complexType/>
+      </xsd:element>
+      <xsd:element name="getPlanesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfPlanCartilla"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://entities.cartilla.osde.com.ar">
+      <xsd:complexType name="ArrayOfPlanCartilla">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="PlanCartilla" nillable="true" type="ns1:PlanCartilla"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PlanCartilla">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="id" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="nombre" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="getPlanesRequest">
+    <wsdl:part name="parameters" element="tns:getPlanes"/>
+  </wsdl:message>
+  <wsdl:message name="getPlanesUrgenciasCartillaResponse">
+    <wsdl:part name="parameters" element="tns:getPlanesUrgenciasCartillaResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getPlanesCartillaResponse">
+    <wsdl:part name="parameters" element="tns:getPlanesCartillaResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getCantidadPrestadoresCartillaUrgenciasResponse">
+    <wsdl:part name="parameters" element="tns:getCantidadPrestadoresCartillaUrgenciasResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getPlanesCartillaRequest">
+    <wsdl:part name="parameters" element="tns:getPlanesCartilla"/>
+  </wsdl:message>
+  <wsdl:message name="getPlanesUrgenciasCartillaRequest">
+    <wsdl:part name="parameters" element="tns:getPlanesUrgenciasCartilla"/>
+  </wsdl:message>
+  <wsdl:message name="getPlanesResponse">
+    <wsdl:part name="parameters" element="tns:getPlanesResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getCantidadPrestadoresCartillaUrgenciasRequest">
+    <wsdl:part name="parameters" element="tns:getCantidadPrestadoresCartillaUrgencias"/>
+  </wsdl:message>
+  <wsdl:portType name="PlanCartillaServicePortType">
+    <wsdl:operation name="getCantidadPrestadoresCartillaUrgencias">
+      <wsdl:input name="getCantidadPrestadoresCartillaUrgenciasRequest" message="tns:getCantidadPrestadoresCartillaUrgenciasRequest"/>
+      <wsdl:output name="getCantidadPrestadoresCartillaUrgenciasResponse" message="tns:getCantidadPrestadoresCartillaUrgenciasResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getPlanesCartilla">
+      <wsdl:input name="getPlanesCartillaRequest" message="tns:getPlanesCartillaRequest"/>
+      <wsdl:output name="getPlanesCartillaResponse" message="tns:getPlanesCartillaResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getPlanesUrgenciasCartilla">
+      <wsdl:input name="getPlanesUrgenciasCartillaRequest" message="tns:getPlanesUrgenciasCartillaRequest"/>
+      <wsdl:output name="getPlanesUrgenciasCartillaResponse" message="tns:getPlanesUrgenciasCartillaResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getPlanes">
+      <wsdl:input name="getPlanesRequest" message="tns:getPlanesRequest"/>
+      <wsdl:output name="getPlanesResponse" message="tns:getPlanesResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PlanCartillaServiceHttpBinding" type="tns:PlanCartillaServicePortType">
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getCantidadPrestadoresCartillaUrgencias">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getCantidadPrestadoresCartillaUrgenciasRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCantidadPrestadoresCartillaUrgenciasResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPlanesCartilla">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getPlanesCartillaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPlanesCartillaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPlanesUrgenciasCartilla">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getPlanesUrgenciasCartillaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPlanesUrgenciasCartillaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPlanes">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getPlanesRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPlanesResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PlanCartillaService">
+    <wsdl:port name="PlanCartillaServiceHttpPort" binding="tns:PlanCartillaServiceHttpBinding">
+      <wsdlsoap:address location="http://dlnxwas4.datacenter.osde.ar:10680/movil_cartilla_backend/services/PlanCartillaService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

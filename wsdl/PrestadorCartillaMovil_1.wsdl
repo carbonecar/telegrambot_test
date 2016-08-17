@@ -1,0 +1,1892 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://interfaces.cartilla.osde.com.ar" xmlns:ns1="http://entities.cartilla.osde.com.ar" xmlns:ns2="http://services.framework.osde.com.ar" xmlns:soap11="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope" xmlns:soapenc11="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soapenc12="http://www.w3.org/2003/05/soap-encoding" xmlns:tns="http://interfaces.cartilla.osde.com.ar" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://interfaces.cartilla.osde.com.ar">
+      <xsd:element name="getPrestadoresDeUnaCelda">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in0" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ArrayOfString">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="string" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="getPrestadoresDeUnaCeldaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfPrestadorConConsultoriosSimplificado"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresMiCartillaFull">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="usuarioMiCartilla" nillable="true" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresMiCartillaFullResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfPrestadorFull"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ServiceException" type="ns2:ServiceException"/>
+      <xsd:element name="getPrestadoresConConsultoriosConLocalidad">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="plan" nillable="true" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="especialidad" nillable="true" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="tipo" nillable="true" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="nivel1" nillable="true" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="nivel2" nillable="true" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="nivel3" nillable="true" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="orden" nillable="true" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="pagina" nillable="true" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="cantidad" nillable="true" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresConConsultoriosConLocalidadResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfPrestadorConConsultorios"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresCercanos">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in0" type="xsd:double"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in1" type="xsd:double"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in2" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in3" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresCercanosResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:MapaCartilla"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresConEspecialidadesConLocalidad">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="plan" nillable="true" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="nombrePrestador" nillable="true" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="tipo" nillable="true" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="provincia" nillable="true" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="rubro" nillable="true" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="pagina" nillable="true" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="cantidad" nillable="true" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresConEspecialidadesConLocalidadResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ResultBusquedaInteligente"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getCantidadPrestadoresConConsultoriosConLocalidad">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="plan" nillable="true" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="especialidad" nillable="true" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="tipo" nillable="true" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="nivel1" nillable="true" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="nivel2" nillable="true" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="nivel3" nillable="true" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getCantidadPrestadoresConConsultoriosConLocalidadResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresPaisesNoLimitrofes">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in0" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in1" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in2" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in3" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresPaisesNoLimitrofesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfPrestadorUrgencias"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresUrgenciasDeUnaCelda">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in0" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresUrgenciasDeUnaCeldaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfPrestadorUrgencias"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="crearNotaPrestadorMiCartilla">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="notaPrestadorMiCartilla" nillable="true" type="ns1:NotaPrestadorMiCartilla"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="crearNotaPrestadorMiCartillaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getCantidadPrestadoresConEspecialidadesConLocalidad">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="plan" nillable="true" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="nombrePrestador" nillable="true" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="tipo" nillable="true" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="nivel1" nillable="true" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="nivel2" nillable="true" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="nivel3" nillable="true" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getCantidadPrestadoresConEspecialidadesConLocalidadResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getCantidadPrestadoresPorRubro">
+        <xsd:complexType/>
+      </xsd:element>
+      <xsd:element name="getCantidadPrestadoresPorRubroResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfCantidadPrestadorPorRubro"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadorConConsultorios">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in0" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in1" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in2" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in3" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in4" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in5" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadorConConsultoriosResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:PrestadorConConsultorios"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresUrgenciasCercanos">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in0" type="xsd:double"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in1" type="xsd:double"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in2" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in3" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresUrgenciasCercanosResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:MapaCartilla"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getNotasPrestadorMiCartilla">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="idMiCartilla" nillable="true" type="ns1:IdMiCartilla"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getNotasPrestadorMiCartillaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfNotaPrestadorMiCartilla"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="crearAlertaPrestadorMiCartilla">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="alertaPrestadorMiCartilla" nillable="true" type="ns1:AlertaPrestadorMiCartilla"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="crearAlertaPrestadorMiCartillaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getIconosDetallesPrestadorCartilla">
+        <xsd:complexType/>
+      </xsd:element>
+      <xsd:element name="getIconosDetallesPrestadorCartillaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfDetallePrestadorCartilla"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresCartillaUrgenciasNovedades">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="provincia" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="localidad" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="especialidad" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="plan" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="fechaDesdeNovedades" type="xsd:dateTime"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="pagina" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="cantidad" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresCartillaUrgenciasNovedadesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfPrestadorUrgenciasNovedades"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="editarNotaPrestadorMiCartilla">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="notaPrestadorMiCartilla" nillable="true" type="ns1:NotaPrestadorMiCartilla"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="editarNotaPrestadorMiCartillaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getNotaPrestadorMiCartilla">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="nota" nillable="true" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getNotaPrestadorMiCartillaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:NotaPrestadorMiCartilla"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getInformacionUsuarioMiCartilla">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="usuarioMiCartilla" nillable="true" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getInformacionUsuarioMiCartillaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfInformacionUsuarioMiCartilla"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresConConsultorios">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in0" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in1" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in2" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in3" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in4" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in5" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in6" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in7" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresConConsultoriosResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfPrestadorConConsultorios"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="editarAlertaPrestadorMiCartilla">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="alertaPrestadorMiCartilla" nillable="true" type="ns1:AlertaPrestadorMiCartilla"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="editarAlertaPrestadorMiCartillaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresConEspecialidades">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in0" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in1" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in2" nillable="true" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in3" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in4" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresConEspecialidadesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfPrestadorConEspecialidades"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresCartillaUrgenciasOrdenados">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in0" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in1" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in2" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in3" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in4" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in5" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresCartillaUrgenciasOrdenadosResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfPrestadorUrgencias"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getCantidadPrestadoresConConsultorios">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in0" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in1" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in2" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in3" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in4" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in5" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getCantidadPrestadoresConConsultoriosResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresCartillaUrgencias1">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in0" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in1" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in2" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in3" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in4" nillable="true" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in5" type="xsd:dateTime"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in6" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in7" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresCartillaUrgencias1Response">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfPrestadorUrgencias"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="insertPrestadorMiCatrilla">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in0" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in1" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in2" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in3" nillable="true" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="insertPrestadorMiCatrillaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getCantidadPrestadoresConEspecialidades">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in0" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in1" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in2" nillable="true" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getCantidadPrestadoresConEspecialidadesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getAlertaPrestadorMiCartilla">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="alerta" nillable="true" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getAlertaPrestadorMiCartillaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:AlertaPrestadorMiCartilla"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresDeUnaCeldaCompleto">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in0" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresDeUnaCeldaCompletoResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfPrestadorConConsultorios"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getAlertasPrestadorMiCartilla">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="idMiCartilla" nillable="true" type="ns1:IdMiCartilla"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getAlertasPrestadorMiCartillaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfAlertaPrestadorMiCartilla"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresPaisesLimitrofes">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in0" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in1" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in2" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in3" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in4" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresPaisesLimitrofesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfPrestadorUrgencias"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresMapa">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in0" type="xsd:double"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in1" type="xsd:double"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in2" type="xsd:double"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in3" type="xsd:double"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in4" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in5" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresMapaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfCeldaMapaCartilla"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresUrgenciasMapa">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in0" type="xsd:double"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in1" type="xsd:double"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in2" type="xsd:double"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in3" type="xsd:double"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in4" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in5" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresUrgenciasMapaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfCeldaMapaCartilla"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="eliminarNotaPrestadorMiCartilla">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="nota" nillable="true" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="eliminarNotaPrestadorMiCartillaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getDetallesPrestadorCartilla">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in0" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in1" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in2" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in3" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getDetallesPrestadorCartillaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfDetallePrestadorCartilla"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresCartillaUrgencias">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in0" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in1" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in2" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in3" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in4" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in5" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresCartillaUrgenciasResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfPrestadorUrgencias"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="deletePrestadorMiCartilla">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in0" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in1" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in2" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in3" nillable="true" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="deletePrestadorMiCartillaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresConEspecialidadesMiCartilla">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in1" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in2" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getPrestadoresConEspecialidadesMiCartillaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfPrestadorConEspecialidades"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getCantidadPrestadoresConEspecialidadesMiCartilla">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getCantidadPrestadoresConEspecialidadesMiCartillaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="eliminarAlertaPrestadorMiCartilla">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="alerta" nillable="true" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="eliminarAlertaPrestadorMiCartillaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getIdiomasDetallesPrestadorCartilla">
+        <xsd:complexType/>
+      </xsd:element>
+      <xsd:element name="getIdiomasDetallesPrestadorCartillaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfDetallePrestadorCartilla"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://entities.cartilla.osde.com.ar">
+      <xsd:complexType name="ArrayOfPrestadorConConsultoriosSimplificado">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="PrestadorConConsultoriosSimplificado" nillable="true" type="ns1:PrestadorConConsultoriosSimplificado"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PrestadorConConsultoriosSimplificado">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="centroMedico" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="consultorios" nillable="true" type="ns1:ArrayOfConsultorioCartillaSimplificado"/>
+          <xsd:element minOccurs="0" name="esPersona" type="xsd:boolean"/>
+          <xsd:element minOccurs="0" name="filialId" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="id" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="nombre" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="numeroPrestador" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfConsultorioCartillaSimplificado">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="ConsultorioCartillaSimplificado" nillable="true" type="ns1:ConsultorioCartillaSimplificado"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ConsultorioCartillaSimplificado">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="barrio" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="direccion" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="equipoMedico" nillable="true" type="tns:ArrayOfString"/>
+          <xsd:element minOccurs="0" name="geolocalizacion" nillable="true" type="ns1:Geolocalizacion"/>
+          <xsd:element minOccurs="0" name="localidad" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="provincia" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="secuencia" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Geolocalizacion">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="esExacto" type="xsd:boolean"/>
+          <xsd:element minOccurs="0" name="latitud" type="xsd:double"/>
+          <xsd:element minOccurs="0" name="longitud" type="xsd:double"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfPrestadorFull">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="PrestadorFull" nillable="true" type="ns1:PrestadorFull"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PrestadorFull">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="cantidadAlertas" nillable="true" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="cantidadNotas" nillable="true" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="centroMedico" nillable="true" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="especialidadesFull" nillable="true" type="ns1:ArrayOfEspecialidadFull"/>
+          <xsd:element minOccurs="0" name="filialId" nillable="true" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="nombrePrestador" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="numeroPrestador" nillable="true" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfEspecialidadFull">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="EspecialidadFull" nillable="true" type="ns1:EspecialidadFull"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="EspecialidadFull">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="consultoriosCartilla" nillable="true" type="ns1:ArrayOfConsultorioCartilla"/>
+          <xsd:element minOccurs="0" name="especialidadId" nillable="true" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="especialidadNombre" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfConsultorioCartilla">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="ConsultorioCartilla" nillable="true" type="ns1:ConsultorioCartilla"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ConsultorioCartilla">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="barrio" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="codigoPostal" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="direccion" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="email" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="equipoMedico" nillable="true" type="tns:ArrayOfString"/>
+          <xsd:element minOccurs="0" name="equipoMedicoResto" nillable="true" type="tns:ArrayOfString"/>
+          <xsd:element minOccurs="0" name="geolocalizacion" nillable="true" type="ns1:Geolocalizacion"/>
+          <xsd:element minOccurs="0" name="horarionAtencion" nillable="true" type="ns1:ArrayOfHorarioAtencion"/>
+          <xsd:element minOccurs="0" name="informacionEquipo" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="localidad" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="observaciones" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="provincia" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="secuencia" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="telefono" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfHorarioAtencion">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="HorarioAtencion" nillable="true" type="ns1:HorarioAtencion"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="HorarioAtencion">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="dia" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="rangosHorarios" nillable="true" type="tns:ArrayOfString"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfPrestadorConConsultorios">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="PrestadorConConsultorios" nillable="true" type="ns1:PrestadorConConsultorios"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PrestadorConConsultorios">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="centroMedico" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="consultorios" nillable="true" type="ns1:ArrayOfConsultorioCartilla"/>
+          <xsd:element minOccurs="0" name="esPersona" type="xsd:boolean"/>
+          <xsd:element minOccurs="0" name="filialId" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="id" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="nombre" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="numeroPrestador" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="MapaCartilla">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="celdas" nillable="true" type="ns1:ArrayOfCeldaMapaCartilla"/>
+          <xsd:element minOccurs="0" name="latitudDesde" type="xsd:double"/>
+          <xsd:element minOccurs="0" name="latitudHasta" type="xsd:double"/>
+          <xsd:element minOccurs="0" name="longitudDesde" type="xsd:double"/>
+          <xsd:element minOccurs="0" name="longitudHasta" type="xsd:double"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfCeldaMapaCartilla">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="CeldaMapaCartilla" nillable="true" type="ns1:CeldaMapaCartilla"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="CeldaMapaCartilla">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="cantidadPrestadores" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="direccionPrestador" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="id" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="latitud" type="xsd:double"/>
+          <xsd:element minOccurs="0" name="localidadPrestador" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="longitud" type="xsd:double"/>
+          <xsd:element minOccurs="0" name="nombrePrestador" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="telefonoPrestador" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ResultBusquedaInteligente">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="prestadores" nillable="true" type="ns1:ArrayOfPrestadorConEspecialidades"/>
+          <xsd:element minOccurs="0" name="totalResults" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfPrestadorConEspecialidades">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="PrestadorConEspecialidades" nillable="true" type="ns1:PrestadorConEspecialidades"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PrestadorConEspecialidades">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="centroMedico" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="esPersona" type="xsd:boolean"/>
+          <xsd:element minOccurs="0" name="especialidades" nillable="true" type="ns1:ArrayOfEspecialidadCartilla"/>
+          <xsd:element minOccurs="0" name="filialId" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="id" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="nombre" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="numeroPrestador" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfEspecialidadCartilla">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="EspecialidadCartilla" nillable="true" type="ns1:EspecialidadCartilla"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="EspecialidadCartilla">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="cantidadPrestadores" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="id" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="nombre" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="observaciones" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfPrestadorUrgencias">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="PrestadorUrgencias" nillable="true" type="ns1:PrestadorUrgencias"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PrestadorUrgencias">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="centroMedico" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="ciudad" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="direccion" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="especialidad" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="geolocalizacion" nillable="true" type="ns1:Geolocalizacion"/>
+          <xsd:element minOccurs="0" name="id" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="localidad" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="nombre" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="observaciones" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="riesgoVida" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="secuencia" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="telefono" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="NotaPrestadorMiCartilla">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="descripcion" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="id" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="idMiCartilla" nillable="true" type="ns1:IdMiCartilla"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="IdMiCartilla">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="centroMedico" nillable="true" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="filial" nillable="true" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="idUsuario" nillable="true" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="numeroPrestador" nillable="true" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfCantidadPrestadorPorRubro">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="CantidadPrestadorPorRubro" nillable="true" type="ns1:CantidadPrestadorPorRubro"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="CantidadPrestadorPorRubro">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="codigo" nillable="true" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="rubroCinco" nillable="true" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="rubroCuatro" nillable="true" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="rubroDos" nillable="true" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="rubroTres" nillable="true" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="rubroUno" nillable="true" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="zonaId" nillable="true" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfNotaPrestadorMiCartilla">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="NotaPrestadorMiCartilla" nillable="true" type="ns1:NotaPrestadorMiCartilla"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="AlertaPrestadorMiCartilla">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="descripcion" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="email" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="enviada" nillable="true" type="xsd:boolean"/>
+          <xsd:element minOccurs="0" name="fecha" type="xsd:dateTime"/>
+          <xsd:element minOccurs="0" name="id" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="idMiCartilla" nillable="true" type="ns1:IdMiCartilla"/>
+          <xsd:element minOccurs="0" name="telefono" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfDetallePrestadorCartilla">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="DetallePrestadorCartilla" nillable="true" type="ns1:DetallePrestadorCartilla"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DetallePrestadorCartilla">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="id" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="nombre" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="tipo" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfPrestadorUrgenciasNovedades">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="PrestadorUrgenciasNovedades" nillable="true" type="ns1:PrestadorUrgenciasNovedades"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PrestadorUrgenciasNovedades">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="ciudad" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="direccion" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="especialidad" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="especialidadId" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="fax" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="fechaAltaDireccion" type="xsd:dateTime"/>
+          <xsd:element minOccurs="0" name="fechaAltaDireccionDatos" type="xsd:dateTime"/>
+          <xsd:element minOccurs="0" name="fechaAltaEspecialidad" type="xsd:dateTime"/>
+          <xsd:element minOccurs="0" name="fechaAltaObservacion" type="xsd:dateTime"/>
+          <xsd:element minOccurs="0" name="fechaAltaPlan" type="xsd:dateTime"/>
+          <xsd:element minOccurs="0" name="fechaAltaPrestador" type="xsd:dateTime"/>
+          <xsd:element minOccurs="0" name="fechaAltaPrestadorDatos" type="xsd:dateTime"/>
+          <xsd:element minOccurs="0" name="fechaBajaDireccion" type="xsd:dateTime"/>
+          <xsd:element minOccurs="0" name="fechaBajaEspecialidad" type="xsd:dateTime"/>
+          <xsd:element minOccurs="0" name="fechaBajaObservacion" type="xsd:dateTime"/>
+          <xsd:element minOccurs="0" name="fechaBajaPlan" type="xsd:dateTime"/>
+          <xsd:element minOccurs="0" name="fechaBajaPrestador" type="xsd:dateTime"/>
+          <xsd:element minOccurs="0" name="geolocalizacion" nillable="true" type="ns1:Geolocalizacion"/>
+          <xsd:element minOccurs="0" name="id" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="localidad" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="localidadId" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="nombre" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="numeroPrestador" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="observaciones" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="provincia" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="provinciaId" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="telefono" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfInformacionUsuarioMiCartilla">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="InformacionUsuarioMiCartilla" nillable="true" type="ns1:InformacionUsuarioMiCartilla"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="InformacionUsuarioMiCartilla">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="cantidadDeAlertas" nillable="true" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="cantidadDeNotas" nillable="true" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="prestadorConEspecialidades" nillable="true" type="ns1:PrestadorConEspecialidades"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfAlertaPrestadorMiCartilla">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="AlertaPrestadorMiCartilla" nillable="true" type="ns1:AlertaPrestadorMiCartilla"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://services.framework.osde.com.ar">
+      <xsd:complexType name="ServiceException"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="crearAlertaPrestadorMiCartillaResponse">
+    <wsdl:part element="tns:crearAlertaPrestadorMiCartillaResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getIdiomasDetallesPrestadorCartillaRequest">
+    <wsdl:part element="tns:getIdiomasDetallesPrestadorCartilla" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getNotasPrestadorMiCartillaResponse">
+    <wsdl:part element="tns:getNotasPrestadorMiCartillaResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="editarNotaPrestadorMiCartillaResponse">
+    <wsdl:part element="tns:editarNotaPrestadorMiCartillaResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getIconosDetallesPrestadorCartillaResponse">
+    <wsdl:part element="tns:getIconosDetallesPrestadorCartillaResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getNotaPrestadorMiCartillaResponse">
+    <wsdl:part element="tns:getNotaPrestadorMiCartillaResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="ServiceException">
+    <wsdl:part element="tns:ServiceException" name="ServiceException"/>
+  </wsdl:message>
+  <wsdl:message name="getIconosDetallesPrestadorCartillaRequest">
+    <wsdl:part element="tns:getIconosDetallesPrestadorCartilla" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresConConsultoriosConLocalidadResponse">
+    <wsdl:part element="tns:getPrestadoresConConsultoriosConLocalidadResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresCercanosRequest">
+    <wsdl:part element="tns:getPrestadoresCercanos" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresConEspecialidadesConLocalidadResponse">
+    <wsdl:part element="tns:getPrestadoresConEspecialidadesConLocalidadResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresUrgenciasCercanosResponse">
+    <wsdl:part element="tns:getPrestadoresUrgenciasCercanosResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="insertPrestadorMiCatrillaRequest">
+    <wsdl:part element="tns:insertPrestadorMiCatrilla" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresDeUnaCeldaRequest">
+    <wsdl:part element="tns:getPrestadoresDeUnaCelda" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getAlertaPrestadorMiCartillaRequest">
+    <wsdl:part element="tns:getAlertaPrestadorMiCartilla" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresCartillaUrgenciasResponse">
+    <wsdl:part element="tns:getPrestadoresCartillaUrgenciasResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="editarAlertaPrestadorMiCartillaRequest">
+    <wsdl:part element="tns:editarAlertaPrestadorMiCartilla" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresConConsultoriosRequest">
+    <wsdl:part element="tns:getPrestadoresConConsultorios" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="eliminarNotaPrestadorMiCartillaResponse">
+    <wsdl:part element="tns:eliminarNotaPrestadorMiCartillaResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getCantidadPrestadoresConEspecialidadesMiCartillaResponse">
+    <wsdl:part element="tns:getCantidadPrestadoresConEspecialidadesMiCartillaResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="deletePrestadorMiCartillaResponse">
+    <wsdl:part element="tns:deletePrestadorMiCartillaResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresCartillaUrgenciasRequest">
+    <wsdl:part element="tns:getPrestadoresCartillaUrgencias" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresUrgenciasCercanosRequest">
+    <wsdl:part element="tns:getPrestadoresUrgenciasCercanos" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="insertPrestadorMiCatrillaResponse">
+    <wsdl:part element="tns:insertPrestadorMiCatrillaResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresCartillaUrgencias1Response">
+    <wsdl:part element="tns:getPrestadoresCartillaUrgencias1Response" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresConEspecialidadesResponse">
+    <wsdl:part element="tns:getPrestadoresConEspecialidadesResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresConConsultoriosConLocalidadRequest">
+    <wsdl:part element="tns:getPrestadoresConConsultoriosConLocalidad" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresMapaResponse">
+    <wsdl:part element="tns:getPrestadoresMapaResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresPaisesLimitrofesResponse">
+    <wsdl:part element="tns:getPrestadoresPaisesLimitrofesResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getCantidadPrestadoresConConsultoriosConLocalidadRequest">
+    <wsdl:part element="tns:getCantidadPrestadoresConConsultoriosConLocalidad" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getCantidadPrestadoresConConsultoriosRequest">
+    <wsdl:part element="tns:getCantidadPrestadoresConConsultorios" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresCartillaUrgenciasOrdenadosRequest">
+    <wsdl:part element="tns:getPrestadoresCartillaUrgenciasOrdenados" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="eliminarAlertaPrestadorMiCartillaRequest">
+    <wsdl:part element="tns:eliminarAlertaPrestadorMiCartilla" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresCartillaUrgenciasNovedadesResponse">
+    <wsdl:part element="tns:getPrestadoresCartillaUrgenciasNovedadesResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getInformacionUsuarioMiCartillaRequest">
+    <wsdl:part element="tns:getInformacionUsuarioMiCartilla" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresConEspecialidadesMiCartillaRequest">
+    <wsdl:part element="tns:getPrestadoresConEspecialidadesMiCartilla" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="editarNotaPrestadorMiCartillaRequest">
+    <wsdl:part element="tns:editarNotaPrestadorMiCartilla" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getCantidadPrestadoresConEspecialidadesMiCartillaRequest">
+    <wsdl:part element="tns:getCantidadPrestadoresConEspecialidadesMiCartilla" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getDetallesPrestadorCartillaRequest">
+    <wsdl:part element="tns:getDetallesPrestadorCartilla" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresConConsultoriosResponse">
+    <wsdl:part element="tns:getPrestadoresConConsultoriosResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="editarAlertaPrestadorMiCartillaResponse">
+    <wsdl:part element="tns:editarAlertaPrestadorMiCartillaResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getInformacionUsuarioMiCartillaResponse">
+    <wsdl:part element="tns:getInformacionUsuarioMiCartillaResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadorConConsultoriosRequest">
+    <wsdl:part element="tns:getPrestadorConConsultorios" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresDeUnaCeldaResponse">
+    <wsdl:part element="tns:getPrestadoresDeUnaCeldaResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="eliminarNotaPrestadorMiCartillaRequest">
+    <wsdl:part element="tns:eliminarNotaPrestadorMiCartilla" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresPaisesNoLimitrofesRequest">
+    <wsdl:part element="tns:getPrestadoresPaisesNoLimitrofes" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresCercanosResponse">
+    <wsdl:part element="tns:getPrestadoresCercanosResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresMiCartillaFullResponse">
+    <wsdl:part element="tns:getPrestadoresMiCartillaFullResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresUrgenciasDeUnaCeldaResponse">
+    <wsdl:part element="tns:getPrestadoresUrgenciasDeUnaCeldaResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="crearNotaPrestadorMiCartillaResponse">
+    <wsdl:part element="tns:crearNotaPrestadorMiCartillaResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getCantidadPrestadoresConEspecialidadesConLocalidadResponse">
+    <wsdl:part element="tns:getCantidadPrestadoresConEspecialidadesConLocalidadResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getCantidadPrestadoresPorRubroResponse">
+    <wsdl:part element="tns:getCantidadPrestadoresPorRubroResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresDeUnaCeldaCompletoRequest">
+    <wsdl:part element="tns:getPrestadoresDeUnaCeldaCompleto" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresPaisesNoLimitrofesResponse">
+    <wsdl:part element="tns:getPrestadoresPaisesNoLimitrofesResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getCantidadPrestadoresConConsultoriosConLocalidadResponse">
+    <wsdl:part element="tns:getCantidadPrestadoresConConsultoriosConLocalidadResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresPaisesLimitrofesRequest">
+    <wsdl:part element="tns:getPrestadoresPaisesLimitrofes" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresMapaRequest">
+    <wsdl:part element="tns:getPrestadoresMapa" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadorConConsultoriosResponse">
+    <wsdl:part element="tns:getPrestadorConConsultoriosResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getDetallesPrestadorCartillaResponse">
+    <wsdl:part element="tns:getDetallesPrestadorCartillaResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getNotaPrestadorMiCartillaRequest">
+    <wsdl:part element="tns:getNotaPrestadorMiCartilla" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresConEspecialidadesMiCartillaResponse">
+    <wsdl:part element="tns:getPrestadoresConEspecialidadesMiCartillaResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresCartillaUrgenciasNovedadesRequest">
+    <wsdl:part element="tns:getPrestadoresCartillaUrgenciasNovedades" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="eliminarAlertaPrestadorMiCartillaResponse">
+    <wsdl:part element="tns:eliminarAlertaPrestadorMiCartillaResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getIdiomasDetallesPrestadorCartillaResponse">
+    <wsdl:part element="tns:getIdiomasDetallesPrestadorCartillaResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="crearAlertaPrestadorMiCartillaRequest">
+    <wsdl:part element="tns:crearAlertaPrestadorMiCartilla" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="deletePrestadorMiCartillaRequest">
+    <wsdl:part element="tns:deletePrestadorMiCartilla" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getCantidadPrestadoresConEspecialidadesResponse">
+    <wsdl:part element="tns:getCantidadPrestadoresConEspecialidadesResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresCartillaUrgenciasOrdenadosResponse">
+    <wsdl:part element="tns:getPrestadoresCartillaUrgenciasOrdenadosResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getCantidadPrestadoresConConsultoriosResponse">
+    <wsdl:part element="tns:getCantidadPrestadoresConConsultoriosResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresUrgenciasMapaRequest">
+    <wsdl:part element="tns:getPrestadoresUrgenciasMapa" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getNotasPrestadorMiCartillaRequest">
+    <wsdl:part element="tns:getNotasPrestadorMiCartilla" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getAlertasPrestadorMiCartillaResponse">
+    <wsdl:part element="tns:getAlertasPrestadorMiCartillaResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresUrgenciasDeUnaCeldaRequest">
+    <wsdl:part element="tns:getPrestadoresUrgenciasDeUnaCelda" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="crearNotaPrestadorMiCartillaRequest">
+    <wsdl:part element="tns:crearNotaPrestadorMiCartilla" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getCantidadPrestadoresConEspecialidadesConLocalidadRequest">
+    <wsdl:part element="tns:getCantidadPrestadoresConEspecialidadesConLocalidad" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getCantidadPrestadoresPorRubroRequest">
+    <wsdl:part element="tns:getCantidadPrestadoresPorRubro" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresDeUnaCeldaCompletoResponse">
+    <wsdl:part element="tns:getPrestadoresDeUnaCeldaCompletoResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getAlertaPrestadorMiCartillaResponse">
+    <wsdl:part element="tns:getAlertaPrestadorMiCartillaResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresMiCartillaFullRequest">
+    <wsdl:part element="tns:getPrestadoresMiCartillaFull" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getAlertasPrestadorMiCartillaRequest">
+    <wsdl:part element="tns:getAlertasPrestadorMiCartilla" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresConEspecialidadesConLocalidadRequest">
+    <wsdl:part element="tns:getPrestadoresConEspecialidadesConLocalidad" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresConEspecialidadesRequest">
+    <wsdl:part element="tns:getPrestadoresConEspecialidades" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresCartillaUrgencias1Request">
+    <wsdl:part element="tns:getPrestadoresCartillaUrgencias1" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getPrestadoresUrgenciasMapaResponse">
+    <wsdl:part element="tns:getPrestadoresUrgenciasMapaResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getCantidadPrestadoresConEspecialidadesRequest">
+    <wsdl:part element="tns:getCantidadPrestadoresConEspecialidades" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="PrestadorCartillaServicePortType">
+    <wsdl:operation name="getPrestadoresDeUnaCelda">
+      <wsdl:input message="tns:getPrestadoresDeUnaCeldaRequest" name="getPrestadoresDeUnaCeldaRequest"/>
+      <wsdl:output message="tns:getPrestadoresDeUnaCeldaResponse" name="getPrestadoresDeUnaCeldaResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresMiCartillaFull">
+      <wsdl:input message="tns:getPrestadoresMiCartillaFullRequest" name="getPrestadoresMiCartillaFullRequest"/>
+      <wsdl:output message="tns:getPrestadoresMiCartillaFullResponse" name="getPrestadoresMiCartillaFullResponse"/>
+      <wsdl:fault message="tns:ServiceException" name="ServiceException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresConConsultoriosConLocalidad">
+      <wsdl:input message="tns:getPrestadoresConConsultoriosConLocalidadRequest" name="getPrestadoresConConsultoriosConLocalidadRequest"/>
+      <wsdl:output message="tns:getPrestadoresConConsultoriosConLocalidadResponse" name="getPrestadoresConConsultoriosConLocalidadResponse"/>
+      <wsdl:fault message="tns:ServiceException" name="ServiceException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresCercanos">
+      <wsdl:input message="tns:getPrestadoresCercanosRequest" name="getPrestadoresCercanosRequest"/>
+      <wsdl:output message="tns:getPrestadoresCercanosResponse" name="getPrestadoresCercanosResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresConEspecialidadesConLocalidad">
+      <wsdl:input message="tns:getPrestadoresConEspecialidadesConLocalidadRequest" name="getPrestadoresConEspecialidadesConLocalidadRequest"/>
+      <wsdl:output message="tns:getPrestadoresConEspecialidadesConLocalidadResponse" name="getPrestadoresConEspecialidadesConLocalidadResponse"/>
+      <wsdl:fault message="tns:ServiceException" name="ServiceException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getCantidadPrestadoresConConsultoriosConLocalidad">
+      <wsdl:input message="tns:getCantidadPrestadoresConConsultoriosConLocalidadRequest" name="getCantidadPrestadoresConConsultoriosConLocalidadRequest"/>
+      <wsdl:output message="tns:getCantidadPrestadoresConConsultoriosConLocalidadResponse" name="getCantidadPrestadoresConConsultoriosConLocalidadResponse"/>
+      <wsdl:fault message="tns:ServiceException" name="ServiceException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresPaisesNoLimitrofes">
+      <wsdl:input message="tns:getPrestadoresPaisesNoLimitrofesRequest" name="getPrestadoresPaisesNoLimitrofesRequest"/>
+      <wsdl:output message="tns:getPrestadoresPaisesNoLimitrofesResponse" name="getPrestadoresPaisesNoLimitrofesResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresUrgenciasDeUnaCelda">
+      <wsdl:input message="tns:getPrestadoresUrgenciasDeUnaCeldaRequest" name="getPrestadoresUrgenciasDeUnaCeldaRequest"/>
+      <wsdl:output message="tns:getPrestadoresUrgenciasDeUnaCeldaResponse" name="getPrestadoresUrgenciasDeUnaCeldaResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="crearNotaPrestadorMiCartilla">
+      <wsdl:input message="tns:crearNotaPrestadorMiCartillaRequest" name="crearNotaPrestadorMiCartillaRequest"/>
+      <wsdl:output message="tns:crearNotaPrestadorMiCartillaResponse" name="crearNotaPrestadorMiCartillaResponse"/>
+      <wsdl:fault message="tns:ServiceException" name="ServiceException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getCantidadPrestadoresConEspecialidadesConLocalidad">
+      <wsdl:input message="tns:getCantidadPrestadoresConEspecialidadesConLocalidadRequest" name="getCantidadPrestadoresConEspecialidadesConLocalidadRequest"/>
+      <wsdl:output message="tns:getCantidadPrestadoresConEspecialidadesConLocalidadResponse" name="getCantidadPrestadoresConEspecialidadesConLocalidadResponse"/>
+      <wsdl:fault message="tns:ServiceException" name="ServiceException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getCantidadPrestadoresPorRubro">
+      <wsdl:input message="tns:getCantidadPrestadoresPorRubroRequest" name="getCantidadPrestadoresPorRubroRequest"/>
+      <wsdl:output message="tns:getCantidadPrestadoresPorRubroResponse" name="getCantidadPrestadoresPorRubroResponse"/>
+      <wsdl:fault message="tns:ServiceException" name="ServiceException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadorConConsultorios">
+      <wsdl:input message="tns:getPrestadorConConsultoriosRequest" name="getPrestadorConConsultoriosRequest"/>
+      <wsdl:output message="tns:getPrestadorConConsultoriosResponse" name="getPrestadorConConsultoriosResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresUrgenciasCercanos">
+      <wsdl:input message="tns:getPrestadoresUrgenciasCercanosRequest" name="getPrestadoresUrgenciasCercanosRequest"/>
+      <wsdl:output message="tns:getPrestadoresUrgenciasCercanosResponse" name="getPrestadoresUrgenciasCercanosResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getNotasPrestadorMiCartilla">
+      <wsdl:input message="tns:getNotasPrestadorMiCartillaRequest" name="getNotasPrestadorMiCartillaRequest"/>
+      <wsdl:output message="tns:getNotasPrestadorMiCartillaResponse" name="getNotasPrestadorMiCartillaResponse"/>
+      <wsdl:fault message="tns:ServiceException" name="ServiceException"/>
+    </wsdl:operation>
+    <wsdl:operation name="crearAlertaPrestadorMiCartilla">
+      <wsdl:input message="tns:crearAlertaPrestadorMiCartillaRequest" name="crearAlertaPrestadorMiCartillaRequest"/>
+      <wsdl:output message="tns:crearAlertaPrestadorMiCartillaResponse" name="crearAlertaPrestadorMiCartillaResponse"/>
+      <wsdl:fault message="tns:ServiceException" name="ServiceException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getIconosDetallesPrestadorCartilla">
+      <wsdl:input message="tns:getIconosDetallesPrestadorCartillaRequest" name="getIconosDetallesPrestadorCartillaRequest"/>
+      <wsdl:output message="tns:getIconosDetallesPrestadorCartillaResponse" name="getIconosDetallesPrestadorCartillaResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresCartillaUrgenciasNovedades">
+      <wsdl:input message="tns:getPrestadoresCartillaUrgenciasNovedadesRequest" name="getPrestadoresCartillaUrgenciasNovedadesRequest"/>
+      <wsdl:output message="tns:getPrestadoresCartillaUrgenciasNovedadesResponse" name="getPrestadoresCartillaUrgenciasNovedadesResponse"/>
+      <wsdl:fault message="tns:ServiceException" name="ServiceException"/>
+    </wsdl:operation>
+    <wsdl:operation name="editarNotaPrestadorMiCartilla">
+      <wsdl:input message="tns:editarNotaPrestadorMiCartillaRequest" name="editarNotaPrestadorMiCartillaRequest"/>
+      <wsdl:output message="tns:editarNotaPrestadorMiCartillaResponse" name="editarNotaPrestadorMiCartillaResponse"/>
+      <wsdl:fault message="tns:ServiceException" name="ServiceException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getNotaPrestadorMiCartilla">
+      <wsdl:input message="tns:getNotaPrestadorMiCartillaRequest" name="getNotaPrestadorMiCartillaRequest"/>
+      <wsdl:output message="tns:getNotaPrestadorMiCartillaResponse" name="getNotaPrestadorMiCartillaResponse"/>
+      <wsdl:fault message="tns:ServiceException" name="ServiceException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getInformacionUsuarioMiCartilla">
+      <wsdl:input message="tns:getInformacionUsuarioMiCartillaRequest" name="getInformacionUsuarioMiCartillaRequest"/>
+      <wsdl:output message="tns:getInformacionUsuarioMiCartillaResponse" name="getInformacionUsuarioMiCartillaResponse"/>
+      <wsdl:fault message="tns:ServiceException" name="ServiceException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresConConsultorios">
+      <wsdl:input message="tns:getPrestadoresConConsultoriosRequest" name="getPrestadoresConConsultoriosRequest"/>
+      <wsdl:output message="tns:getPrestadoresConConsultoriosResponse" name="getPrestadoresConConsultoriosResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="editarAlertaPrestadorMiCartilla">
+      <wsdl:input message="tns:editarAlertaPrestadorMiCartillaRequest" name="editarAlertaPrestadorMiCartillaRequest"/>
+      <wsdl:output message="tns:editarAlertaPrestadorMiCartillaResponse" name="editarAlertaPrestadorMiCartillaResponse"/>
+      <wsdl:fault message="tns:ServiceException" name="ServiceException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresConEspecialidades">
+      <wsdl:input message="tns:getPrestadoresConEspecialidadesRequest" name="getPrestadoresConEspecialidadesRequest"/>
+      <wsdl:output message="tns:getPrestadoresConEspecialidadesResponse" name="getPrestadoresConEspecialidadesResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresCartillaUrgenciasOrdenados">
+      <wsdl:input message="tns:getPrestadoresCartillaUrgenciasOrdenadosRequest" name="getPrestadoresCartillaUrgenciasOrdenadosRequest"/>
+      <wsdl:output message="tns:getPrestadoresCartillaUrgenciasOrdenadosResponse" name="getPrestadoresCartillaUrgenciasOrdenadosResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getCantidadPrestadoresConConsultorios">
+      <wsdl:input message="tns:getCantidadPrestadoresConConsultoriosRequest" name="getCantidadPrestadoresConConsultoriosRequest"/>
+      <wsdl:output message="tns:getCantidadPrestadoresConConsultoriosResponse" name="getCantidadPrestadoresConConsultoriosResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresCartillaUrgencias1">
+      <wsdl:input message="tns:getPrestadoresCartillaUrgencias1Request" name="getPrestadoresCartillaUrgencias1Request"/>
+      <wsdl:output message="tns:getPrestadoresCartillaUrgencias1Response" name="getPrestadoresCartillaUrgencias1Response"/>
+    </wsdl:operation>
+    <wsdl:operation name="insertPrestadorMiCatrilla">
+      <wsdl:input message="tns:insertPrestadorMiCatrillaRequest" name="insertPrestadorMiCatrillaRequest"/>
+      <wsdl:output message="tns:insertPrestadorMiCatrillaResponse" name="insertPrestadorMiCatrillaResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getCantidadPrestadoresConEspecialidades">
+      <wsdl:input message="tns:getCantidadPrestadoresConEspecialidadesRequest" name="getCantidadPrestadoresConEspecialidadesRequest"/>
+      <wsdl:output message="tns:getCantidadPrestadoresConEspecialidadesResponse" name="getCantidadPrestadoresConEspecialidadesResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getAlertaPrestadorMiCartilla">
+      <wsdl:input message="tns:getAlertaPrestadorMiCartillaRequest" name="getAlertaPrestadorMiCartillaRequest"/>
+      <wsdl:output message="tns:getAlertaPrestadorMiCartillaResponse" name="getAlertaPrestadorMiCartillaResponse"/>
+      <wsdl:fault message="tns:ServiceException" name="ServiceException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresDeUnaCeldaCompleto">
+      <wsdl:input message="tns:getPrestadoresDeUnaCeldaCompletoRequest" name="getPrestadoresDeUnaCeldaCompletoRequest"/>
+      <wsdl:output message="tns:getPrestadoresDeUnaCeldaCompletoResponse" name="getPrestadoresDeUnaCeldaCompletoResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getAlertasPrestadorMiCartilla">
+      <wsdl:input message="tns:getAlertasPrestadorMiCartillaRequest" name="getAlertasPrestadorMiCartillaRequest"/>
+      <wsdl:output message="tns:getAlertasPrestadorMiCartillaResponse" name="getAlertasPrestadorMiCartillaResponse"/>
+      <wsdl:fault message="tns:ServiceException" name="ServiceException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresPaisesLimitrofes">
+      <wsdl:input message="tns:getPrestadoresPaisesLimitrofesRequest" name="getPrestadoresPaisesLimitrofesRequest"/>
+      <wsdl:output message="tns:getPrestadoresPaisesLimitrofesResponse" name="getPrestadoresPaisesLimitrofesResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresMapa">
+      <wsdl:input message="tns:getPrestadoresMapaRequest" name="getPrestadoresMapaRequest"/>
+      <wsdl:output message="tns:getPrestadoresMapaResponse" name="getPrestadoresMapaResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresUrgenciasMapa">
+      <wsdl:input message="tns:getPrestadoresUrgenciasMapaRequest" name="getPrestadoresUrgenciasMapaRequest"/>
+      <wsdl:output message="tns:getPrestadoresUrgenciasMapaResponse" name="getPrestadoresUrgenciasMapaResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="eliminarNotaPrestadorMiCartilla">
+      <wsdl:input message="tns:eliminarNotaPrestadorMiCartillaRequest" name="eliminarNotaPrestadorMiCartillaRequest"/>
+      <wsdl:output message="tns:eliminarNotaPrestadorMiCartillaResponse" name="eliminarNotaPrestadorMiCartillaResponse"/>
+      <wsdl:fault message="tns:ServiceException" name="ServiceException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getDetallesPrestadorCartilla">
+      <wsdl:input message="tns:getDetallesPrestadorCartillaRequest" name="getDetallesPrestadorCartillaRequest"/>
+      <wsdl:output message="tns:getDetallesPrestadorCartillaResponse" name="getDetallesPrestadorCartillaResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresCartillaUrgencias">
+      <wsdl:input message="tns:getPrestadoresCartillaUrgenciasRequest" name="getPrestadoresCartillaUrgenciasRequest"/>
+      <wsdl:output message="tns:getPrestadoresCartillaUrgenciasResponse" name="getPrestadoresCartillaUrgenciasResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="deletePrestadorMiCartilla">
+      <wsdl:input message="tns:deletePrestadorMiCartillaRequest" name="deletePrestadorMiCartillaRequest"/>
+      <wsdl:output message="tns:deletePrestadorMiCartillaResponse" name="deletePrestadorMiCartillaResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresConEspecialidadesMiCartilla">
+      <wsdl:input message="tns:getPrestadoresConEspecialidadesMiCartillaRequest" name="getPrestadoresConEspecialidadesMiCartillaRequest"/>
+      <wsdl:output message="tns:getPrestadoresConEspecialidadesMiCartillaResponse" name="getPrestadoresConEspecialidadesMiCartillaResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getCantidadPrestadoresConEspecialidadesMiCartilla">
+      <wsdl:input message="tns:getCantidadPrestadoresConEspecialidadesMiCartillaRequest" name="getCantidadPrestadoresConEspecialidadesMiCartillaRequest"/>
+      <wsdl:output message="tns:getCantidadPrestadoresConEspecialidadesMiCartillaResponse" name="getCantidadPrestadoresConEspecialidadesMiCartillaResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="eliminarAlertaPrestadorMiCartilla">
+      <wsdl:input message="tns:eliminarAlertaPrestadorMiCartillaRequest" name="eliminarAlertaPrestadorMiCartillaRequest"/>
+      <wsdl:output message="tns:eliminarAlertaPrestadorMiCartillaResponse" name="eliminarAlertaPrestadorMiCartillaResponse"/>
+      <wsdl:fault message="tns:ServiceException" name="ServiceException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getIdiomasDetallesPrestadorCartilla">
+      <wsdl:input message="tns:getIdiomasDetallesPrestadorCartillaRequest" name="getIdiomasDetallesPrestadorCartillaRequest"/>
+      <wsdl:output message="tns:getIdiomasDetallesPrestadorCartillaResponse" name="getIdiomasDetallesPrestadorCartillaResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PrestadorCartillaServiceHttpBinding" type="tns:PrestadorCartillaServicePortType">
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getPrestadoresDeUnaCelda">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getPrestadoresDeUnaCeldaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPrestadoresDeUnaCeldaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresMiCartillaFull">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getPrestadoresMiCartillaFullRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPrestadoresMiCartillaFullResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <wsdlsoap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresConConsultoriosConLocalidad">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getPrestadoresConConsultoriosConLocalidadRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPrestadoresConConsultoriosConLocalidadResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <wsdlsoap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresCercanos">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getPrestadoresCercanosRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPrestadoresCercanosResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresConEspecialidadesConLocalidad">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getPrestadoresConEspecialidadesConLocalidadRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPrestadoresConEspecialidadesConLocalidadResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <wsdlsoap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCantidadPrestadoresConConsultoriosConLocalidad">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getCantidadPrestadoresConConsultoriosConLocalidadRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCantidadPrestadoresConConsultoriosConLocalidadResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <wsdlsoap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresPaisesNoLimitrofes">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getPrestadoresPaisesNoLimitrofesRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPrestadoresPaisesNoLimitrofesResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresUrgenciasDeUnaCelda">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getPrestadoresUrgenciasDeUnaCeldaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPrestadoresUrgenciasDeUnaCeldaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="crearNotaPrestadorMiCartilla">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="crearNotaPrestadorMiCartillaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="crearNotaPrestadorMiCartillaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <wsdlsoap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCantidadPrestadoresConEspecialidadesConLocalidad">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getCantidadPrestadoresConEspecialidadesConLocalidadRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCantidadPrestadoresConEspecialidadesConLocalidadResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <wsdlsoap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCantidadPrestadoresPorRubro">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getCantidadPrestadoresPorRubroRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCantidadPrestadoresPorRubroResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <wsdlsoap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadorConConsultorios">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getPrestadorConConsultoriosRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPrestadorConConsultoriosResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresUrgenciasCercanos">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getPrestadoresUrgenciasCercanosRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPrestadoresUrgenciasCercanosResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getNotasPrestadorMiCartilla">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getNotasPrestadorMiCartillaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getNotasPrestadorMiCartillaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <wsdlsoap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="crearAlertaPrestadorMiCartilla">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="crearAlertaPrestadorMiCartillaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="crearAlertaPrestadorMiCartillaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <wsdlsoap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getIconosDetallesPrestadorCartilla">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getIconosDetallesPrestadorCartillaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getIconosDetallesPrestadorCartillaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresCartillaUrgenciasNovedades">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getPrestadoresCartillaUrgenciasNovedadesRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPrestadoresCartillaUrgenciasNovedadesResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <wsdlsoap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="editarNotaPrestadorMiCartilla">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="editarNotaPrestadorMiCartillaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="editarNotaPrestadorMiCartillaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <wsdlsoap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getNotaPrestadorMiCartilla">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getNotaPrestadorMiCartillaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getNotaPrestadorMiCartillaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <wsdlsoap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getInformacionUsuarioMiCartilla">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getInformacionUsuarioMiCartillaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getInformacionUsuarioMiCartillaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <wsdlsoap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresConConsultorios">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getPrestadoresConConsultoriosRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPrestadoresConConsultoriosResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="editarAlertaPrestadorMiCartilla">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="editarAlertaPrestadorMiCartillaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="editarAlertaPrestadorMiCartillaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <wsdlsoap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresConEspecialidades">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getPrestadoresConEspecialidadesRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPrestadoresConEspecialidadesResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresCartillaUrgenciasOrdenados">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getPrestadoresCartillaUrgenciasOrdenadosRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPrestadoresCartillaUrgenciasOrdenadosResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCantidadPrestadoresConConsultorios">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getCantidadPrestadoresConConsultoriosRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCantidadPrestadoresConConsultoriosResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresCartillaUrgencias1">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getPrestadoresCartillaUrgencias1Request">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPrestadoresCartillaUrgencias1Response">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="insertPrestadorMiCatrilla">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="insertPrestadorMiCatrillaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="insertPrestadorMiCatrillaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCantidadPrestadoresConEspecialidades">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getCantidadPrestadoresConEspecialidadesRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCantidadPrestadoresConEspecialidadesResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAlertaPrestadorMiCartilla">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getAlertaPrestadorMiCartillaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAlertaPrestadorMiCartillaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <wsdlsoap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresDeUnaCeldaCompleto">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getPrestadoresDeUnaCeldaCompletoRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPrestadoresDeUnaCeldaCompletoResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAlertasPrestadorMiCartilla">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getAlertasPrestadorMiCartillaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAlertasPrestadorMiCartillaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <wsdlsoap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresPaisesLimitrofes">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getPrestadoresPaisesLimitrofesRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPrestadoresPaisesLimitrofesResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresMapa">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getPrestadoresMapaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPrestadoresMapaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresUrgenciasMapa">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getPrestadoresUrgenciasMapaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPrestadoresUrgenciasMapaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="eliminarNotaPrestadorMiCartilla">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="eliminarNotaPrestadorMiCartillaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="eliminarNotaPrestadorMiCartillaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <wsdlsoap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getDetallesPrestadorCartilla">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getDetallesPrestadorCartillaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getDetallesPrestadorCartillaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresCartillaUrgencias">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getPrestadoresCartillaUrgenciasRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPrestadoresCartillaUrgenciasResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deletePrestadorMiCartilla">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="deletePrestadorMiCartillaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="deletePrestadorMiCartillaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPrestadoresConEspecialidadesMiCartilla">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getPrestadoresConEspecialidadesMiCartillaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPrestadoresConEspecialidadesMiCartillaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCantidadPrestadoresConEspecialidadesMiCartilla">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getCantidadPrestadoresConEspecialidadesMiCartillaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCantidadPrestadoresConEspecialidadesMiCartillaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="eliminarAlertaPrestadorMiCartilla">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="eliminarAlertaPrestadorMiCartillaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="eliminarAlertaPrestadorMiCartillaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <wsdlsoap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getIdiomasDetallesPrestadorCartilla">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getIdiomasDetallesPrestadorCartillaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getIdiomasDetallesPrestadorCartillaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PrestadorCartillaMovilConsumer">
+    <wsdl:port binding="tns:PrestadorCartillaServiceHttpBinding" name="PrestadorCartillaServiceHttpPort">
+      <wsdlsoap:address location="/ESB/services/PrestadorCartillaMovil"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

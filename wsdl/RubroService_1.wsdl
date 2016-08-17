@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://interfaces.cartilla.osde.com.ar" xmlns:soapenc12="http://www.w3.org/2003/05/soap-encoding" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://interfaces.cartilla.osde.com.ar" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap11="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://entities.cartilla.osde.com.ar" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope" xmlns:ns2="http://services.framework.osde.com.ar" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc11="http://schemas.xmlsoap.org/soap/encoding/">
+  <wsdl:types>
+    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://interfaces.cartilla.osde.com.ar">
+      <xsd:element name="getRubrosCartilla">
+        <xsd:complexType/>
+      </xsd:element>
+      <xsd:element name="getRubrosCartillaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfRubro"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ServiceException" type="ns2:ServiceException"/>
+      <xsd:element name="getRubros">
+        <xsd:complexType/>
+      </xsd:element>
+      <xsd:element name="getRubrosResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfRubro"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://entities.cartilla.osde.com.ar">
+      <xsd:complexType name="ArrayOfRubro">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Rubro" nillable="true" type="ns1:Rubro"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Rubro">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="id" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="nombre" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://services.framework.osde.com.ar">
+      <xsd:complexType name="ServiceException"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="getRubrosRequest">
+    <wsdl:part name="parameters" element="tns:getRubros"/>
+  </wsdl:message>
+  <wsdl:message name="getRubrosCartillaResponse">
+    <wsdl:part name="parameters" element="tns:getRubrosCartillaResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ServiceException">
+    <wsdl:part name="ServiceException" element="tns:ServiceException"/>
+  </wsdl:message>
+  <wsdl:message name="getRubrosCartillaRequest">
+    <wsdl:part name="parameters" element="tns:getRubrosCartilla"/>
+  </wsdl:message>
+  <wsdl:message name="getRubrosResponse">
+    <wsdl:part name="parameters" element="tns:getRubrosResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="RubroServicePortType">
+    <wsdl:operation name="getRubrosCartilla">
+      <wsdl:input name="getRubrosCartillaRequest" message="tns:getRubrosCartillaRequest"/>
+      <wsdl:output name="getRubrosCartillaResponse" message="tns:getRubrosCartillaResponse"/>
+      <wsdl:fault name="ServiceException" message="tns:ServiceException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getRubros">
+      <wsdl:input name="getRubrosRequest" message="tns:getRubrosRequest"/>
+      <wsdl:output name="getRubrosResponse" message="tns:getRubrosResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RubroServiceHttpBinding" type="tns:RubroServicePortType">
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getRubrosCartilla">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getRubrosCartillaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getRubrosCartillaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <wsdlsoap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getRubros">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getRubrosRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getRubrosResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RubroService">
+    <wsdl:port name="RubroServiceHttpPort" binding="tns:RubroServiceHttpBinding">
+      <wsdlsoap:address location="http://dlnxwas4.datacenter.osde.ar:10680/movil_cartilla_backend/services/RubroService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
