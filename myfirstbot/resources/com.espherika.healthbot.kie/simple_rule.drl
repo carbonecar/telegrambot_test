@@ -1,0 +1,33 @@
+package com.espherika.healthbot.kie
+
+declare MenorEdad
+   edad : int
+   nombre : String
+end
+
+declare Persona
+	edad : int
+	nombre : String
+end
+
+rule "Menor de edad"
+when
+    $p: Persona( edad < 18 )
+then	
+	MenorEdad menor=new MenorEdad();
+	menor.setEdad($p.getEdad());
+	menor.setNombre($p.getNombre());
+	insert(menor);
+	System.out.println($p.getNombre());
+end
+
+
+rule "Insert mayor Edad"
+when
+then
+	Persona p=new Persona();
+	p.setEdad(17);
+	p.setNombre("carlos");
+	insert(p);
+	System.out.println("Regla Insertar persona");
+end
