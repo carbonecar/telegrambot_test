@@ -35,7 +35,6 @@
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
-      <xsd:element name="ServiceException" type="ns2:ServiceException"/>
       <xsd:element name="getPrestadoresConConsultoriosConLocalidad">
         <xsd:complexType>
           <xsd:sequence>
@@ -1002,9 +1001,7 @@
         </xsd:sequence>
       </xsd:complexType>
     </xsd:schema>
-    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://services.framework.osde.com.ar">
-      <xsd:complexType name="ServiceException"/>
-    </xsd:schema>
+
   </wsdl:types>
   <wsdl:message name="crearAlertaPrestadorMiCartillaResponse">
     <wsdl:part element="tns:crearAlertaPrestadorMiCartillaResponse" name="parameters"/>
