@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://osde.com.ar/services/especialidadservice" xmlns:tns="http://osde.com.ar/services/especialidadservice" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope" xmlns:ns1="http://contrataciones.entities.osde.com.ar" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc11="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soapenc12="http://www.w3.org/2003/05/soap-encoding" xmlns:ns2="http://services.framework.osde.com.ar" xmlns:soap11="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://osde.com.ar/services/especialidadservice">
+      <xsd:element name="getEspecialidadesAlta">
+        <xsd:complexType/>
+      </xsd:element>
+      <xsd:element name="getEspecialidadesAltaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfEspecialidad"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ServiceException" type="ns2:ServiceException"/>
+      <xsd:element name="getEspecialidad">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="id" nillable="true" type="xsd:int"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getEspecialidadResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:Especialidad"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://contrataciones.entities.osde.com.ar">
+      <xsd:complexType name="ArrayOfEspecialidad">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Especialidad" nillable="true" type="ns1:Especialidad"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Especialidad">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="descripcion" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="id" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://services.framework.osde.com.ar">
+      <xsd:complexType name="ServiceException"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="getEspecialidadResponse">
+    <wsdl:part name="parameters" element="tns:getEspecialidadResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getEspecialidadRequest">
+    <wsdl:part name="parameters" element="tns:getEspecialidad"/>
+  </wsdl:message>
+  <wsdl:message name="getEspecialidadesAltaRequest">
+    <wsdl:part name="parameters" element="tns:getEspecialidadesAlta"/>
+  </wsdl:message>
+  <wsdl:message name="ServiceException">
+    <wsdl:part name="ServiceException" element="tns:ServiceException"/>
+  </wsdl:message>
+  <wsdl:message name="getEspecialidadesAltaResponse">
+    <wsdl:part name="parameters" element="tns:getEspecialidadesAltaResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="EspecialidadService">
+    <wsdl:operation name="getEspecialidadesAlta">
+      <wsdl:input name="getEspecialidadesAltaRequest" message="tns:getEspecialidadesAltaRequest"/>
+      <wsdl:output name="getEspecialidadesAltaResponse" message="tns:getEspecialidadesAltaResponse"/>
+      <wsdl:fault name="ServiceException" message="tns:ServiceException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getEspecialidad">
+      <wsdl:input name="getEspecialidadRequest" message="tns:getEspecialidadRequest"/>
+      <wsdl:output name="getEspecialidadResponse" message="tns:getEspecialidadResponse"/>
+      <wsdl:fault name="ServiceException" message="tns:ServiceException"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="EspecialidadServiceHttpBinding" type="tns:EspecialidadService">
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getEspecialidadesAlta">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getEspecialidadesAltaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getEspecialidadesAltaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <wsdlsoap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getEspecialidad">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getEspecialidadRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getEspecialidadResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <wsdlsoap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EspecialidadService">
+    <wsdl:port name="EspecialidadServiceHttpPort" binding="tns:EspecialidadServiceHttpBinding">
+      <wsdlsoap:address location="http://phuxwas1.intranet.osde:10480/AdministracionContratacionesService/webservices/EspecialidadService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

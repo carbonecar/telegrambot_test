@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://interfaces.cartilla.osde.com.ar" xmlns:ns1="http://entities.cartilla.osde.com.ar" xmlns:ns2="http://services.framework.osde.com.ar" xmlns:soap11="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope" xmlns:soapenc11="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soapenc12="http://www.w3.org/2003/05/soap-encoding" xmlns:tns="http://interfaces.cartilla.osde.com.ar" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://interfaces.cartilla.osde.com.ar">
+      <xsd:element name="getLocalidades">
+        <xsd:complexType/>
+      </xsd:element>
+      <xsd:element name="getLocalidadesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfLocalidad"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getProvinciasTelefonos">
+        <xsd:complexType/>
+      </xsd:element>
+      <xsd:element name="getProvinciasTelefonosResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfProvincia"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getLocalidadesTelefonosPorProvincia">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="tipo" nillable="true" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="zonaId" nillable="true" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="localidad" nillable="true" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getLocalidadesTelefonosPorProvinciaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfLocalidad"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getLocalidadesPorProvincia">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="tipo" nillable="true" type="xsd:string"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="zonaId" nillable="true" type="xsd:int"/>
+            <xsd:element maxOccurs="1" minOccurs="1" name="localidad" nillable="true" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getLocalidadesPorProvinciaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfLocalidad"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getProvincias">
+        <xsd:complexType/>
+      </xsd:element>
+      <xsd:element name="getProvinciasResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfProvincia"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getProvinciasGeoreferenciadas">
+        <xsd:complexType/>
+      </xsd:element>
+      <xsd:element name="getProvinciasGeoreferenciadasResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="ns1:ArrayOfProvinciaGeoreferenciada"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+    <xsd:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://entities.cartilla.osde.com.ar">
+      <xsd:complexType name="ArrayOfLocalidad">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Localidad" nillable="true" type="ns1:Localidad"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Localidad">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="auxPrefijo" nillable="true" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="barrioId" nillable="true" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="filial" nillable="true" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="id" nillable="true" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="nombre" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="tipo" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="zonaDescripcion" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="zonaId" nillable="true" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfProvincia">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="Provincia" nillable="true" type="ns1:Provincia"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Provincia">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="codigo" nillable="true" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="id" nillable="true" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="nombre" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="paisId" nillable="true" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="tipo" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfProvinciaGeoreferenciada">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="ProvinciaGeoreferenciada" nillable="true" type="ns1:ProvinciaGeoreferenciada"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ProvinciaGeoreferenciada">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="codigo" nillable="true" type="xsd:int"/>
+          <xsd:element minOccurs="0" name="latitud" nillable="true" type="xsd:double"/>
+          <xsd:element minOccurs="0" name="longitud" nillable="true" type="xsd:double"/>
+          <xsd:element minOccurs="0" name="nombre" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="provincia" nillable="true" type="xsd:string"/>
+          <xsd:element minOccurs="0" name="tipo" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+
+  </wsdl:types>
+  <wsdl:message name="getProvinciasGeoreferenciadasRequest">
+    <wsdl:part element="tns:getProvinciasGeoreferenciadas" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getProvinciasGeoreferenciadasResponse">
+    <wsdl:part element="tns:getProvinciasGeoreferenciadasResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getLocalidadesRequest">
+    <wsdl:part element="tns:getLocalidades" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getLocalidadesPorProvinciaResponse">
+    <wsdl:part element="tns:getLocalidadesPorProvinciaResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getLocalidadesPorProvinciaRequest">
+    <wsdl:part element="tns:getLocalidadesPorProvincia" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getLocalidadesTelefonosPorProvinciaRequest">
+    <wsdl:part element="tns:getLocalidadesTelefonosPorProvincia" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getProvinciasResponse">
+    <wsdl:part element="tns:getProvinciasResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getLocalidadesTelefonosPorProvinciaResponse">
+    <wsdl:part element="tns:getLocalidadesTelefonosPorProvinciaResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getProvinciasTelefonosRequest">
+    <wsdl:part element="tns:getProvinciasTelefonos" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getLocalidadesResponse">
+    <wsdl:part element="tns:getLocalidadesResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="ServiceException">
+    <wsdl:part element="tns:ServiceException" name="ServiceException"/>
+  </wsdl:message>
+  <wsdl:message name="getProvinciasRequest">
+    <wsdl:part element="tns:getProvincias" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getProvinciasTelefonosResponse">
+    <wsdl:part element="tns:getProvinciasTelefonosResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="ProvinciaLocalidadCartillaServicePortType">
+    <wsdl:operation name="getLocalidades">
+      <wsdl:input message="tns:getLocalidadesRequest" name="getLocalidadesRequest"/>
+      <wsdl:output message="tns:getLocalidadesResponse" name="getLocalidadesResponse"/>
+      <wsdl:fault message="tns:ServiceException" name="ServiceException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getProvinciasTelefonos">
+      <wsdl:input message="tns:getProvinciasTelefonosRequest" name="getProvinciasTelefonosRequest"/>
+      <wsdl:output message="tns:getProvinciasTelefonosResponse" name="getProvinciasTelefonosResponse"/>
+      <wsdl:fault message="tns:ServiceException" name="ServiceException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getLocalidadesTelefonosPorProvincia">
+      <wsdl:input message="tns:getLocalidadesTelefonosPorProvinciaRequest" name="getLocalidadesTelefonosPorProvinciaRequest"/>
+      <wsdl:output message="tns:getLocalidadesTelefonosPorProvinciaResponse" name="getLocalidadesTelefonosPorProvinciaResponse"/>
+      <wsdl:fault message="tns:ServiceException" name="ServiceException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getLocalidadesPorProvincia">
+      <wsdl:input message="tns:getLocalidadesPorProvinciaRequest" name="getLocalidadesPorProvinciaRequest"/>
+      <wsdl:output message="tns:getLocalidadesPorProvinciaResponse" name="getLocalidadesPorProvinciaResponse"/>
+      <wsdl:fault message="tns:ServiceException" name="ServiceException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getProvincias">
+      <wsdl:input message="tns:getProvinciasRequest" name="getProvinciasRequest"/>
+      <wsdl:output message="tns:getProvinciasResponse" name="getProvinciasResponse"/>
+      <wsdl:fault message="tns:ServiceException" name="ServiceException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getProvinciasGeoreferenciadas">
+      <wsdl:input message="tns:getProvinciasGeoreferenciadasRequest" name="getProvinciasGeoreferenciadasRequest"/>
+      <wsdl:output message="tns:getProvinciasGeoreferenciadasResponse" name="getProvinciasGeoreferenciadasResponse"/>
+      <wsdl:fault message="tns:ServiceException" name="ServiceException"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ProvinciaLocalidadCartillaServiceHttpBinding" type="tns:ProvinciaLocalidadCartillaServicePortType">
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getLocalidades">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getLocalidadesRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getLocalidadesResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <wsdlsoap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getProvinciasTelefonos">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getProvinciasTelefonosRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getProvinciasTelefonosResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <wsdlsoap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getLocalidadesTelefonosPorProvincia">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getLocalidadesTelefonosPorProvinciaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getLocalidadesTelefonosPorProvinciaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <wsdlsoap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getLocalidadesPorProvincia">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getLocalidadesPorProvinciaRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getLocalidadesPorProvinciaResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <wsdlsoap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getProvincias">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getProvinciasRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getProvinciasResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <wsdlsoap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getProvinciasGeoreferenciadas">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getProvinciasGeoreferenciadasRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getProvinciasGeoreferenciadasResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <wsdlsoap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ProvinciaLocalidadCartillaMovilConsumer">
+    <wsdl:port binding="tns:ProvinciaLocalidadCartillaServiceHttpBinding" name="ProvinciaLocalidadCartillaServiceHttpPort">
+      <wsdlsoap:address location="http://localhost:13480/ESB/services/ProvinciaLocalidadCartillaMovil"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

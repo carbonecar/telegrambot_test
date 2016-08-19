@@ -3,14 +3,17 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.espherika.telegrambot</groupId>
-	<artifactId>bottest</artifactId>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.4.0.RELEASE</version>
+	</parent>
+
+	<groupId>ar.com.osde.telegram</groupId>
+	<artifactId>cartillabot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-
-	<properties>
-		<kie.version>6.1.0.Final</kie.version>
-	</properties>
+    <!-- Inherit defaults from Spring Boot -->
 
 	<repositories>
 		<repository>
@@ -46,16 +49,15 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
+        <dependency>
+            <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws-core</artifactId>
+        </dependency>
+
 		<dependency>
 			<groupId>com.github.rubenlagus</groupId>
 			<artifactId>TelegramBots</artifactId>
 			<version>v2.3.4</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.kie</groupId>
-			<artifactId>kie-ci</artifactId>
-			<version>${kie.version}</version>
 		</dependency>
 
 	</dependencies>
@@ -75,7 +77,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<!-- Para ejecutarlo sin tener que usar manifest -->
+                <!-- Para ejecutarlo sin tener que usar manifest -->
 				<executions>
 	                <execution>
 	                    <goals>
@@ -83,18 +85,6 @@
 	                    </goals>
                 </execution>
             </executions>
-			</plugin>
-			<plugin>
-				<groupId>org.kie</groupId>
-				<artifactId>kie-maven-plugin</artifactId>
-				<version>6.3.0.Final</version>
-				<extensions>true</extensions>
-			</plugin>
-			<plugin>
-				<groupId>org.drools</groupId>
-				<artifactId>drools-maven-plugin</artifactId>
-				<version>6.0.0.CR5</version>
-				<extensions>true</extensions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -105,6 +95,40 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+
+			<!-- tag::wsdl[] -->
+			<plugin>
+				<groupId>org.jvnet.jaxb2.maven2</groupId>
+				<artifactId>maven-jaxb2-plugin</artifactId>
+				<version>0.12.3</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<schemaLanguage>WSDL</schemaLanguage>
+					<generatePackage>ar.com.osde.service.wsdl</generatePackage>
+					<schemas>
+						<schema>
+                            <url>file:${basedir}/src/main/wsdl/RubroService_1.wsdl</url>
+						</schema>
+                        <schema>
+                            <url>file:${basedir}/src/main/wsdl/PlanCartillaService_1.wsdl</url>
+                        </schema>
+                        <schema>
+                            <url>file:${basedir}/src/main/wsdl/PrestadorCartillaMovil_1.wsdl</url>
+                        </schema>
+                        <schema>
+                            <url>file:${basedir}/src/main/wsdl/ProvinciaLocalidadCartillaMovil_1.wsdl</url>
+                        </schema>
+
+					</schemas>
+				</configuration>
+			</plugin>
+			<!-- end::wsdl[] -->
 		</plugins>
 	</build>
 	<!-- Package as an executable jar -->
