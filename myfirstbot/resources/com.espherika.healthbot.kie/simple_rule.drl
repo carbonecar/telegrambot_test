@@ -12,6 +12,7 @@ declare Persona
 	nombre : String
 end
 
+
 rule "Persona Menor de edad"
 when
     $p: Persona( edad < 18 )
@@ -43,3 +44,5 @@ then
 	insert(p);
 	System.out.println("Regla Insertar persona");
 end
+
+

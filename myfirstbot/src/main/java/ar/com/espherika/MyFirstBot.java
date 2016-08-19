@@ -37,7 +37,6 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	            sendControlledMessage(sendMessage, "tenme paciencia, estoy aprendiendo");
 	            sendControlledMessage(sendMessage, "me dijiste: "+message.getText()+"? ");
 
-	            
 	        }
 	    }
 
@@ -72,6 +71,7 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	
 	private void sendControlledMessage(SendMessage sendMessage,String text) {
 		try {
+			
 			sendMessage.setText(text);
 			sendMessage(sendMessage); 
 		} catch (TelegramApiException e) {
