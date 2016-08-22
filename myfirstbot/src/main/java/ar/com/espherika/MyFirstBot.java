@@ -1,6 +1,8 @@
 package ar.com.espherika;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -11,15 +13,15 @@ import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
+import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboard;
+import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardHide;
+import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 
 public class MyFirstBot extends TelegramLongPollingBot {
 	private Logger LOG=Logger.getLogger(MyFirstBot.class);
 	private Map<Long, KieSession> chatIdKieSession=new HashMap<Long,KieSession>();
-	@Override
-	public String getBotUsername() {
-		return BotConfig.BOT_USERNAME;
-	}
 
 	@Override
 	public void onUpdateReceived(Update update) {
@@ -32,10 +34,17 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	            //create an object that contains the information to send back the message
 	            SendMessage sendMessage = new SendMessage();
 	            sendMessage.setChatId(message.getChatId().toString()); //who should get from the message the sender that sent it.
+	            if(message.getText().equals("Masculino")){
+	            	sendMessage.setReplyMarkup(getMainMenuKeyboard("castellano"));
+	            	sendControlledMessage(sendMessage, "machito dijo la partera.");
+	            	return;
+	            }
 	            sendControlledMessage(sendMessage,"Hola "+message.getFrom().getFirstName());
 	            sendControlledMessage(sendMessage,"En que puedo ayudarte?");
 	            sendControlledMessage(sendMessage, "tenme paciencia, estoy aprendiendo");
-	            sendControlledMessage(sendMessage, "me dijiste: "+message.getText()+"? ");
+
+	            sendMessage.setReplyMarkup(getSexMenuKeyboard("Castellano"));
+	            sendControlledMessage(sendMessage, "Qué sexo eres?");
 
 	        }
 	    }
@@ -43,9 +52,56 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	}
 
 
+	private ReplyKeyboard getHideKeyboard() {
+		ReplyKeyboardHide replyKeyboardHide=new ReplyKeyboardHide();
+		
+		return replyKeyboardHide;
+	}
+
+
+	private  ReplyKeyboard getMainMenuKeyboard(String languange){
+		ReplyKeyboardMarkup replyKeyboard =new ReplyKeyboardMarkup();
+		List<KeyboardRow> keyboard=new ArrayList<KeyboardRow>();
+		KeyboardRow keyboardFirsRow=new KeyboardRow();
+		keyboardFirsRow.add("Consejos saludables");
+		replyKeyboard.setSelective(true);
+		replyKeyboard.setResizeKeyboard(true);
+		keyboard.add(keyboardFirsRow);
+		
+		replyKeyboard.setKeyboard(keyboard);
+		return replyKeyboard;
+	}
+	
+	private  ReplyKeyboardMarkup getSexMenuKeyboard(String language) {
+        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+        replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setOneTimeKeyboad(true);
+
+        List<KeyboardRow> keyboard = new ArrayList<>();
+        KeyboardRow keyboardFirstRow = new KeyboardRow();
+        
+        keyboardFirstRow.add("Masculino");
+        
+        KeyboardRow keyboardSecondRow=new KeyboardRow();
+        keyboardSecondRow.add("Femenino");
+        
+        
+        keyboard.add(keyboardFirstRow);        
+        keyboard.add(keyboardSecondRow);
+        replyKeyboardMarkup.setKeyboard(keyboard);
+        
+        
+        return replyKeyboardMarkup;
+    }
+	
+	@Override
+	public String getBotUsername() {
+		return BotConfig.BOT_USERNAME_PRUEBACARLOS_BOT;
+	}
 	@Override
 	public String getBotToken() {
-		return BotConfig.BOT_TOKEN;
+		return BotConfig.BOT_TOKEN_PRUEBA_CARLOS;
 	}
 
 	
@@ -71,8 +127,8 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	
 	private void sendControlledMessage(SendMessage sendMessage,String text) {
 		try {
-			
 			sendMessage.setText(text);
+			sendMessage.enableMarkdown(true);
 			sendMessage(sendMessage); 
 		} catch (TelegramApiException e) {
 			//Manejar el rror
