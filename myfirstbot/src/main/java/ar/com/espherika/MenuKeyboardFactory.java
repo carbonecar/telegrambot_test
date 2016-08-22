@@ -1,0 +1,91 @@
+package ar.com.espherika;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboard;
+import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardHide;
+import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
+
+/**
+ * Aca
+ * 
+ * @author MT27789605
+ *
+ */
+public class MenuKeyboardFactory {
+
+	public static ReplyKeyboard getHideKeyboard() {
+		ReplyKeyboardHide replyKeyboardHide = new ReplyKeyboardHide();
+
+		return replyKeyboardHide;
+	}
+
+	public static ReplyKeyboard getMainMenuKeyboard() {
+		ReplyKeyboardMarkup replyKeyboard = new ReplyKeyboardMarkup();
+		List<KeyboardRow> keyboard = new ArrayList<KeyboardRow>();
+		KeyboardRow keyboardFirsRow = new KeyboardRow();
+		keyboardFirsRow.add("Consejos saludables");
+		replyKeyboard.setSelective(true);
+		replyKeyboard.setResizeKeyboard(true);
+		keyboard.add(keyboardFirsRow);
+
+		replyKeyboard.setKeyboard(keyboard);
+		return replyKeyboard;
+	}
+
+	public static ReplyKeyboardMarkup getGenderMenuKeyboard() {
+		ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+		replyKeyboardMarkup.setSelective(true);
+		replyKeyboardMarkup.setResizeKeyboard(true);
+		replyKeyboardMarkup.setOneTimeKeyboad(true);
+
+		List<KeyboardRow> keyboard = new ArrayList<>();
+		KeyboardRow keyboardFirstRow = new KeyboardRow();
+
+		keyboardFirstRow.add("Masculino");
+
+		KeyboardRow keyboardSecondRow = new KeyboardRow();
+		keyboardSecondRow.add("Femenino");
+
+		KeyboardRow keyboardThirdRow = new KeyboardRow();
+		keyboardSecondRow.add("Prefiero no brindar esa información");
+
+		keyboard.add(keyboardFirstRow);
+		keyboard.add(keyboardSecondRow);
+		keyboard.add(keyboardThirdRow);
+		replyKeyboardMarkup.setKeyboard(keyboard);
+
+		return replyKeyboardMarkup;
+	}
+
+	public static ReplyKeyboard getWaterBenefitKeyboard() {
+		ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+		replyKeyboardMarkup.setSelective(true);
+		replyKeyboardMarkup.setResizeKeyboard(true);
+		replyKeyboardMarkup.setOneTimeKeyboad(true);
+
+		List<KeyboardRow> keyboard = new ArrayList<KeyboardRow>();
+
+		keyboard.add(buildRow("Por que?"));
+		keyboard.add(buildRow("Adoptar hábito"));
+		keyboard.add(buildRow("Ya tengo el hábito"));
+		keyboard.add(buildRow("Mas hábitos.."));
+
+		replyKeyboardMarkup.setKeyboard(keyboard);
+		return replyKeyboardMarkup;
+	}
+
+	/**
+	 * TODO crear constructores en la libreria de telegegram
+	 * 
+	 * @param text
+	 * @return
+	 */
+	private static KeyboardRow buildRow(String text) {
+		KeyboardRow keyboardRow = new KeyboardRow();
+		keyboardRow.add(text);
+		return keyboardRow;
+	}
+}
