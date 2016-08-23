@@ -3,17 +3,31 @@ package ar.com.espherika.healthbot.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Habito {
 
 	private String descipcion;
+	@Id
 	private String codigo;
 
 	private String mensajeIntroductorio = "Beber 2 litros de agua por día ayuda a mejorar tu calidad de vida. Una excelente manera de comenzar, es tomando 2 vasos de agua en ayunas.";
+	private String mensajeAlerta = "Buen dia recorda arrancar bebiendo 2 vasos de agua en ayunas";
 
-	private List<Beneficio> beneficios = new ArrayList<Beneficio>();
+	@OneToMany(cascade=CascadeType.ALL,fetch = FetchType.EAGER)
+	private  List<Beneficio> beneficios = new ArrayList<Beneficio>();
+
+	public Habito() {
+
+	}
 
 	public Habito(String codigo, String descripcion) {
-		this.codigo=codigo;
+		this.codigo = codigo;
 		this.descipcion = descripcion;
 	}
 

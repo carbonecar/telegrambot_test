@@ -3,12 +3,30 @@ package ar.com.espherika;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
+
 import ar.com.espherika.healthbot.model.Habito;
+import ar.com.espherika.healthbot.persistence.HabitoRepository;
+
 
 public class DataService {
 
 	private static DataService instance;
 	private  Map<String, Habito> habitos = new HashMap<String, Habito>();
+	
+	@Autowired
+	private HabitoRepository habitoRepository;
+	
+	
+	
+	public HabitoRepository getHabitoRepository() {
+		return habitoRepository;
+	}
+
+	public void setHabitoRepository(HabitoRepository habitoRepository) {
+		this.habitoRepository = habitoRepository;
+	}
 
 	private DataService(){
 		buildHabits();
@@ -22,7 +40,7 @@ public class DataService {
 	}
 	
 	public Habito getHabitByCode(String habito){
-		return this.habitos.get(habito);
+		return this.habitoRepository.findByCodigo(habito);
 	}
 	
 	private  void buildHabits() {
@@ -38,7 +56,11 @@ public class DataService {
 		beberAgua.addBeneficio(
 				"El agua activa como un lubricante para los músculos y las articulaciones: ayuda a proteger a las articulaciones y a que los músculos funcionen correctamente.");
 
+		
 		habitos.put(beberAgua.getCodigo(), beberAgua);
-
+		
+		habitoRepository.save(beberAgua);
+		
+		
 	}
 }

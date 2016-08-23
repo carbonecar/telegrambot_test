@@ -12,6 +12,12 @@ import org.apache.log4j.Logger;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Message;
@@ -20,12 +26,25 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 
 import ar.com.espherika.healthbot.model.Beneficio;
 import ar.com.espherika.healthbot.model.Habito;
+import ar.com.espherika.healthbot.persistence.HabitoRepository;
 import ar.com.espherika.service.CustomTimerTask;
 import ar.com.espherika.service.TimerExecutor;
+
 
 public class MyFirstBot extends TelegramLongPollingBot {
 	private Logger LOG = Logger.getLogger(MyFirstBot.class);
 	private Map<Long, KieSession> chatIdKieSession = new HashMap<Long, KieSession>();
+	
+	
+	private HabitoRepository habitoRepository;
+	
+	public HabitoRepository getHabitoRepository() {
+		return habitoRepository;
+	}
+
+	public void setHabitoRepository(HabitoRepository habitoRepository) {
+		this.habitoRepository = habitoRepository;
+	}
 
 	@Override
 	public void onUpdateReceived(Update update) {
@@ -58,14 +77,14 @@ public class MyFirstBot extends TelegramLongPollingBot {
 					sendMessage.setReplyMarkup(getWaterBenefitKeyboard());
 					sendControlledMessage(sendMessage, "Recordare esa fecha y te saludaré en tu compleaños");
 					sendControlledMessage(sendMessage, " Muchas gracias " + firstName + ".");
-					Habito beberAgua = DataService.getInstance().getHabitByCode("BEBER_AGUA");
+					Habito beberAgua = this.getHabitoBeberAgua();
 					sendControlledMessage(sendMessage, beberAgua.getMensajeIntroductorio());
 
 					return;
 				}
 
 				if (message.getText().equals("Por que?")) {
-					Habito beberAgua = DataService.getInstance().getHabitByCode("BEBER_AGUA");
+					Habito beberAgua = getHabitoBeberAgua();
 					for (Beneficio beneficio : beberAgua.getBeneficios()) {
 						sendControlledMessage(sendMessage, beneficio.getDesripcion());
 					}
@@ -102,6 +121,11 @@ public class MyFirstBot extends TelegramLongPollingBot {
 			}
 		}
 
+	}
+
+	private Habito getHabitoBeberAgua() {
+		// TODO Auto-generated method stub
+		return habitoRepository.findByCodigo("BEBER_AGUA");
 	}
 
 	@Override
