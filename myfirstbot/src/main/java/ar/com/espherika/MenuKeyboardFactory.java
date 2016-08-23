@@ -50,7 +50,7 @@ public class MenuKeyboardFactory {
 		keyboardSecondRow.add("Femenino");
 
 		KeyboardRow keyboardThirdRow = new KeyboardRow();
-		keyboardSecondRow.add("Prefiero no brindar esa informaci�n");
+		keyboardSecondRow.add("Prefiero no brindar esa información");
 
 		keyboard.add(keyboardFirstRow);
 		keyboard.add(keyboardSecondRow);
@@ -69,14 +69,31 @@ public class MenuKeyboardFactory {
 		List<KeyboardRow> keyboard = new ArrayList<KeyboardRow>();
 
 		keyboard.add(buildRow("Por que?"));
-		keyboard.add(buildRow("Adoptar h�bito"));
-		keyboard.add(buildRow("Ya tengo el h�bito"));
-		keyboard.add(buildRow("Mas h�bitos.."));
+		keyboard.add(buildRow("Adoptar hábito"));
+		keyboard.add(buildRow("Ya tengo el hábito"));
+		keyboard.add(buildRow("Mas hábitos.."));
 
 		replyKeyboardMarkup.setKeyboard(keyboard);
 		return replyKeyboardMarkup;
 	}
 
+	public static ReplyKeyboard getAdoptHabitWaterKeyboard() {
+		ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+		replyKeyboardMarkup.setSelective(true);
+		replyKeyboardMarkup.setResizeKeyboard(true);
+		replyKeyboardMarkup.setOneTimeKeyboad(true);
+
+		List<KeyboardRow> keyboard = new ArrayList<KeyboardRow>();
+
+		keyboard.add(buildRow("1 vez por día"));
+		keyboard.add(buildRow("2 veces por día"));
+		keyboard.add(buildRow("1 vez cada 3 días"));
+		keyboard.add(buildRow("No, gracias"));
+
+		replyKeyboardMarkup.setKeyboard(keyboard);
+		return replyKeyboardMarkup;
+	}
+	
 	/**
 	 * TODO crear constructores en la libreria de telegegram
 	 * 

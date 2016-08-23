@@ -1,7 +1,6 @@
 package ar.com.espherika;
 
-import static ar.com.espherika.MenuKeyboardFactory.getHideKeyboard;
-import static ar.com.espherika.MenuKeyboardFactory.getWaterBenefitKeyboard;
+import static ar.com.espherika.MenuKeyboardFactory.*;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -15,6 +14,7 @@ import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
+import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 
 import ar.com.espherika.healthbot.model.Beneficio;
@@ -40,27 +40,32 @@ public class MyFirstBot extends TelegramLongPollingBot {
 				sendMessage.setChatId(message.getChatId().toString());
 				if (message.getText().equals("Masculino")) {
 					sendMessage.setReplyMarkup(getHideKeyboard());
-					sendControlledMessage(sendMessage, "Cu·ndo naciste? (Ingrese en formato dd/mm/aaaa)");
+					sendControlledMessage(sendMessage, "Cu√°ndo naciste? (Ingrese en formato dd/mm/aaaa)");
 					return;
 				}
 
 				if (message.getText().equals("10/10/2015")) {
 					sendMessage.setReplyMarkup(getWaterBenefitKeyboard());
-					sendControlledMessage(sendMessage, "Recordare esa fecha y te saludarÈ en tu compleaÒos");
+					sendControlledMessage(sendMessage, "Recordare esa fecha y te saludar√© en tu complea√±os");
 					sendControlledMessage(sendMessage, " Muchas gracias " + firstName + ".");
-					Habito beberAgua = Application.habitos.get("BEBER_HAGUA");
+					Habito beberAgua = DataService.getInstance().getHabitByCode("BEBER_AGUA");
 					sendControlledMessage(sendMessage, beberAgua.getMensajeIntroductorio());
 
 					return;
 				}
 
 				if (message.getText().equals("Por que?")) {
-					Habito beberAgua = Application.habitos.get("BEBER_AGUA");
+					Habito beberAgua = DataService.getInstance().getHabitByCode("BEBER_AGUA");
 					for (Beneficio beneficio : beberAgua.getBeneficios()) {
 						sendControlledMessage(sendMessage, beneficio.getDesripcion());
 					}
-					sendControlledMessage(sendMessage, "porque si!");
 					return;
+				}
+				
+				if(message.getText().equals("Ya tengo el h√°bito")){
+					sendMessage.setReplyMarkup(getAdoptHabitWaterKeyboard());
+					sendControlledMessage(sendMessage, "Excelente "+firstName+" te gustar√≠a que de todas forma te recuerde sobre esto?");
+					return ;
 				}
 
 				sendControlledMessage(sendMessage, "Hola " + message.getFrom().getFirstName());
@@ -74,6 +79,8 @@ public class MyFirstBot extends TelegramLongPollingBot {
 		}
 
 	}
+
+	
 
 	@Override
 	public String getBotUsername() {

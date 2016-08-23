@@ -8,11 +8,12 @@ public class Habito {
 	private String descipcion;
 	private String codigo;
 
-	private String mensajeIntroductorio = "Beber 2 litros de agua por día ayuda a mejorar tu calidad de vida. Una excelente manera de comenzar, es tomando 2 vasos de agua en ayunas.";
+	private String mensajeIntroductorio = "Beber 2 litros de agua por dÃ­a ayuda a mejorar tu calidad de vida. Una excelente manera de comenzar, es tomando 2 vasos de agua en ayunas.";
 
 	private List<Beneficio> beneficios = new ArrayList<Beneficio>();
 
 	public Habito(String codigo, String descripcion) {
+		this.codigo=codigo;
 		this.descipcion = descripcion;
 	}
 
