@@ -1,9 +1,11 @@
 package ar.com.espherika;
 
-import static ar.com.espherika.MenuKeyboardFactory.*;
+import static ar.com.espherika.MenuKeyboardFactory.getAdoptHabitWaterKeyboard;
+import static ar.com.espherika.MenuKeyboardFactory.getHideKeyboard;
+import static ar.com.espherika.MenuKeyboardFactory.getSubscribeHabit;
+import static ar.com.espherika.MenuKeyboardFactory.getWaterBenefitKeyboard;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -14,11 +16,12 @@ import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
-import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 
 import ar.com.espherika.healthbot.model.Beneficio;
 import ar.com.espherika.healthbot.model.Habito;
+import ar.com.espherika.service.CustomTimerTask;
+import ar.com.espherika.service.TimerExecutor;
 
 public class MyFirstBot extends TelegramLongPollingBot {
 	private Logger LOG = Logger.getLogger(MyFirstBot.class);
@@ -39,12 +42,19 @@ public class MyFirstBot extends TelegramLongPollingBot {
 				SendMessage sendMessage = new SendMessage();
 				sendMessage.setChatId(message.getChatId().toString());
 				if (message.getText().equals("Masculino")) {
+					TimerExecutor.getInstance().startExecutionEveryDayAt(new CustomTimerTask("test task", 1) {
+						@Override
+						public void execute() {
+							sendControlledMessage(sendMessage, "toma agua!");
+						}
+					}, 00,26, 00);
 					sendMessage.setReplyMarkup(getHideKeyboard());
 					sendControlledMessage(sendMessage, "Cuándo naciste? (Ingrese en formato dd/mm/aaaa)");
 					return;
 				}
 
 				if (message.getText().equals("10/10/2015")) {
+
 					sendMessage.setReplyMarkup(getWaterBenefitKeyboard());
 					sendControlledMessage(sendMessage, "Recordare esa fecha y te saludaré en tu compleaños");
 					sendControlledMessage(sendMessage, " Muchas gracias " + firstName + ".");
@@ -61,13 +71,27 @@ public class MyFirstBot extends TelegramLongPollingBot {
 					}
 					return;
 				}
-				
-				if(message.getText().equals("Ya tengo el hábito")){
+
+				if (message.getText().equals("Ya tengo el hábito")) {
 					sendMessage.setReplyMarkup(getAdoptHabitWaterKeyboard());
-					sendControlledMessage(sendMessage, "Excelente "+firstName+" te gustaría que de todas forma te recuerde sobre esto?");
-					return ;
+					sendControlledMessage(sendMessage,
+							"Excelente " + firstName + " te gustaría que de todas forma te recuerde sobre esto?");
+					return;
 				}
 
+				if (message.getText().equals("Adoptar hábito")) {
+					sendMessage.setReplyMarkup(getAdoptHabitWaterKeyboard());
+					sendControlledMessage(sendMessage,
+							"Excelente " + firstName + " te gustaría que  te recuerde sobre esto?");
+					return;
+				}
+
+				if(message.getText().equals("1 vez por día")){
+					sendMessage.setReplyMarkup(getSubscribeHabit());
+					sendControlledMessage(sendMessage, "A que hora te gustaría que te recuerde tu hábito?");
+					return;
+				}
+				
 				sendControlledMessage(sendMessage, "Hola " + message.getFrom().getFirstName());
 				sendControlledMessage(sendMessage, "En que puedo ayudarte?");
 				sendControlledMessage(sendMessage, "tenme paciencia, estoy aprendiendo");
@@ -79,8 +103,6 @@ public class MyFirstBot extends TelegramLongPollingBot {
 		}
 
 	}
-
-	
 
 	@Override
 	public String getBotUsername() {

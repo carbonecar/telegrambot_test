@@ -4,7 +4,7 @@ public class Ciudadano {
 
 	private int edad;
 	private String nombre;
-
+	private String userId;
 	
 	public Ciudadano(){
 		

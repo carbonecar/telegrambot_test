@@ -94,6 +94,26 @@ public class MenuKeyboardFactory {
 		return replyKeyboardMarkup;
 	}
 	
+	public static ReplyKeyboard getSubscribeHabit() {
+		ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+		replyKeyboardMarkup.setSelective(true);
+		replyKeyboardMarkup.setResizeKeyboard(true);
+		replyKeyboardMarkup.setOneTimeKeyboad(false);
+
+		List<KeyboardRow> keyboard = new ArrayList<KeyboardRow>();
+		
+		keyboard.add(buildRow("8 AM","9 AM","10 AM"));
+		keyboard.add(buildRow("11 AM","12 AM", "13 AM"));
+		keyboard.add(buildRow("14 AM","15 AM", "16"));
+		keyboard.add(buildRow("17 AM", "18 AM","19 AM"));
+		keyboard.add(buildRow("20 AM", "21 AM", "22 AM"));
+
+		
+		replyKeyboardMarkup.setKeyboard(keyboard);
+		return replyKeyboardMarkup;
+	}
+	
+	
 	/**
 	 * TODO crear constructores en la libreria de telegegram
 	 * 
@@ -103,6 +123,13 @@ public class MenuKeyboardFactory {
 	private static KeyboardRow buildRow(String text) {
 		KeyboardRow keyboardRow = new KeyboardRow();
 		keyboardRow.add(text);
+		return keyboardRow;
+	}
+	private static KeyboardRow buildRow(String... text) {
+		KeyboardRow keyboardRow = new KeyboardRow();
+		for (int i = 0; i < text.length; i++) {
+			keyboardRow.add(text[i]);
+		}
 		return keyboardRow;
 	}
 }
