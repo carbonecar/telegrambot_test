@@ -102,11 +102,11 @@ public class MenuKeyboardFactory {
 
 		List<KeyboardRow> keyboard = new ArrayList<KeyboardRow>();
 		
-		keyboard.add(buildRow("8 AM","9 AM","10 AM"));
-		keyboard.add(buildRow("11 AM","12 AM", "13 AM"));
-		keyboard.add(buildRow("14 AM","15 AM", "16"));
-		keyboard.add(buildRow("17 AM", "18 AM","19 AM"));
-		keyboard.add(buildRow("20 AM", "21 AM", "22 AM"));
+		keyboard.add(buildRow("8","9 ","10 "));
+		keyboard.add(buildRow("11 ","12 ", "13 "));
+		keyboard.add(buildRow("14 ","15 ", "16"));
+		keyboard.add(buildRow("17 ", "18 ","19 "));
+		keyboard.add(buildRow("20 ", "21 ", "22 "));
 
 		
 		replyKeyboardMarkup.setKeyboard(keyboard);
