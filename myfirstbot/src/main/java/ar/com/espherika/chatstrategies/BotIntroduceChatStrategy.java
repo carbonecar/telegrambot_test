@@ -12,7 +12,7 @@ import java.util.Map;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Message;
 
-import ar.com.espherika.CHAT_STATES;
+import ar.com.espherika.ChatStates;
 import ar.com.espherika.MenuKeyboardFactory;
 import ar.com.espherika.MyFirstBot;
 import ar.com.espherika.healthbot.model.Habito;
@@ -62,7 +62,7 @@ public class BotIntroduceChatStrategy implements BotChatStrategy {
 			bot.sendControlledMessage(sendMessage, " Muchas gracias " + message.getFrom().getFirstName() + ".");
 			Habito beberAgua = bot.getHabitoBeberAgua();
 			bot.sendControlledMessage(sendMessage, beberAgua.getMensajeIntroductorio());
-			bot.chatIdStates.put(message.getChatId(), CHAT_STATES.HABITO_BEBER_AGUA_INICIADO);
+			bot.chatIdStates.put(message.getChatId(), ChatStates.HABITO_BEBER_AGUA_INICIADO);
 
 			return;
 		}

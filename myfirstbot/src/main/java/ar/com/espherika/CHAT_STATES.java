@@ -1,5 +1,0 @@
-package ar.com.espherika;
-
-public enum CHAT_STATES {
-	PRESENTACION,PRESENTACION_COMPLETA,HABITO_BEBER_AGUA_INICIADO;
-}

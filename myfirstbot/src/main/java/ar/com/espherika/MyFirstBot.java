@@ -16,6 +16,8 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import ar.com.espherika.chatstrategies.BotChatStrategy;
 import ar.com.espherika.chatstrategies.BotDrinkWaterChatStrategy;
 import ar.com.espherika.chatstrategies.BotIntroduceChatStrategy;
+import ar.com.espherika.chatstrategies.BotSleepWellChatStrategy;
+import ar.com.espherika.chatstrategies.BotSmokerChatStrategy;
 import ar.com.espherika.healthbot.model.Habito;
 import ar.com.espherika.healthbot.persistence.HabitoRepository;
 
@@ -24,14 +26,17 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	private Logger LOG = Logger.getLogger(MyFirstBot.class);
 	private Map<Long, KieSession> chatIdKieSession = new HashMap<Long, KieSession>();
 	
-	public Map<Long,CHAT_STATES> chatIdStates=new HashMap<Long,CHAT_STATES>();
-	public Map<CHAT_STATES,BotChatStrategy> chatStrategies=new HashMap<CHAT_STATES,BotChatStrategy>();
+	public Map<Long,ChatStates> chatIdStates=new HashMap<Long,ChatStates>();
+	public Map<ChatStates,BotChatStrategy> chatStrategies=new HashMap<ChatStates,BotChatStrategy>();
 	
 	private HabitoRepository habitoRepository;
 	
 	public MyFirstBot(){
-		this.chatStrategies.put(CHAT_STATES.PRESENTACION, new BotIntroduceChatStrategy());
-		this.chatStrategies.put(CHAT_STATES.HABITO_BEBER_AGUA_INICIADO, new BotDrinkWaterChatStrategy());
+		this.chatStrategies.put(ChatStates.PRESENTACION, new BotIntroduceChatStrategy());
+		this.chatStrategies.put(ChatStates.HABITO_BEBER_AGUA_INICIADO, new BotDrinkWaterChatStrategy());
+		this.chatStrategies.put(ChatStates.HABITO_FUMAR, new BotSmokerChatStrategy());
+		this.chatStrategies.put(ChatStates.HABITO_DORMIR, new BotSleepWellChatStrategy());
+		
 	}
 	public HabitoRepository getHabitoRepository() {
 		return habitoRepository;
@@ -46,7 +51,7 @@ public class MyFirstBot extends TelegramLongPollingBot {
 		if (update.hasMessage()) {
 			Message message = update.getMessage();
 			//KieSession kieSession = this.safeGetKieSession(message.getChatId());
-			CHAT_STATES state=this.safeGetStates(message.getChatId());
+			ChatStates state=this.safeGetStates(message.getChatId());
 			// check if the message has text. it could also contain for example
 			// a location ( message.hasLocation() )
 			if (message.hasText()) {
@@ -63,11 +68,11 @@ public class MyFirstBot extends TelegramLongPollingBot {
 
 	}
 
-	private CHAT_STATES safeGetStates(Long chatId) {
-		CHAT_STATES state=this.chatIdStates.get(chatId);
+	private ChatStates safeGetStates(Long chatId) {
+		ChatStates state=this.chatIdStates.get(chatId);
 		if (state==null){
-			state=CHAT_STATES.PRESENTACION;
-			this.chatIdStates.put(chatId, CHAT_STATES.PRESENTACION);
+			state=ChatStates.PRESENTACION;
+			this.chatIdStates.put(chatId, ChatStates.PRESENTACION);
 		}
 		return state;
 	}
@@ -78,12 +83,12 @@ public class MyFirstBot extends TelegramLongPollingBot {
 
 	@Override
 	public String getBotUsername() {
-		return BotConfig.BOT_USERNAME_PRUEBACARLOS_BOT;
+		return BotConfig.BOT_USERNAME_CARBONECAR;
 	}
 
 	@Override
 	public String getBotToken() {
-		return BotConfig.BOT_TOKEN_PRUEBA_CARLOS;
+		return BotConfig.BOT_TOKEN_CARBONECAR_BOT;
 	}
 
 	/**

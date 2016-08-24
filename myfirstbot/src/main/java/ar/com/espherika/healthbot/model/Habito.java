@@ -17,6 +17,7 @@ public class Habito {
 	private String codigo;
 
 	private String mensajeIntroductorio = "Beber 2 litros de agua por día ayuda a mejorar tu calidad de vida. Una excelente manera de comenzar, es tomando 2 vasos de agua en ayunas.";
+
 	private String mensajeAlerta = "Buen dia recorda arrancar bebiendo 2 vasos de agua en ayunas";
 
 	@OneToMany(cascade=CascadeType.ALL,fetch = FetchType.EAGER)
@@ -55,4 +56,11 @@ public class Habito {
 		return this.mensajeIntroductorio;
 	}
 
+	public String getMensajeAlerta() {
+		return mensajeAlerta;
+	}
+
+	public void setMensajeAlerta(String mensajeAlerta) {
+		this.mensajeAlerta = mensajeAlerta;
+	}
 }
