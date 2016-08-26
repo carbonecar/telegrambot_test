@@ -8,8 +8,8 @@ public class BotSmokerChatStrategy implements BotChatStrategy {
 
 	@Override
 	public void run(Message message, MyFirstBot bot) {
-		// TODO Auto-generated method stub
-
+		
+		
 	}
 
 }

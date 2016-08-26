@@ -12,6 +12,8 @@ import java.util.Map;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Message;
 
+import ar.com.espherika.ChatStates;
+import ar.com.espherika.MenuKeyboardFactory;
 import ar.com.espherika.MyFirstBot;
 import ar.com.espherika.healthbot.model.Beneficio;
 import ar.com.espherika.healthbot.model.Habito;
@@ -67,6 +69,9 @@ public class BotDrinkWaterChatStrategy implements BotChatStrategy {
 
 		if (SET_CRON_STATE.CRON.equals(this.getSafeState(message.getChatId()))){
 			doCron(message, bot, sendMessage);
+			bot.chatIdStates.put(message.getChatId(), ChatStates.HABITO_FUMAR);
+			sendMessage.setReplyMarkup(MenuKeyboardFactory.getMainMenuKeyboard());
+			bot.sendControlledMessage(sendMessage, "Puedo ayudarte en algo más?");
 			return;
 			
 		}
@@ -101,6 +106,14 @@ public class BotDrinkWaterChatStrategy implements BotChatStrategy {
 				}
 			}, horaPrueba, minutoPrueba, 00);
 
+			TimerExecutor.getInstance().startExecutionEveryDayAt(new CustomTimerTask("test task", 1) {
+
+				@Override
+				public void execute() {
+					bot.sendControlledMessage(sendMessage, bot.getHabitoBeberAgua().getMensajeAlerta());
+				}
+			}, horaPrueba, minutoPrueba, hora);
+			
 			if(this.getSafeState(message.getChatId()).equals(SET_CRON_STATE.CRON_TWICE)){
 				bot.sendControlledMessage(sendMessage, "Ingresa la otra hora a la cual quieres ser informado");
 			}

@@ -52,12 +52,10 @@ public class MyFirstBot extends TelegramLongPollingBot {
 			Message message = update.getMessage();
 			//KieSession kieSession = this.safeGetKieSession(message.getChatId());
 			ChatStates state=this.safeGetStates(message.getChatId());
-			// check if the message has text. it could also contain for example
-			// a location ( message.hasLocation() )
+			
 			if (message.hasText()) {
 
-				// create an object that contains the information to send back
-				// the message
+				
 				BotChatStrategy strategy=this.chatStrategies.get(state);
 				if(strategy!=null){
 					strategy.run(message, this);
@@ -68,6 +66,7 @@ public class MyFirstBot extends TelegramLongPollingBot {
 
 	}
 
+	
 	private ChatStates safeGetStates(Long chatId) {
 		ChatStates state=this.chatIdStates.get(chatId);
 		if (state==null){
@@ -120,6 +119,19 @@ public class MyFirstBot extends TelegramLongPollingBot {
 		} catch (TelegramApiException e) {
 			// Manejar el rror
 		}
+	}
+	
+	
+	/**
+	 * TODO validar que ya se hubiera presentado. 
+	 * @param chatId
+	 */
+	public void setRandomChatStrategy(Long chatId){
+		int chatStrategiesCount=this.chatStrategies.keySet().size();
+		int indexRandomState=((int)(Math.random()*chatStrategiesCount))+1;
+		ChatStates[] keySetArray=this.chatStrategies.keySet().toArray(new ChatStates[chatStrategiesCount]);
+		this.chatIdStates.put(chatId, keySetArray[indexRandomState]);
+		
 	}
 
 }
