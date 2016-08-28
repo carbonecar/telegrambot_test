@@ -23,7 +23,7 @@ import ar.com.espherika.service.TimerExecutor;
 public class BotDrinkWaterChatStrategy implements BotChatStrategy {
 
 	private enum SET_CRON_STATE {
-		CRON_REQUEST, CRON, CRON_TWICE;
+		INTRODUCE,CRON_REQUEST, CRON, CRON_TWICE;
 	}
 
 	private Map<Long, SET_CRON_STATE> chatIdStates = new HashMap<Long, SET_CRON_STATE>();
@@ -45,6 +45,8 @@ public class BotDrinkWaterChatStrategy implements BotChatStrategy {
 			sendMessage.setReplyMarkup(getAdoptHabitWaterKeyboard());
 			bot.sendControlledMessage(sendMessage, "Excelente " + message.getFrom().getFirstName()
 					+ " te gustaría que de todas forma te recuerde sobre esto?");
+			this.chatIdStates.put(message.getChatId(), SET_CRON_STATE.CRON_REQUEST);
+
 			return;
 		}
 
@@ -63,7 +65,7 @@ public class BotDrinkWaterChatStrategy implements BotChatStrategy {
 		}
 
 		if (message.getText().equals("Mas hábitos...")) {
-			this.chatIdStates.put(message.getChatId(), null);
+			bot.setRandomChatStrategy(sendMessage,message);
 			return;
 		}
 
@@ -72,6 +74,7 @@ public class BotDrinkWaterChatStrategy implements BotChatStrategy {
 			bot.chatIdStates.put(message.getChatId(), ChatStates.HABITO_FUMAR);
 			sendMessage.setReplyMarkup(MenuKeyboardFactory.getMainMenuKeyboard());
 			bot.sendControlledMessage(sendMessage, "Puedo ayudarte en algo más?");
+			bot.setRandomChatStrategy(sendMessage,message);
 			return;
 			
 		}
@@ -90,7 +93,6 @@ public class BotDrinkWaterChatStrategy implements BotChatStrategy {
 			Integer hora = Integer.valueOf(message.getText());
 			Calendar cal = Calendar.getInstance();
 			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-			System.out.println(sdf.format(cal.getTime()));
 			bot.sendControlledMessage(sendMessage, "la hora local es: " + sdf.format(cal.getTime()));
 			bot.sendControlledMessage(sendMessage, "para validar que fue agendado te lo recordare en 1 minuto");
 			bot.sendControlledMessage(sendMessage, "luego de dicho recordatorio aplicará el horario que seleccionaste");
@@ -147,10 +149,16 @@ public class BotDrinkWaterChatStrategy implements BotChatStrategy {
 	private SET_CRON_STATE getSafeState(Long chatId) {
 		SET_CRON_STATE state = this.chatIdStates.get(chatId);
 		if (state == null) {
-			state = SET_CRON_STATE.CRON_REQUEST;
+			state = SET_CRON_STATE.INTRODUCE;
 			this.chatIdStates.put(chatId, state);
 		}
 		return state;
+	}
+
+	@Override
+	public void init(SendMessage sendMessage,Message message,MyFirstBot bot) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

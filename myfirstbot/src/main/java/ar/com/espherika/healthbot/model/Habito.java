@@ -56,6 +56,9 @@ public class Habito {
 		return this.mensajeIntroductorio;
 	}
 
+	public void setMensajeIntroductorio(String mensajeIntroductorio){
+		this.mensajeIntroductorio=mensajeIntroductorio;
+	}
 	public String getMensajeAlerta() {
 		return mensajeAlerta;
 	}

@@ -1,5 +1,7 @@
 package ar.com.espherika;
 
+import static ar.com.espherika.MenuKeyboardFactory.getWaterBenefitKeyboard;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +28,7 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	private Logger LOG = Logger.getLogger(MyFirstBot.class);
 	private Map<Long, KieSession> chatIdKieSession = new HashMap<Long, KieSession>();
 	
+	//TODO es evidente que esto va a pinchar feo con mas de 1 usuario, no?
 	public Map<Long,ChatStates> chatIdStates=new HashMap<Long,ChatStates>();
 	public Map<ChatStates,BotChatStrategy> chatStrategies=new HashMap<ChatStates,BotChatStrategy>();
 	
@@ -54,8 +57,6 @@ public class MyFirstBot extends TelegramLongPollingBot {
 			ChatStates state=this.safeGetStates(message.getChatId());
 			
 			if (message.hasText()) {
-
-				
 				BotChatStrategy strategy=this.chatStrategies.get(state);
 				if(strategy!=null){
 					strategy.run(message, this);
@@ -126,11 +127,22 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	 * TODO validar que ya se hubiera presentado. 
 	 * @param chatId
 	 */
-	public void setRandomChatStrategy(Long chatId){
+	public void setRandomChatStrategy(SendMessage sendMessage,Message message){
 		int chatStrategiesCount=this.chatStrategies.keySet().size();
 		int indexRandomState=((int)(Math.random()*chatStrategiesCount))+1;
 		ChatStates[] keySetArray=this.chatStrategies.keySet().toArray(new ChatStates[chatStrategiesCount]);
-		this.chatIdStates.put(chatId, keySetArray[indexRandomState]);
+		this.chatIdStates.put(message.getChatId(), keySetArray[indexRandomState==chatStrategiesCount?indexRandomState-1:indexRandomState]);
+		this.chatStrategies.get(this.chatIdStates.get(message.getChatId())).init(sendMessage, message, this);
+		
+	}
+	
+	
+	
+	public void iniciarBeberAgua(SendMessage sendMessage, Message message) {
+		Habito beberAgua = getHabitoBeberAgua();
+		sendMessage.setReplyMarkup(getWaterBenefitKeyboard());
+		sendControlledMessage(sendMessage, beberAgua.getMensajeIntroductorio());
+		chatIdStates.put(message.getChatId(), ChatStates.HABITO_BEBER_AGUA_INICIADO);
 		
 	}
 

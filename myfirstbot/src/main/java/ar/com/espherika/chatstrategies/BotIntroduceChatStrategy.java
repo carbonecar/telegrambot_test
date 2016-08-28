@@ -57,13 +57,10 @@ public class BotIntroduceChatStrategy implements BotChatStrategy {
 				return ;
 			}
 
-			sendMessage.setReplyMarkup(getWaterBenefitKeyboard());
 			bot.sendControlledMessage(sendMessage, "Recordare esa fecha y te saludaré en tu compleaños");
 			bot.sendControlledMessage(sendMessage, " Muchas gracias " + message.getFrom().getFirstName() + ".");
-			Habito beberAgua = bot.getHabitoBeberAgua();
-			bot.sendControlledMessage(sendMessage, beberAgua.getMensajeIntroductorio());
-			bot.chatIdStates.put(message.getChatId(), ChatStates.HABITO_BEBER_AGUA_INICIADO);
-
+			bot.iniciarBeberAgua(sendMessage,message);
+			
 			return;
 		}
 	}
@@ -75,6 +72,12 @@ public class BotIntroduceChatStrategy implements BotChatStrategy {
 			this.chatIdStates.put(chatId,state);
 		}
 		return state;
+	}
+
+	@Override
+	public void init(SendMessage sendMessage, Message message, MyFirstBot bot) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -71,7 +71,7 @@ public class MenuKeyboardFactory {
 		keyboard.add(buildRow("Por que?"));
 		keyboard.add(buildRow("Adoptar hábito"));
 		keyboard.add(buildRow("Ya tengo el hábito"));
-		keyboard.add(buildRow("Mas hábitos.."));
+		keyboard.add(buildRow("Mas hábitos..."));
 
 		replyKeyboardMarkup.setKeyboard(keyboard);
 		return replyKeyboardMarkup;
@@ -131,5 +131,9 @@ public class MenuKeyboardFactory {
 			keyboardRow.add(text[i]);
 		}
 		return keyboardRow;
+	}
+
+	public static ReplyKeyboard getSmokeKeyboard() {
+		return getWaterBenefitKeyboard();
 	}
 }

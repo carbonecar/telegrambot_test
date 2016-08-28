@@ -42,9 +42,22 @@ public class Application {
 					"El agua es un gran aliado para la piel ayudando a mantener la elasticidad de la misma y su tonicidad.");
 			beberAgua.addBeneficio(
 					"El agua activa como un lubricante para los músculos y las articulaciones: ayuda a proteger a las articulaciones y a que los músculos funcionen correctamente.");
-
 			
+			beberAgua.setMensajeAlerta("Buen dia recorda arrancar bebiendo 2 vasos de agua en ayunas");
+			
+			
+			beberAgua.setMensajeIntroductorio("Beber 2 litros de agua por día ayuda a mejorar tu calidad de vida. Una excelente manera de comenzar, es tomando 2 vasos de agua en ayunas.");
+
 			repository.save(beberAgua);
+			
+			Habito fumar= new Habito("FUMAR","fumar");
+			fumar.addBeneficio("Causa cancer de pulmon.");
+			fumar.addBeneficio("Reduce la esperanza de vida");
+			fumar.addBeneficio("Acelera el proceso de envecimiento de la piel");
+			fumar.setMensajeIntroductorio("Fumar es perjidicial para la salud");
+			fumar.setMensajeAlerta("Estas cumpliendo tus objetivos para dejar de fumar?");
+			
+			repository.save(fumar);
 			
 
 			TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
