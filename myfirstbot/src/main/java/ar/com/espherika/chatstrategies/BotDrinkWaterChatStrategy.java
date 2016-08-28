@@ -30,6 +30,8 @@ public class BotDrinkWaterChatStrategy implements BotChatStrategy {
 
 	@Override
 	public void run(Message message, MyFirstBot bot) {
+	
+		
 		SendMessage sendMessage = new SendMessage();
 		sendMessage.setChatId(message.getChatId().toString());
 		//TODO switch?
@@ -64,10 +66,6 @@ public class BotDrinkWaterChatStrategy implements BotChatStrategy {
 			return;
 		}
 
-		if (message.getText().equals("Mas hábitos...")) {
-			bot.setRandomChatStrategy(sendMessage,message);
-			return;
-		}
 
 		if (SET_CRON_STATE.CRON.equals(this.getSafeState(message.getChatId()))){
 			doCron(message, bot, sendMessage);
@@ -83,6 +81,10 @@ public class BotDrinkWaterChatStrategy implements BotChatStrategy {
 			doCron(message, bot, sendMessage);
 			this.chatIdStates.put(message.getChatId(), SET_CRON_STATE.CRON);
 			return;
+		}
+		
+		if(SET_CRON_STATE.INTRODUCE.equals(this.getSafeState(message.getChatId()))){
+			bot.iniciarBeberAgua(sendMessage, message);
 		}
 
 	}
@@ -153,12 +155,6 @@ public class BotDrinkWaterChatStrategy implements BotChatStrategy {
 			this.chatIdStates.put(chatId, state);
 		}
 		return state;
-	}
-
-	@Override
-	public void init(SendMessage sendMessage,Message message,MyFirstBot bot) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

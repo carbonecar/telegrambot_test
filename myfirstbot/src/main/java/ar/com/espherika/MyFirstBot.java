@@ -57,6 +57,10 @@ public class MyFirstBot extends TelegramLongPollingBot {
 			ChatStates state=this.safeGetStates(message.getChatId());
 			
 			if (message.hasText()) {
+				if (message.getText().equals("Mas hábitos...")) {
+					this.setRandomChatStrategy(new SendMessage(),message);
+					return;
+				}
 				BotChatStrategy strategy=this.chatStrategies.get(state);
 				if(strategy!=null){
 					strategy.run(message, this);
@@ -128,11 +132,23 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	 * @param chatId
 	 */
 	public void setRandomChatStrategy(SendMessage sendMessage,Message message){
-		int chatStrategiesCount=this.chatStrategies.keySet().size();
-		int indexRandomState=((int)(Math.random()*chatStrategiesCount))+1;
-		ChatStates[] keySetArray=this.chatStrategies.keySet().toArray(new ChatStates[chatStrategiesCount]);
-		this.chatIdStates.put(message.getChatId(), keySetArray[indexRandomState==chatStrategiesCount?indexRandomState-1:indexRandomState]);
-		this.chatStrategies.get(this.chatIdStates.get(message.getChatId())).init(sendMessage, message, this);
+		sendMessage.setChatId(message.getChatId().toString());
+		int chatStrategiesCount=this.chatStrategies.keySet().size()-1;
+		int indexRandomState=((int)(Math.random()*chatStrategiesCount));
+		
+		ChatStates[] keySetArray=new ChatStates[chatStrategiesCount];
+		this.chatStrategies.keySet();
+		int index=0;
+		for (ChatStates chatState : this.chatStrategies.keySet()) {
+			
+			if(!chatState.equals(ChatStates.PRESENTACION)){
+				keySetArray[index++]=chatState;
+			}
+		}
+		this.chatIdStates.put(message.getChatId(), keySetArray[indexRandomState]);
+		BotChatStrategy chatStrategy=this.chatStrategies.get(this.chatIdStates.get(message.getChatId()));
+		System.out.println(chatStrategy.getClass().getName());
+		chatStrategy.run(message, this);
 		
 	}
 	

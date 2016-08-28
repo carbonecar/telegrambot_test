@@ -16,16 +16,11 @@ public class BotSmokerChatStrategy implements BotChatStrategy {
 		sendMessage.setChatId(message.getChatId().toString());
 		bot.sendControlledMessage(sendMessage, "Fumas "+message.getFrom().getFirstName()+"?");
 
-		bot.sendControlledMessage(sendMessage, "todavía estamos agregando hábitos saludables.");
-		bot.setRandomChatStrategy(sendMessage, message);
-	}
-	
-	
-	public void init(SendMessage sendMessage,Message message,MyFirstBot bot){
-		Habito fumar =bot.getHabitoRepository().findByCodigo("FUMAR");
 		sendMessage.setReplyMarkup(MenuKeyboardFactory.getSmokeKeyboard());
-		bot.sendControlledMessage(sendMessage, fumar.getMensajeIntroductorio());
-		bot.chatIdStates.put(message.getChatId(), ChatStates.HABITO_FUMAR);
+		bot.sendControlledMessage(sendMessage, "todavía estamos agregando hábitos saludables.");
+		//bot.setRandomChatStrategy(sendMessage, message);
 	}
+	
+
 
 }

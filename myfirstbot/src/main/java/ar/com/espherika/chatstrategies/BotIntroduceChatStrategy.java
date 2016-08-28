@@ -74,10 +74,5 @@ public class BotIntroduceChatStrategy implements BotChatStrategy {
 		return state;
 	}
 
-	@Override
-	public void init(SendMessage sendMessage, Message message, MyFirstBot bot) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
