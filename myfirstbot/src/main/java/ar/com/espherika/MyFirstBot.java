@@ -10,7 +10,10 @@ import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.telegram.telegrambots.TelegramApiException;
+import org.telegram.telegrambots.api.methods.send.SendAudio;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
+import org.telegram.telegrambots.api.methods.send.SendPhoto;
+import org.telegram.telegrambots.api.methods.send.SendVoice;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -57,6 +60,18 @@ public class MyFirstBot extends TelegramLongPollingBot {
 			ChatStates state=this.safeGetStates(message.getChatId());
 			
 			if (message.hasText()) {
+				
+				if(message.getText().equals("/voice")){
+					this.sendVoiceTo(message);
+				}
+				
+				if(message.getText().equals("/audio")){
+					this.sendAudioTo(message);
+				}
+				
+				if(message.getText().equals("/photo")){
+					this.sendPhotoTo(message);
+				}
 				if (message.getText().equals("Mas hábitos...")|| message.getText().equals("Consejos saludables")) {
 					this.setRandomChatStrategy(new SendMessage(),message);
 					return;
@@ -72,6 +87,54 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	}
 
 	
+	private void sendPhotoTo(Message message) {
+            SendPhoto sendPhotoRequest = new SendPhoto();
+            sendPhotoRequest.setChatId(message.getChatId().toString());
+            //path: String,                     photoName: String
+            sendPhotoRequest.setNewPhoto("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/te_verde.jpg", "te_verde.jpg"); //
+            try {
+                sendPhoto(sendPhotoRequest);
+            } catch (TelegramApiException e) {
+            	
+            	LOG.error(e);
+                /*
+                 * Do some error handling
+                 * e.printStackTrace();
+                 */
+        }
+		
+	}
+	/**
+	 * For testing..
+	 * @param message
+	 */
+	private void sendAudioTo(Message message) {
+		SendAudio sendAudioRequest=new SendAudio();
+		sendAudioRequest.setChatId(message.getChatId().toString());
+		sendAudioRequest.setNewAudio("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/presentacion.mp3", "presentacion");
+		try{
+			sendAudio(sendAudioRequest);
+		}catch(TelegramApiException tae){
+			LOG.error(tae);
+		}
+		
+	}
+	
+	/**
+	 * For testing..
+	 * @param message
+	 */
+	private void sendVoiceTo(Message message) {
+		SendVoice sendVoiceRequest=new SendVoice();
+		sendVoiceRequest.setChatId(message.getChatId().toString());
+		sendVoiceRequest.setNewVoice("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/presentacion.ogg", "presentacion");
+		try{
+			sendVoice(sendVoiceRequest);
+		}catch(TelegramApiException tae){
+			LOG.error(tae);
+		}
+		
+	}
 	private ChatStates safeGetStates(Long chatId) {
 		ChatStates state=this.chatIdStates.get(chatId);
 		if (state==null){
