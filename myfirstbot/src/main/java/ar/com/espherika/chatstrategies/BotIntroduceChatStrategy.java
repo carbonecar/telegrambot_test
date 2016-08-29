@@ -1,7 +1,6 @@
 package ar.com.espherika.chatstrategies;
 
 import static ar.com.espherika.MenuKeyboardFactory.getHideKeyboard;
-import static ar.com.espherika.MenuKeyboardFactory.getWaterBenefitKeyboard;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,10 +11,8 @@ import java.util.Map;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Message;
 
-import ar.com.espherika.ChatStates;
 import ar.com.espherika.MenuKeyboardFactory;
 import ar.com.espherika.MyFirstBot;
-import ar.com.espherika.healthbot.model.Habito;
 
 public class BotIntroduceChatStrategy implements BotChatStrategy {
 

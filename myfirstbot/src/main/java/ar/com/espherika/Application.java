@@ -30,7 +30,8 @@ public class Application {
 	
 	@Bean
 	public CommandLineRunner demo(HabitoRepository repository){
-		return (args)->{
+		return (p)->{
+			
 			Habito beberAgua = new Habito("BEBER_AGUA", "Beber agua");
 			beberAgua.addBeneficio(
 					"Una adecuada hidratación es importante para un funcionamiento correcto del cerebro. Cuando estamos adecuadamente hidratados, las células del cerebro reciben sangre oxigenada y el cerebro se mantiene alerta.");
@@ -59,6 +60,14 @@ public class Application {
 			
 			repository.save(fumar);
 			
+			Habito dormirBien= new Habito("DORMIR_BIEN","Dormir Bien");
+			dormirBien.addBeneficio("Dormir ayuda a consolidar la memoria.");
+			dormirBien.addBeneficio("Mejora su habilidad en el aprendizaje de tareas motoras complej.a");
+		
+			dormirBien.setMensajeIntroductorio("Dormir bien es reparador y tiene beneficios cientificamente comprobados.");
+			dormirBien.setMensajeAlerta("Estas cumpliendo con tu objetivo de horas de sue�o por dia?");
+			
+			repository.save(dormirBien);
 
 			TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
 			MyFirstBot mybot=new MyFirstBot();

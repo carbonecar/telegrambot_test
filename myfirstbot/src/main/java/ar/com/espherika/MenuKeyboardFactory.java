@@ -134,6 +134,36 @@ public class MenuKeyboardFactory {
 	}
 
 	public static ReplyKeyboard getSmokeKeyboard() {
-		return getWaterBenefitKeyboard();
+		ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+		replyKeyboardMarkup.setSelective(true);
+		replyKeyboardMarkup.setResizeKeyboard(true);
+		replyKeyboardMarkup.setOneTimeKeyboad(true);
+
+		List<KeyboardRow> keyboard = new ArrayList<KeyboardRow>();
+
+		keyboard.add(buildRow("Si"));
+		keyboard.add(buildRow("No"));
+		keyboard.add(buildRow("No, pero lo fui"));
+		keyboard.add(buildRow("Soy fumador social"));
+		keyboard.add(buildRow("Mas hábitos..."));
+
+		replyKeyboardMarkup.setKeyboard(keyboard);
+		return replyKeyboardMarkup;
+	}
+
+	public static ReplyKeyboard getReduceSmokeKeyboard() {
+		ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+		replyKeyboardMarkup.setSelective(true);
+		replyKeyboardMarkup.setResizeKeyboard(true);
+		replyKeyboardMarkup.setOneTimeKeyboad(true);
+
+		List<KeyboardRow> keyboard = new ArrayList<KeyboardRow>();
+
+		keyboard.add(buildRow("Quiero dejar"));
+		keyboard.add(buildRow("Quiero reducir"));
+		keyboard.add(buildRow("No, gracias"));
+		keyboard.add(buildRow("Mas hábitos..."));
+		replyKeyboardMarkup.setKeyboard(keyboard);
+		return replyKeyboardMarkup;
 	}
 }
