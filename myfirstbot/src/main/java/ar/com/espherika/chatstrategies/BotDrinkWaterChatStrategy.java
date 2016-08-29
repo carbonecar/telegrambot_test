@@ -23,27 +23,28 @@ import ar.com.espherika.service.TimerExecutor;
 public class BotDrinkWaterChatStrategy implements BotChatStrategy {
 
 	private enum SET_CRON_STATE {
-		INTRODUCE,CRON_REQUEST, CRON, CRON_TWICE;
+		INTRODUCE, CRON_REQUEST, CRON, CRON_TWICE;
 	}
 
 	private Map<Long, SET_CRON_STATE> chatIdStates = new HashMap<Long, SET_CRON_STATE>();
 
 	@Override
 	public void run(Message message, MyFirstBot bot) {
-	
-		
+
 		SendMessage sendMessage = new SendMessage();
 		sendMessage.setChatId(message.getChatId().toString());
-		//TODO switch?
-		if (message.getText().equals("Por que?")) {
+		String messageFromUser=message.getText();
+		
+		
+		if (messageFromUser.equals("Por que?")) {
 			Habito beberAgua = bot.getHabitoBeberAgua();
 			for (Beneficio beneficio : beberAgua.getBeneficios()) {
 				bot.sendControlledMessage(sendMessage, beneficio.getDesripcion());
 			}
-			return ;
+			return;
 		}
 
-		if (message.getText().equals("Ya tengo el hábito")) {
+		if (messageFromUser.equals("Ya tengo el hábito")) {
 			sendMessage.setReplyMarkup(getAdoptHabitWaterKeyboard());
 			bot.sendControlledMessage(sendMessage, "Excelente " + message.getFrom().getFirstName()
 					+ " te gustaría que de todas forma te recuerde sobre esto?");
@@ -52,13 +53,18 @@ public class BotDrinkWaterChatStrategy implements BotChatStrategy {
 			return;
 		}
 
-		if (message.getText().equals("Adoptar hábito")) {
+		if (messageFromUser.equals("Adoptar hábito")) {
 			sendMessage.setReplyMarkup(getAdoptHabitWaterKeyboard());
 			bot.sendControlledMessage(sendMessage,
 					"Excelente " + message.getFrom().getFirstName() + " te gustaría que  te recuerde sobre esto?");
 			this.chatIdStates.put(message.getChatId(), SET_CRON_STATE.CRON_REQUEST);
 			return;
-			
+
+		}
+
+		if (messageFromUser.equals("No, gracias")) {
+			this.finishChat(sendMessage, message, bot);
+			return;
 		}
 
 		if (SET_CRON_STATE.CRON_REQUEST.equals(this.getSafeState(message.getChatId()))) {
@@ -66,27 +72,29 @@ public class BotDrinkWaterChatStrategy implements BotChatStrategy {
 			return;
 		}
 
-
-		if (SET_CRON_STATE.CRON.equals(this.getSafeState(message.getChatId()))){
+		if (SET_CRON_STATE.CRON.equals(this.getSafeState(message.getChatId()))) {
 			doCron(message, bot, sendMessage);
-			bot.chatIdStates.put(message.getChatId(), ChatStates.HABITO_FUMAR);
-			sendMessage.setReplyMarkup(MenuKeyboardFactory.getMainMenuKeyboard());
-			bot.sendControlledMessage(sendMessage, "Puedo ayudarte en algo más?");
-			bot.setRandomChatStrategy(sendMessage,message);
+			this.finishChat(sendMessage, message, bot);
 			return;
-			
+
 		}
 
-		if( SET_CRON_STATE.CRON_TWICE.equals(this.getSafeState(message.getChatId()))) {
+		if (SET_CRON_STATE.CRON_TWICE.equals(this.getSafeState(message.getChatId()))) {
 			doCron(message, bot, sendMessage);
 			this.chatIdStates.put(message.getChatId(), SET_CRON_STATE.CRON);
 			return;
 		}
-		
-		if(SET_CRON_STATE.INTRODUCE.equals(this.getSafeState(message.getChatId()))){
+
+		if (SET_CRON_STATE.INTRODUCE.equals(this.getSafeState(message.getChatId()))) {
 			bot.iniciarBeberAgua(sendMessage, message);
 		}
 
+	}
+
+	private void finishChat(SendMessage sendMessage, Message message, MyFirstBot bot) {
+		this.chatIdStates.put(message.getChatId(), SET_CRON_STATE.INTRODUCE);
+		sendMessage.setReplyMarkup(MenuKeyboardFactory.getMainMenuKeyboard());
+		bot.sendControlledMessage(sendMessage, "Puedo ayudarte en algo más?");
 	}
 
 	private void doCron(Message message, MyFirstBot bot, SendMessage sendMessage) {
@@ -96,10 +104,10 @@ public class BotDrinkWaterChatStrategy implements BotChatStrategy {
 			Calendar cal = Calendar.getInstance();
 			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 			bot.sendControlledMessage(sendMessage, "la hora local es: " + sdf.format(cal.getTime()));
-			bot.sendControlledMessage(sendMessage, "para validar que fue agendado te lo recordare en 1 minuto");
+			bot.sendControlledMessage(sendMessage, "para validar que fue agendado te lo recordare en 2 minutos");
 			bot.sendControlledMessage(sendMessage, "luego de dicho recordatorio aplicará el horario que seleccionaste");
 			int horaPrueba = cal.get(Calendar.HOUR_OF_DAY);
-			int minutoPrueba = cal.get(Calendar.MINUTE) + 1;
+			int minutoPrueba = cal.get(Calendar.MINUTE) + 2;
 			bot.sendControlledMessage(sendMessage, "agendado para :" + horaPrueba + ":" + minutoPrueba);
 
 			TimerExecutor.getInstance().startExecutionEveryDayAt(new CustomTimerTask("test task", 1) {
@@ -108,17 +116,18 @@ public class BotDrinkWaterChatStrategy implements BotChatStrategy {
 				public void execute() {
 					bot.sendControlledMessage(sendMessage, bot.getHabitoBeberAgua().getMensajeAlerta());
 				}
-			}, horaPrueba, minutoPrueba, 00);
+			}, horaPrueba, minutoPrueba, 0);
 
-			TimerExecutor.getInstance().startExecutionEveryDayAt(new CustomTimerTask("test task", 1) {
+			TimerExecutor.getInstance().startExecutionEveryDayAt(
+					new CustomTimerTask("Recordatorio programado para las : " + hora + " hs", 1) {
 
-				@Override
-				public void execute() {
-					bot.sendControlledMessage(sendMessage, bot.getHabitoBeberAgua().getMensajeAlerta());
-				}
-			}, horaPrueba, minutoPrueba, hora);
-			
-			if(this.getSafeState(message.getChatId()).equals(SET_CRON_STATE.CRON_TWICE)){
+						@Override
+						public void execute() {
+							bot.sendControlledMessage(sendMessage, bot.getHabitoBeberAgua().getMensajeAlerta());
+						}
+					}, hora, 0, 0);
+
+			if (this.getSafeState(message.getChatId()).equals(SET_CRON_STATE.CRON_TWICE)) {
 				bot.sendControlledMessage(sendMessage, "Ingresa la otra hora a la cual quieres ser informado");
 			}
 		} catch (NumberFormatException nef) {

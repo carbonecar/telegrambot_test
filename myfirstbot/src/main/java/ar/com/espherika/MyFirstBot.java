@@ -57,7 +57,7 @@ public class MyFirstBot extends TelegramLongPollingBot {
 			ChatStates state=this.safeGetStates(message.getChatId());
 			
 			if (message.hasText()) {
-				if (message.getText().equals("Mas hábitos...")) {
+				if (message.getText().equals("Mas hábitos...")|| message.getText().equals("Consejos saludables")) {
 					this.setRandomChatStrategy(new SendMessage(),message);
 					return;
 				}

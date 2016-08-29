@@ -19,6 +19,8 @@ public class BotSmokerChatStrategy implements BotChatStrategy {
 		sendMessage.setReplyMarkup(MenuKeyboardFactory.getSmokeKeyboard());
 		bot.sendControlledMessage(sendMessage, "todavía estamos agregando hábitos saludables.");
 		//bot.setRandomChatStrategy(sendMessage, message);
+	
+	
 	}
 	
 
