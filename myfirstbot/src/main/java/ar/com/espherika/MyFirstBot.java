@@ -150,12 +150,12 @@ public class MyFirstBot extends TelegramLongPollingBot {
 
 	@Override
 	public String getBotUsername() {
-		return BotConfig.BOT_USERNAME_CARBONECAR;
+		return BotConfig.BOT_USERNAME_PRUEBACARLOS_BOT;
 	}
 
 	@Override
 	public String getBotToken() {
-		return BotConfig.BOT_TOKEN_CARBONECAR_BOT;
+		return BotConfig.BOT_TOKEN_PRUEBA_CARLOS;
 	}
 
 	/**
