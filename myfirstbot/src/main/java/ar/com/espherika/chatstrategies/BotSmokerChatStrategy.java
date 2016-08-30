@@ -12,7 +12,7 @@ import ar.com.espherika.MyFirstBot;
 public class BotSmokerChatStrategy implements BotChatStrategy {
 
 	private enum SMOKER_STATES {
-		INTRODUCE, REQUEST_TARGET, WAITING_TARGET,WAITING_TARGET_REDUCE_NUMBER,WAITING_TARGET_ACTUAL_NUMBER,TARGET_SET, STOP_SMOKING_TARGET, REDUCE_SMOKING_TARGET;
+		INTRODUCE, REQUEST_TARGET, REQUEST_TARGET_ACTUAL_NUMBER,WAITING_TARGET_REDUCE_NUMBER,REQUEST_TARGET_REDUCE_NUMBER,WAITING_TARGET_ACTUAL_NUMBER, STOP_SMOKING_TARGET, REDUCE_SMOKING_TARGET;
 	}
 
 	private Map<Long, SMOKER_STATES> chatIdStates = new HashMap<Long, SMOKER_STATES>();
@@ -34,11 +34,11 @@ public class BotSmokerChatStrategy implements BotChatStrategy {
 			sendMessage.setReplyMarkup(MenuKeyboardFactory.getReduceSmokeKeyboard());
 			bot.sendControlledMessage(sendMessage,
 					"Quieres que te ayude a dejar o reducir el consumo de tabaco diario?");
-			this.chatIdStates.put(message.getChatId(), SMOKER_STATES.WAITING_TARGET);
+			this.chatIdStates.put(message.getChatId(), SMOKER_STATES.REQUEST_TARGET_ACTUAL_NUMBER);
 			return;
 		}
 
-		if(this.getSafeState(message).equals(SMOKER_STATES.WAITING_TARGET)){
+		if(this.getSafeState(message).equals(SMOKER_STATES.REQUEST_TARGET_ACTUAL_NUMBER)){
 			sendMessage.setReplyMarkup(MenuKeyboardFactory.getMainMenuKeyboard());
 			
 			bot.sendControlledMessage(sendMessage,"Cuantos cigarrilos fumas?");
@@ -50,53 +50,39 @@ public class BotSmokerChatStrategy implements BotChatStrategy {
 		if(this.getSafeState(message).equals(SMOKER_STATES.WAITING_TARGET_ACTUAL_NUMBER)){
 			try{
 				int actualCigaretteNumber=new Integer(message.getText());
-				this.chatIdStates.put(message.getChatId(), SMOKER_STATES.WAITING_TARGET_REDUCE_NUMBER);
+				this.chatIdStates.put(message.getChatId(), SMOKER_STATES.REQUEST_TARGET_REDUCE_NUMBER);
 				
 				
 			}catch (NumberFormatException nfe){
-				bot.sendControlledMessage(sendMessage,"Cuantos cigarrilos fumas? (Debe ser un numero)");
+				bot.sendControlledMessage(sendMessage,"Cu√°tos cigarrilos fumas? (Debe ser un n√∫mero)");
 			}
 		}
 		
 		
-		if(this.getSafeState(message).equals(SMOKER_STATES.WAITING_TARGET_REDUCE_NUMBER)){
-			try{								
-				bot.sendControlledMessage(sendMessage,"A cu·ntos cigarrillos diarios te gustarÌa reducir)");
+		if(this.getSafeState(message).equals(SMOKER_STATES.REQUEST_TARGET_REDUCE_NUMBER)){
+				bot.sendControlledMessage(sendMessage,"A cu√°ntos cigarrillos diarios te gustar√≠a reducir)");
 				this.chatIdStates.put(message.getChatId(), SMOKER_STATES.WAITING_TARGET_REDUCE_NUMBER);
 				return;
-			}catch (NumberFormatException nfe){
-				bot.sendControlledMessage(sendMessage,"Cuantos cigarrilos fumas? (Debe ser un numero)");
-			}
+			
 		}
 		
 		
 		if(this.getSafeState(message).equals(SMOKER_STATES.WAITING_TARGET_REDUCE_NUMBER)){
 			try{
-				new Integer(message.getText());
+				new Integer(message.getText());	
+				int targetCigaretteNumber=new Integer(message.getText());
+				bot.sendControlledMessage(sendMessage,"Excelente, a partir de ahora te preguntar√° a lo largo del d√≠a para saber cu√°ntos vas?)");
+				bot.sendControlledMessage(sendMessage,"qu√© otro h√°bito saludable te gustar√≠a adoptar?)");
 				
-				bot.sendControlledMessage(sendMessage,"A cu·ntos cigarrillos diarios te gustarÌa reducir?)");
-				this.chatIdStates.put(message.getChatId(), SMOKER_STATES.TARGET_SET);
+				this.chatIdStates.put(message.getChatId(), SMOKER_STATES.INTRODUCE);
 				return;
 			}catch (NumberFormatException nfe){
-				bot.sendControlledMessage(sendMessage,"A cu·ntos cigarrillos diarios te gustarÌa reducir? (Debe ser un numero)");
+				bot.sendControlledMessage(sendMessage,"A cu√°ntos cigarrillos diarios te gustar√≠a reducir? (Debe ser un numero)");
 			}
 		}
 
 		
-		if(this.getSafeState(message).equals(SMOKER_STATES.TARGET_SET)){
-			try{
-				int targetCigaretteNumber=new Integer(message.getText());
-				bot.sendControlledMessage(sendMessage,"Excelente, a partir de ahora te preguntarÈ a lo largo del dÌa para saber cu·ntos vas?)");
-				bot.sendControlledMessage(sendMessage,"quÈ otro h·bito saludable te gustarÌa adoptar?)");
-				
-				this.chatIdStates.put(message.getChatId(), SMOKER_STATES.INTRODUCE);
-				bot.setRandomChatStrategy(sendMessage, message);
-				return;
-				
-			}catch (NumberFormatException nfe){
-				bot.sendControlledMessage(sendMessage,"A cu·ntos cigarrillos diarios te gustarÌa reducir? (Debe ser un numero)");
-			}
-		}
+		
 
 		// bot.setRandomChatStrategy(sendMessage, message);
 
