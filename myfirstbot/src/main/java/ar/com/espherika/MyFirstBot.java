@@ -2,9 +2,11 @@ package ar.com.espherika;
 
 import static ar.com.espherika.MenuKeyboardFactory.getWaterBenefitKeyboard;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
 import org.apache.log4j.Logger;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
@@ -63,14 +65,17 @@ public class MyFirstBot extends TelegramLongPollingBot {
 				
 				if(message.getText().equals("/voice")){
 					this.sendVoiceTo(message);
+					return;
 				}
 				
 				if(message.getText().equals("/audio")){
 					this.sendAudioTo(message);
+					return;
 				}
 				
 				if(message.getText().equals("/photo")){
 					this.sendPhotoTo(message);
+					return;
 				}
 				if (message.getText().equals("Mas hábitos...")|| message.getText().equals("Consejos saludables")) {
 					this.setRandomChatStrategy(new SendMessage(),message);
@@ -111,8 +116,11 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	private void sendAudioTo(Message message) {
 		SendAudio sendAudioRequest=new SendAudio();
 		sendAudioRequest.setChatId(message.getChatId().toString());
-		sendAudioRequest.setNewAudio("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/presentacion.mp3", "presentacion");
+		//sendAudioRequest.setNewAudio("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/presentacion.mp3", "presentacion");
+		sendAudioRequest.setNewAudio(new File("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/presentacion.mp3"));
+		LOG.info("TEST MP3");
 		try{
+			LOG.info("TEST MP3");
 			sendAudio(sendAudioRequest);
 		}catch(TelegramApiException tae){
 			LOG.error(tae);
@@ -127,8 +135,12 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	private void sendVoiceTo(Message message) {
 		SendVoice sendVoiceRequest=new SendVoice();
 		sendVoiceRequest.setChatId(message.getChatId().toString());
-		sendVoiceRequest.setNewVoice("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/presentacion.ogg", "presentacion");
+		//sendVoiceRequest.setNewVoice("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/opus_sample.opus", "presentacion");
+		sendVoiceRequest.setNewVoice(new File("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/presentacion.opus"));
+		sendVoiceRequest.setDuration(7);
+		LOG.info("TEST OPUS");
 		try{
+			LOG.info("TEST Inside opus");
 			sendVoice(sendVoiceRequest);
 		}catch(TelegramApiException tae){
 			LOG.error(tae);
@@ -150,12 +162,12 @@ public class MyFirstBot extends TelegramLongPollingBot {
 
 	@Override
 	public String getBotUsername() {
-		return BotConfig.BOT_USERNAME_CARBONECAR;
+		return BotConfig.BOT_USERNAME_PRUEBACARLOS_BOT;
 	}
 
 	@Override
 	public String getBotToken() {
-		return BotConfig.BOT_TOKEN_CARBONECAR_BOT;
+		return BotConfig.BOT_TOKEN_PRUEBA_CARLOS;
 	}
 
 	/**
