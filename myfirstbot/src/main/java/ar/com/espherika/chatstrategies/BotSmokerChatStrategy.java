@@ -49,10 +49,8 @@ public class BotSmokerChatStrategy implements BotChatStrategy {
 		
 		if(this.getSafeState(message).equals(SMOKER_STATES.WAITING_TARGET_ACTUAL_NUMBER)){
 			try{
-				int actualCigaretteNumber=new Integer(message.getText());
+				new Integer(message.getText());
 				this.chatIdStates.put(message.getChatId(), SMOKER_STATES.REQUEST_TARGET_REDUCE_NUMBER);
-				
-				
 			}catch (NumberFormatException nfe){
 				bot.sendControlledMessage(sendMessage,"Cuátos cigarrilos fumas? (Debe ser un número)");
 			}

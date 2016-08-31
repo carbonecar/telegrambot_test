@@ -3,6 +3,8 @@ package ar.com.espherika;
 import static ar.com.espherika.MenuKeyboardFactory.getWaterBenefitKeyboard;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+import org.springframework.core.io.ClassPathResource;
 import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.api.methods.send.SendAudio;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
@@ -118,9 +121,7 @@ public class MyFirstBot extends TelegramLongPollingBot {
 		sendAudioRequest.setChatId(message.getChatId().toString());
 		//sendAudioRequest.setNewAudio("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/presentacion.mp3", "presentacion");
 		sendAudioRequest.setNewAudio(new File("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/presentacion.mp3"));
-		LOG.info("TEST MP3");
 		try{
-			LOG.info("TEST MP3");
 			sendAudio(sendAudioRequest);
 		}catch(TelegramApiException tae){
 			LOG.error(tae);
@@ -136,14 +137,17 @@ public class MyFirstBot extends TelegramLongPollingBot {
 		SendVoice sendVoiceRequest=new SendVoice();
 		sendVoiceRequest.setChatId(message.getChatId().toString());
 		//sendVoiceRequest.setNewVoice("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/opus_sample.opus", "presentacion");
-		sendVoiceRequest.setNewVoice(new File("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/presentacion.opus"));
+		try {
+			InputStream inputStreamPresentacion=new ClassPathResource("sound/presentacion.opus").getInputStream();
+				//this.getClass().getClassLoader().getResourceAsStream("presentacion.opus");
+		sendVoiceRequest.setNewVoice("presentacion", inputStreamPresentacion);
+		//sendVoiceRequest.setNewVoice(new File("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/presentacion.opus"));
 		sendVoiceRequest.setDuration(7);
-		LOG.info("TEST OPUS");
-		try{
-			LOG.info("TEST Inside opus");
 			sendVoice(sendVoiceRequest);
 		}catch(TelegramApiException tae){
 			LOG.error(tae);
+		} catch (IOException e) {
+			LOG.error(e);
 		}
 		
 	}
@@ -162,12 +166,12 @@ public class MyFirstBot extends TelegramLongPollingBot {
 
 	@Override
 	public String getBotUsername() {
-		return BotConfig.BOT_USERNAME_PRUEBACARLOS_BOT;
+		return BotConfig.BOT_USERNAME_CARBONECAR;
 	}
 
 	@Override
 	public String getBotToken() {
-		return BotConfig.BOT_TOKEN_PRUEBA_CARLOS;
+		return BotConfig.BOT_TOKEN_CARBONECAR_BOT;
 	}
 
 	/**
