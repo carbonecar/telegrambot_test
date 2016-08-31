@@ -62,10 +62,10 @@ public class Application {
 			
 			Habito dormirBien= new Habito("DORMIR_BIEN","Dormir Bien");
 			dormirBien.addBeneficio("Dormir ayuda a consolidar la memoria.");
-			dormirBien.addBeneficio("Mejora su habilidad en el aprendizaje de tareas motoras complej.a");
+			dormirBien.addBeneficio("Mejora su habilidad en el aprendizaje de tareas motoras compleja");
 		
 			dormirBien.setMensajeIntroductorio("Dormir bien es reparador y tiene beneficios cientificamente comprobados.");
-			dormirBien.setMensajeAlerta("Estas cumpliendo con tu objetivo de horas de sue�o por dia?");
+			dormirBien.setMensajeAlerta("Estas cumpliendo con tu objetivo de horas de sueño por día?");
 			
 			repository.save(dormirBien);
 
