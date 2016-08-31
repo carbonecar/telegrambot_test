@@ -42,3 +42,6 @@ Se compila con maven: <br/>
 
 Se corre con:
 `java -jar target/bottest-0.0.1-SNAPSHOT.jar`
+
+En caso de tener problemas al levantar se puede usar:
+`java -jar -Djava.security.egd=file:/dev/./urandom bottest-0.0.1-SNAPSHOT.jar`
