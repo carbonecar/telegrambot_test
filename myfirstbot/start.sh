@@ -1,1 +1,0 @@
-java -jar -Djava.security.egd=file:/dev/./urandom -Dbotusername=@osdeneobot -Dbottoken=217721562:AAGs2QX4VpBlSAGZLA0XXa_ogjuRa1tU4NA target/bottest-0.0.1-SNAPSHOT.jar

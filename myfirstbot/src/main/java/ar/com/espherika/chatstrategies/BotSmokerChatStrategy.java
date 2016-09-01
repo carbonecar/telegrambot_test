@@ -32,9 +32,13 @@ public class BotSmokerChatStrategy implements BotChatStrategy {
 
 		if (this.getSafeState(message).equals(SMOKER_STATES.REQUEST_TARGET)) {
 			sendMessage.setReplyMarkup(MenuKeyboardFactory.getReduceSmokeKeyboard());
-			bot.sendControlledMessage(sendMessage,
-					"Quieres que te ayude a dejar o reducir el consumo de tabaco diario?");
-			this.chatIdStates.put(message.getChatId(), SMOKER_STATES.REQUEST_TARGET_ACTUAL_NUMBER);
+			if(message.getText().equals("No")){
+				this.endChatStrategy(message, bot, sendMessage);
+			}else{
+				bot.sendControlledMessage(sendMessage,
+						"Quieres que te ayude a dejar o reducir el consumo de tabaco diario?");
+				this.chatIdStates.put(message.getChatId(), SMOKER_STATES.REQUEST_TARGET_ACTUAL_NUMBER);
+			}
 			return;
 		}
 
@@ -52,7 +56,7 @@ public class BotSmokerChatStrategy implements BotChatStrategy {
 				new Integer(message.getText());
 				this.chatIdStates.put(message.getChatId(), SMOKER_STATES.REQUEST_TARGET_REDUCE_NUMBER);
 			}catch (NumberFormatException nfe){
-				bot.sendControlledMessage(sendMessage,"Cuátos cigarrilos fumas? (Debe ser un número)");
+				bot.sendControlledMessage(sendMessage,"Cuátos cigarrilos fumás? (Debe ser un número)");
 			}
 		}
 		
@@ -70,9 +74,7 @@ public class BotSmokerChatStrategy implements BotChatStrategy {
 				new Integer(message.getText());	
 				int targetCigaretteNumber=new Integer(message.getText());
 				bot.sendControlledMessage(sendMessage,"Excelente, a partir de ahora te preguntará a lo largo del día para saber cuántos vas?)");
-				bot.sendControlledMessage(sendMessage,"qué otro hábito saludable te gustaría adoptar?)");
-				
-				this.chatIdStates.put(message.getChatId(), SMOKER_STATES.INTRODUCE);
+				endChatStrategy(message, bot, sendMessage);
 				return;
 			}catch (NumberFormatException nfe){
 				bot.sendControlledMessage(sendMessage,"A cuántos cigarrillos diarios te gustaría reducir? (Debe ser un numero)");
@@ -84,6 +86,13 @@ public class BotSmokerChatStrategy implements BotChatStrategy {
 
 		// bot.setRandomChatStrategy(sendMessage, message);
 
+	}
+
+	private void endChatStrategy(Message message, MyFirstBot bot, SendMessage sendMessage) {
+		sendMessage.setReplyMarkup(MenuKeyboardFactory.getMainMenuKeyboard());
+		bot.sendControlledMessage(sendMessage,"qué otro hábito saludable te gustaría adoptar?)");
+		
+		this.chatIdStates.put(message.getChatId(), SMOKER_STATES.INTRODUCE);
 	}
 
 	private SMOKER_STATES getSafeState(Message message) {

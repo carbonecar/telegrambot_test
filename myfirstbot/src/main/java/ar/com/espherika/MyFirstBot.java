@@ -29,29 +29,33 @@ import ar.com.espherika.chatstrategies.BotIntroduceChatStrategy;
 import ar.com.espherika.chatstrategies.BotSleepWellChatStrategy;
 import ar.com.espherika.chatstrategies.BotSmokerChatStrategy;
 import ar.com.espherika.healthbot.model.BotIdentifier;
+import ar.com.espherika.healthbot.model.Ciudadano;
 import ar.com.espherika.healthbot.model.Habito;
+import ar.com.espherika.healthbot.model.PreferenciasChat;
+import ar.com.espherika.healthbot.persistence.CiudadanoRepository;
 import ar.com.espherika.healthbot.persistence.HabitoRepository;
-
 
 public class MyFirstBot extends TelegramLongPollingBot {
 	private Logger LOG = Logger.getLogger(MyFirstBot.class);
 	private Map<Long, KieSession> chatIdKieSession = new HashMap<Long, KieSession>();
-	
-	//TODO es evidente que esto va a pinchar feo con mas de 1 usuario, no?
-	public Map<Long,ChatStates> chatIdStates=new HashMap<Long,ChatStates>();
-	public Map<ChatStates,BotChatStrategy> chatStrategies=new HashMap<ChatStates,BotChatStrategy>();
-	
+
+	// TODO es evidente que esto va a pinchar feo con mas de 1 usuario, no?
+	public Map<Long, ChatStates> chatIdStates = new HashMap<Long, ChatStates>();
+	public Map<ChatStates, BotChatStrategy> chatStrategies = new HashMap<ChatStates, BotChatStrategy>();
+
 	private HabitoRepository habitoRepository;
+	private CiudadanoRepository ciudadanoRepository;
 	private BotIdentifier botIdentifier;
-	
-	public MyFirstBot(BotIdentifier botIdentifier){
-		this.botIdentifier=botIdentifier;
+
+	public MyFirstBot(BotIdentifier botIdentifier) {
+		this.botIdentifier = botIdentifier;
 		this.chatStrategies.put(ChatStates.PRESENTACION, new BotIntroduceChatStrategy());
 		this.chatStrategies.put(ChatStates.HABITO_BEBER_AGUA_INICIADO, new BotDrinkWaterChatStrategy());
 		this.chatStrategies.put(ChatStates.HABITO_FUMAR, new BotSmokerChatStrategy());
 		this.chatStrategies.put(ChatStates.HABITO_DORMIR, new BotSleepWellChatStrategy());
-		
+
 	}
+
 	public HabitoRepository getHabitoRepository() {
 		return habitoRepository;
 	}
@@ -64,32 +68,45 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	public void onUpdateReceived(Update update) {
 		if (update.hasMessage()) {
 			Message message = update.getMessage();
-			
-			//KieSession kieSession = this.safeGetKieSession(message.getChatId());
-			ChatStates state=this.safeGetStates(message.getChatId());
-			
+
+			// KieSession kieSession =
+			// this.safeGetKieSession(message.getChatId());
+			ChatStates state = this.safeGetStates(message.getChatId());
+
 			if (message.hasText()) {
-				
-				if(message.getText().equals("/voice")){
+				if (message.getText().equals("/news")) {
+					this.showNews(message);
+					return;
+				}
+
+				if (message.getText().equals("/voice")) {
 					this.sendVoiceTo(message);
 					return;
 				}
-				
-				if(message.getText().equals("/audio")){
+
+				if (message.getText().equals("/presentacion_off")) {
+					Ciudadano ciudadano = this.getCiudadano(message.getChatId().toString());
+					ciudadano.getPreferenciasChat().setPresentacionApagada(true);
+					this.ciudadanoRepository.save(ciudadano);
+
+					return;
+				}
+
+				if (message.getText().equals("/audio")) {
 					this.sendAudioTo(message);
 					return;
 				}
-				
-				if(message.getText().equals("/photo")){
+
+				if (message.getText().equals("/photo")) {
 					this.sendPhotoTo(message);
 					return;
 				}
-				if (message.getText().equals("Mas hábitos...")|| message.getText().equals("Consejos saludables")) {
-					this.setRandomChatStrategy(new SendMessage(),message);
+				if (message.getText().equals("Mas hábitos...") || message.getText().equals("Consejos saludables")) {
+					this.setRandomChatStrategy(new SendMessage(), message);
 					return;
 				}
-				BotChatStrategy strategy=this.chatStrategies.get(state);
-				if(strategy!=null){
+				BotChatStrategy strategy = this.chatStrategies.get(state);
+				if (strategy != null) {
 					strategy.run(message, this);
 					return;
 				}
@@ -98,72 +115,105 @@ public class MyFirstBot extends TelegramLongPollingBot {
 
 	}
 
-	
-	private void sendPhotoTo(Message message) {
-            SendPhoto sendPhotoRequest = new SendPhoto();
-            sendPhotoRequest.setChatId(message.getChatId().toString());
-            //path: String,                     photoName: String
-            sendPhotoRequest.setNewPhoto("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/te_verde.jpg", "te_verde.jpg"); //
-            try {
-                sendPhoto(sendPhotoRequest);
-            } catch (TelegramApiException e) {
-            	
-            	LOG.error(e);
-                /*
-                 * Do some error handling
-                 * e.printStackTrace();
-                 */
-        }
-		
+	/**
+	 * TODO: que envie un archivo con los change set que se saca de git Envia un
+	 * mensaje con los cambios que se hicieron
+	 * 
+	 * @param message
+	 */
+	private void showNews(Message message) {
+		SendMessage sendMessage = new SendMessage();
+		sendMessage.setChatId(message.getChatId().toString());
+		this.sendControlledMessage(sendMessage, "Agregado de preferencias de chat del usuario (en memoria)");
+		this.sendControlledMessage(sendMessage, "Parametrizacion del bot (username y token)");
+		this.sendControlledMessage(sendMessage, "Borrado de la hora y la alerta de prueba en el habito 'Tomar agua'");
+		this.sendControlledMessage(sendMessage, "Funcion de off para el apagado de la presentacion");
+		this.sendControlledMessage(sendMessage, "Si no se es fumador sugiere otro habito en lugar de continuar como si lo fuera");
+
+
 	}
+
+	private void sendPhotoTo(Message message) {
+		SendPhoto sendPhotoRequest = new SendPhoto();
+		sendPhotoRequest.setChatId(message.getChatId().toString());
+		// path: String, photoName: String
+		sendPhotoRequest.setNewPhoto("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/te_verde.jpg",
+				"te_verde.jpg"); //
+		try {
+			sendPhoto(sendPhotoRequest);
+		} catch (TelegramApiException e) {
+
+			LOG.error(e);
+			/*
+			 * Do some error handling e.printStackTrace();
+			 */
+		}
+
+	}
+
 	/**
 	 * For testing..
+	 * 
 	 * @param message
 	 */
 	private void sendAudioTo(Message message) {
-		SendAudio sendAudioRequest=new SendAudio();
+		SendAudio sendAudioRequest = new SendAudio();
 		sendAudioRequest.setChatId(message.getChatId().toString());
-		//sendAudioRequest.setNewAudio("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/presentacion.mp3", "presentacion");
-		sendAudioRequest.setNewAudio(new File("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/presentacion.mp3"));
-		try{
+		// sendAudioRequest.setNewAudio("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/presentacion.mp3",
+		// "presentacion");
+		sendAudioRequest.setNewAudio(
+				new File("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/presentacion.mp3"));
+		try {
 			sendAudio(sendAudioRequest);
-		}catch(TelegramApiException tae){
+		} catch (TelegramApiException tae) {
 			LOG.error(tae);
 		}
-		
+
 	}
-	
+
 	/**
 	 * For testing..
+	 * 
 	 * @param message
 	 */
 	public void sendVoiceTo(Message message) {
-		SendVoice sendVoiceRequest=new SendVoice();
+
+		SendVoice sendVoiceRequest = new SendVoice();
 		sendVoiceRequest.setChatId(message.getChatId().toString());
-		//sendVoiceRequest.setNewVoice("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/opus_sample.opus", "presentacion");
+		// sendVoiceRequest.setNewVoice("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/opus_sample.opus",
+		// "presentacion");
 		try {
-			InputStream inputStreamPresentacion=new ClassPathResource("sound/presentacion.opus").getInputStream();
-				//this.getClass().getClassLoader().getResourceAsStream("presentacion.opus");
-		sendVoiceRequest.setNewVoice("presentacion", inputStreamPresentacion);
-		//sendVoiceRequest.setNewVoice(new File("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/presentacion.opus"));
-		sendVoiceRequest.setDuration(7);
+			InputStream inputStreamPresentacion = new ClassPathResource("sound/presentacion.opus").getInputStream();
+			// this.getClass().getClassLoader().getResourceAsStream("presentacion.opus");
+			sendVoiceRequest.setNewVoice("presentacion", inputStreamPresentacion);
+			// sendVoiceRequest.setNewVoice(new
+			// File("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/presentacion.opus"));
+			sendVoiceRequest.setDuration(7);
 			sendVoice(sendVoiceRequest);
-		}catch(TelegramApiException tae){
+		} catch (TelegramApiException tae) {
 			LOG.error(tae);
 		} catch (IOException e) {
 			LOG.error(e);
 		}
-		
+
 	}
+
 	private ChatStates safeGetStates(Long chatId) {
-		ChatStates state=this.chatIdStates.get(chatId);
-		if (state==null){
-			state=ChatStates.PRESENTACION;
+		ChatStates state = this.chatIdStates.get(chatId);
+		if (state == null) {
+			state = ChatStates.PRESENTACION;
 			this.chatIdStates.put(chatId, ChatStates.PRESENTACION);
+			Ciudadano ciudadano = new Ciudadano(chatId.toString());
+			ciudadano.setPreferenciasChat(new PreferenciasChat());
+			this.ciudadanoRepository.save(ciudadano);
 		}
 		return state;
 	}
 
+	
+	public Ciudadano getCiudadano(String id){
+		return ciudadanoRepository.findOne(id);
+	}
 	public Habito getHabitoBeberAgua() {
 		return habitoRepository.findByCodigo("BEBER_AGUA");
 	}
@@ -172,7 +222,7 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	public String getBotUsername() {
 		return this.botIdentifier.getBotUsername();
 	}
-	
+
 	@Override
 	public String getBotToken() {
 		return this.botIdentifier.getBotToken();
@@ -208,41 +258,47 @@ public class MyFirstBot extends TelegramLongPollingBot {
 			// Manejar el rror
 		}
 	}
-	
-	
+
 	/**
-	 * TODO validar que ya se hubiera presentado. 
+	 * TODO validar que ya se hubiera presentado.
+	 * 
 	 * @param chatId
 	 */
-	public void setRandomChatStrategy(SendMessage sendMessage,Message message){
+	public void setRandomChatStrategy(SendMessage sendMessage, Message message) {
 		sendMessage.setChatId(message.getChatId().toString());
-		int chatStrategiesCount=this.chatStrategies.keySet().size()-1;
-		int indexRandomState=((int)(Math.random()*chatStrategiesCount));
-		
-		ChatStates[] keySetArray=new ChatStates[chatStrategiesCount];
+		int chatStrategiesCount = this.chatStrategies.keySet().size() - 1;
+		int indexRandomState = ((int) (Math.random() * chatStrategiesCount));
+
+		ChatStates[] keySetArray = new ChatStates[chatStrategiesCount];
 		this.chatStrategies.keySet();
-		int index=0;
+		int index = 0;
 		for (ChatStates chatState : this.chatStrategies.keySet()) {
-			
-			if(!chatState.equals(ChatStates.PRESENTACION)){
-				keySetArray[index++]=chatState;
+
+			if (!chatState.equals(ChatStates.PRESENTACION)) {
+				keySetArray[index++] = chatState;
 			}
 		}
 		this.chatIdStates.put(message.getChatId(), keySetArray[indexRandomState]);
-		BotChatStrategy chatStrategy=this.chatStrategies.get(this.chatIdStates.get(message.getChatId()));
-		System.out.println(chatStrategy.getClass().getName());
+		BotChatStrategy chatStrategy = this.chatStrategies.get(this.chatIdStates.get(message.getChatId()));
 		chatStrategy.run(message, this);
-		
+
 	}
-	
-	
-	
+
 	public void iniciarBeberAgua(SendMessage sendMessage, Message message) {
 		Habito beberAgua = getHabitoBeberAgua();
 		sendMessage.setReplyMarkup(getWaterBenefitKeyboard());
 		sendControlledMessage(sendMessage, beberAgua.getMensajeIntroductorio());
 		chatIdStates.put(message.getChatId(), ChatStates.HABITO_BEBER_AGUA_INICIADO);
-		
+
+	}
+
+	public CiudadanoRepository getCiudadanoRepository() {
+		return this.ciudadanoRepository;
+	}
+
+	public void setCiudadanoRepository(CiudadanoRepository ciudadanoRepository) {
+		this.ciudadanoRepository = ciudadanoRepository;
+
 	}
 
 }

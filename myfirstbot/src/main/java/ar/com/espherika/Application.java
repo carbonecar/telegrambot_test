@@ -1,6 +1,5 @@
 package ar.com.espherika;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -9,7 +8,6 @@ import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.logging.BotLogger;
@@ -17,6 +15,7 @@ import org.telegram.telegrambots.logging.BotLogger;
 import ar.com.espherika.healthbot.model.BotIdentifier;
 import ar.com.espherika.healthbot.model.Habito;
 import ar.com.espherika.healthbot.persistence.BotIdentifierRepository;
+import ar.com.espherika.healthbot.persistence.CiudadanoRepository;
 import ar.com.espherika.healthbot.persistence.HabitoRepository;
 
 @EntityScan(basePackages={"ar.com.espherika.healthbot.model"})
@@ -34,7 +33,7 @@ public class Application {
 	}
 	
 	@Bean
-	public CommandLineRunner demo(HabitoRepository repository,BotIdentifierRepository botIdentifierRepository){
+	public CommandLineRunner demo(HabitoRepository repository,BotIdentifierRepository botIdentifierRepository,CiudadanoRepository ciudadanoRepository){
 		return (p)->{
 			
 			Habito beberAgua = new Habito("BEBER_AGUA", "Beber agua");
@@ -89,6 +88,7 @@ public class Application {
 			TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
 			MyFirstBot mybot=new MyFirstBot(botIdentifier);
 			mybot.setHabitoRepository(repository);
+			mybot.setCiudadanoRepository(ciudadanoRepository);
 			try {
 				telegramBotsApi.registerBot(mybot);
 			} catch (TelegramApiException e) {

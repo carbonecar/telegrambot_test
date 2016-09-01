@@ -103,12 +103,10 @@ public class BotDrinkWaterChatStrategy implements BotChatStrategy {
 			Integer hora = Integer.valueOf(message.getText());
 			Calendar cal = Calendar.getInstance();
 			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-			bot.sendControlledMessage(sendMessage, "la hora local es: " + sdf.format(cal.getTime()));
 			bot.sendControlledMessage(sendMessage, "para validar que fue agendado te lo recordare en 2 minutos");
 			bot.sendControlledMessage(sendMessage, "luego de dicho recordatorio aplicará el horario que seleccionaste");
 			int horaPrueba = cal.get(Calendar.HOUR_OF_DAY);
 			int minutoPrueba = cal.get(Calendar.MINUTE) + 2;
-			bot.sendControlledMessage(sendMessage, "agendado para :" + horaPrueba + ":" + minutoPrueba);
 
 			TimerExecutor.getInstance().startExecutionEveryDayAt(new CustomTimerTask("test task", 1) {
 
