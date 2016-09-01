@@ -20,7 +20,7 @@ import ar.com.espherika.healthbot.model.Ciudadano;
 public class BotIntroduceChatStrategy implements BotChatStrategy {
 
 	private enum INTRODUCE_STATE {
-		GENDER, DATE_REQUEST, DATE;
+		GENDER, AGE_REQUEST, AGE;
 	}
 
 	private Map<Long, INTRODUCE_STATE> chatIdStates = new HashMap<Long, INTRODUCE_STATE>();
@@ -41,25 +41,24 @@ public class BotIntroduceChatStrategy implements BotChatStrategy {
 			sendMessage.setChatId(message.getChatId().toString());
 
 			bot.sendControlledMessage(sendMessage, "Qué sexo eres?");
-			this.chatIdStates.put(message.getChatId(), INTRODUCE_STATE.DATE_REQUEST);
+			this.chatIdStates.put(message.getChatId(), INTRODUCE_STATE.AGE_REQUEST);
 
 			return;
 		}
 
-		if (INTRODUCE_STATE.DATE_REQUEST.equals(state)) {
+		if (INTRODUCE_STATE.AGE_REQUEST.equals(state)) {
 			sendMessage.setReplyMarkup(getHideKeyboard());
-			bot.sendControlledMessage(sendMessage, "Cuándo naciste? (Solo entiendo cuando usas el formato dd/mm/aaaa)");
-			this.chatIdStates.put(message.getChatId(), INTRODUCE_STATE.DATE);
+			bot.sendControlledMessage(sendMessage, "Qué edad tienes?");
+			this.chatIdStates.put(message.getChatId(), INTRODUCE_STATE.AGE);
 		}
-		if (INTRODUCE_STATE.DATE.equals(state)) {
+		if (INTRODUCE_STATE.AGE.equals(state)) {
 			try {
-				Date date = new SimpleDateFormat("dd/MM/yyyy").parse(message.getText());
-			} catch (ParseException e) {
-				bot.sendControlledMessage(sendMessage, "solo te entiendo si ingresas la fecha en formato dd/mm/aaaa");
+				Integer edad = new Integer(message.getText());
+			} catch (NumberFormatException e) {
+				bot.sendControlledMessage(sendMessage, "para tu edad, necesito que ingreses un número.");
 				return;
 			}
 
-			bot.sendControlledMessage(sendMessage, "Recordare esa fecha y te saludaré en tu compleaños");
 			bot.sendControlledMessage(sendMessage, " Muchas gracias " + message.getFrom().getFirstName() + ".");
 			bot.iniciarBeberAgua(sendMessage, message);
 
