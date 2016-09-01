@@ -1,0 +1,1 @@
+java -jar -Djava.security.egd=file:/dev/./urandom target/bottest-0.0.1-SNAPSHOT.jar

@@ -133,7 +133,7 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	 * For testing..
 	 * @param message
 	 */
-	private void sendVoiceTo(Message message) {
+	public void sendVoiceTo(Message message) {
 		SendVoice sendVoiceRequest=new SendVoice();
 		sendVoiceRequest.setChatId(message.getChatId().toString());
 		//sendVoiceRequest.setNewVoice("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/opus_sample.opus", "presentacion");

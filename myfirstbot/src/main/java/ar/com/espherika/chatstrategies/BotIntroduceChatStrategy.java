@@ -28,9 +28,8 @@ public class BotIntroduceChatStrategy implements BotChatStrategy {
 		SendMessage sendMessage = new SendMessage();
 		sendMessage.setChatId(message.getChatId().toString());
 		if (INTRODUCE_STATE.GENDER.equals(state)) {
-			bot.sendControlledMessage(sendMessage, "Hola " + message.getFrom().getFirstName());
+			bot.sendVoiceTo(message);
 			bot.sendControlledMessage(sendMessage, "En que puedo ayudarte?");
-			bot.sendControlledMessage(sendMessage, "tenme paciencia, estoy aprendiendo");
 
 			sendMessage.setReplyMarkup(MenuKeyboardFactory.getGenderMenuKeyboard());
 			sendMessage.setChatId(message.getChatId().toString());
