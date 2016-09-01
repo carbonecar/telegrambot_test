@@ -36,7 +36,7 @@ public class BotDrinkWaterChatStrategy implements BotChatStrategy {
 		String messageFromUser=message.getText();
 		
 		
-		if (messageFromUser.equals("Por que?")) {
+		if (messageFromUser.equals("Por qué?")) {
 			Habito beberAgua = bot.getHabitoBeberAgua();
 			for (Beneficio beneficio : beberAgua.getBeneficios()) {
 				bot.sendControlledMessage(sendMessage, beneficio.getDesripcion());

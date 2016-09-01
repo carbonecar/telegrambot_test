@@ -1,5 +1,6 @@
 package ar.com.espherika;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -8,11 +9,14 @@ import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.logging.BotLogger;
 
+import ar.com.espherika.healthbot.model.BotIdentifier;
 import ar.com.espherika.healthbot.model.Habito;
+import ar.com.espherika.healthbot.persistence.BotIdentifierRepository;
 import ar.com.espherika.healthbot.persistence.HabitoRepository;
 
 @EntityScan(basePackages={"ar.com.espherika.healthbot.model"})
@@ -24,12 +28,13 @@ public class Application {
 
 	
 	public static void main(String[] args) {
+		
 		SpringApplication.run(Application.class);
 
 	}
 	
 	@Bean
-	public CommandLineRunner demo(HabitoRepository repository){
+	public CommandLineRunner demo(HabitoRepository repository,BotIdentifierRepository botIdentifierRepository){
 		return (p)->{
 			
 			Habito beberAgua = new Habito("BEBER_AGUA", "Beber agua");
@@ -69,8 +74,20 @@ public class Application {
 			
 			repository.save(dormirBien);
 
+			BotIdentifier botIdentifier=new BotIdentifier();
+			botIdentifier.setBotUsername(System.getProperty("botusername"));
+			botIdentifier.setBotToken(System.getProperty("bottoken"));
+			
+			if(botIdentifier.getBotUsername()== null || botIdentifier.getBotToken()==null){
+				botIdentifier.setBotUsername(BotConfig.BOT_USERNAME_CARBONECAR);
+				botIdentifier.setBotToken(BotConfig.BOT_TOKEN_CARBONECAR_BOT);
+			}
+			
+			
+			botIdentifierRepository.save(botIdentifier);
+			
 			TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
-			MyFirstBot mybot=new MyFirstBot();
+			MyFirstBot mybot=new MyFirstBot(botIdentifier);
 			mybot.setHabitoRepository(repository);
 			try {
 				telegramBotsApi.registerBot(mybot);

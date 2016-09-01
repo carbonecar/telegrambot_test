@@ -28,6 +28,7 @@ import ar.com.espherika.chatstrategies.BotDrinkWaterChatStrategy;
 import ar.com.espherika.chatstrategies.BotIntroduceChatStrategy;
 import ar.com.espherika.chatstrategies.BotSleepWellChatStrategy;
 import ar.com.espherika.chatstrategies.BotSmokerChatStrategy;
+import ar.com.espherika.healthbot.model.BotIdentifier;
 import ar.com.espherika.healthbot.model.Habito;
 import ar.com.espherika.healthbot.persistence.HabitoRepository;
 
@@ -41,8 +42,10 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	public Map<ChatStates,BotChatStrategy> chatStrategies=new HashMap<ChatStates,BotChatStrategy>();
 	
 	private HabitoRepository habitoRepository;
+	private BotIdentifier botIdentifier;
 	
-	public MyFirstBot(){
+	public MyFirstBot(BotIdentifier botIdentifier){
+		this.botIdentifier=botIdentifier;
 		this.chatStrategies.put(ChatStates.PRESENTACION, new BotIntroduceChatStrategy());
 		this.chatStrategies.put(ChatStates.HABITO_BEBER_AGUA_INICIADO, new BotDrinkWaterChatStrategy());
 		this.chatStrategies.put(ChatStates.HABITO_FUMAR, new BotSmokerChatStrategy());
@@ -61,6 +64,7 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	public void onUpdateReceived(Update update) {
 		if (update.hasMessage()) {
 			Message message = update.getMessage();
+			
 			//KieSession kieSession = this.safeGetKieSession(message.getChatId());
 			ChatStates state=this.safeGetStates(message.getChatId());
 			
@@ -166,12 +170,12 @@ public class MyFirstBot extends TelegramLongPollingBot {
 
 	@Override
 	public String getBotUsername() {
-		return BotConfig.BOT_USERNAME_OSDENEOBOT;
+		return this.botIdentifier.getBotUsername();
 	}
-
+	
 	@Override
 	public String getBotToken() {
-		return BotConfig.BOT_TOKEN_OSDENEOBOT;
+		return this.botIdentifier.getBotToken();
 	}
 
 	/**

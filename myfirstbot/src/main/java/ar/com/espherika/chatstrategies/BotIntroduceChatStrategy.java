@@ -29,7 +29,7 @@ public class BotIntroduceChatStrategy implements BotChatStrategy {
 		sendMessage.setChatId(message.getChatId().toString());
 		if (INTRODUCE_STATE.GENDER.equals(state)) {
 			bot.sendVoiceTo(message);
-			bot.sendControlledMessage(sendMessage, "En que puedo ayudarte?");
+			bot.sendControlledMessage(sendMessage, "En qué puedo ayudarte?");
 
 			sendMessage.setReplyMarkup(MenuKeyboardFactory.getGenderMenuKeyboard());
 			sendMessage.setChatId(message.getChatId().toString());
@@ -42,14 +42,14 @@ public class BotIntroduceChatStrategy implements BotChatStrategy {
 		
 		if(INTRODUCE_STATE.DATE_REQUEST.equals(state)){
 			sendMessage.setReplyMarkup(getHideKeyboard());
-			bot.sendControlledMessage(sendMessage, "Cuándo naciste? (Ingrese en formato dd/mm/aaaa)");
+			bot.sendControlledMessage(sendMessage, "Cuándo naciste? (Solo entiendo cuando usas el formato dd/mm/aaaa)");
 			this.chatIdStates.put(message.getChatId(), INTRODUCE_STATE.DATE);
 		}
 		if (INTRODUCE_STATE.DATE.equals(state)) {
 			try {
 				Date date = new SimpleDateFormat("dd/MM/yyyy").parse(message.getText());
 			} catch (ParseException e) {
-				bot.sendControlledMessage(sendMessage, "por favor ingrese la fecha en formato dd/MM/yyyy");
+				bot.sendControlledMessage(sendMessage, "solo te entiendo si ingresas la fecha en formato dd/mm/aaaa");
 				return ;
 			}
 
