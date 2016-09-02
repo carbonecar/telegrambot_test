@@ -16,6 +16,7 @@ public class BotSleepWellChatStrategy implements BotChatStrategy {
 		
 		bot.sendControlledMessage(sendMessage, "todavía estamos agregando hábitos saludables.");
 		//bot.setRandomChatStrategy(sendMessage, message);
+	
 
 	}
 

@@ -10,12 +10,14 @@ import ar.com.espherika.MenuKeyboardFactory;
 import ar.com.espherika.MyFirstBot;
 import ar.com.espherika.keyboard.ReplyKeyboardSmoke;
 
-public class BotSmokerChatStrategy implements BotChatStrategy {
+public class BotSmokerChatStrategy extends AbstractBotChatStrategy implements BotChatStrategy {
 
 	private enum SMOKER_STATES {
 		INTRODUCE, REQUEST_TARGET, REQUEST_TARGET_ACTUAL_NUMBER,WAITING_TARGET_REDUCE_NUMBER,REQUEST_TARGET_REDUCE_NUMBER,WAITING_TARGET_ACTUAL_NUMBER, STOP_SMOKING_TARGET, REDUCE_SMOKING_TARGET;
 	}
-
+	
+	//Este mapa no es necesario. 
+	//TODO dejar solo el estado
 	private Map<Long, SMOKER_STATES> chatIdStates = new HashMap<Long, SMOKER_STATES>();
 
 	@Override
@@ -129,6 +131,12 @@ public class BotSmokerChatStrategy implements BotChatStrategy {
 			this.chatIdStates.put(message.getChatId(), myState);
 		}
 		return myState;
+	}
+
+	@Override
+	protected void setInitialState(Long chatId) {
+		this.chatIdStates.put(chatId, SMOKER_STATES.INTRODUCE);
+		
 	}
 
 }

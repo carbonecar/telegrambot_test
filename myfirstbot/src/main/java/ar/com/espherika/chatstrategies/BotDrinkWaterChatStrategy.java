@@ -13,20 +13,19 @@ import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Message;
 
 import ar.com.espherika.ChatStates;
-import ar.com.espherika.MenuKeyboardFactory;
 import ar.com.espherika.MyFirstBot;
 import ar.com.espherika.healthbot.model.Beneficio;
 import ar.com.espherika.healthbot.model.Habito;
 import ar.com.espherika.service.CustomTimerTask;
 import ar.com.espherika.service.TimerExecutor;
 
-public class BotDrinkWaterChatStrategy implements BotChatStrategy {
+public class BotDrinkWaterChatStrategy extends AbstractBotChatStrategy implements BotChatStrategy {
 
-	private enum SET_CRON_STATE {
+	enum SET_CRON_STATE {
 		INTRODUCE, CRON_REQUEST, CRON, CRON_TWICE;
 	}
 
-	private Map<Long, SET_CRON_STATE> chatIdStates = new HashMap<Long, SET_CRON_STATE>();
+	Map<Long, SET_CRON_STATE> chatIdStates = new HashMap<Long, SET_CRON_STATE>();
 
 	@Override
 	public void run(Message message, MyFirstBot bot) {
@@ -63,6 +62,7 @@ public class BotDrinkWaterChatStrategy implements BotChatStrategy {
 		}
 
 		if (messageFromUser.equals("No, gracias")) {
+			bot.sendControlledMessage(sendMessage, "http://institutoaguaysalud.es/hidratacion-y-agua-mineral/ingesta-de-agua-recomendada/");
 			this.finishChat(sendMessage, message, bot);
 			return;
 		}
@@ -89,12 +89,6 @@ public class BotDrinkWaterChatStrategy implements BotChatStrategy {
 			bot.iniciarBeberAgua(sendMessage, message);
 		}
 
-	}
-
-	private void finishChat(SendMessage sendMessage, Message message, MyFirstBot bot) {
-		this.chatIdStates.put(message.getChatId(), SET_CRON_STATE.INTRODUCE);
-		sendMessage.setReplyMarkup(MenuKeyboardFactory.getMainMenuKeyboard());
-		bot.sendControlledMessage(sendMessage, "Puedo ayudarte en algo más?");
 	}
 
 	private void doCron(Message message, MyFirstBot bot, SendMessage sendMessage) {
@@ -162,6 +156,12 @@ public class BotDrinkWaterChatStrategy implements BotChatStrategy {
 			this.chatIdStates.put(chatId, state);
 		}
 		return state;
+	}
+
+	@Override
+	protected void setInitialState(Long chatId) {
+		this.chatIdStates.put(chatId, SET_CRON_STATE.INTRODUCE);
+		
 	}
 
 }

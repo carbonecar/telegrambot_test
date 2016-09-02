@@ -33,7 +33,7 @@ public class BotIntroduceChatStrategy implements BotChatStrategy {
 		if (INTRODUCE_STATE.GENDER.equals(state)) {
 			Ciudadano ciudadano = bot.getCiudadano((message.getChatId().toString()));
 			if (!ciudadano.getPreferenciasChat().isPresentacionApagada()) {
-				bot.sendVoiceTo(message);
+				bot.sendVoiceTo(message,"presentacion.opus");
 			}
 			bot.sendControlledMessage(sendMessage, "Comencemos con algunas preguntas así nos conocemos un poco más.");
 

@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
 import org.apache.log4j.Logger;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
@@ -40,7 +39,6 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	private Logger LOG = Logger.getLogger(MyFirstBot.class);
 	private Map<Long, KieSession> chatIdKieSession = new HashMap<Long, KieSession>();
 
-	// TODO es evidente que esto va a pinchar feo con mas de 1 usuario, no?
 	public Map<Long, StateStrategy> chatIdStates = new HashMap<Long, StateStrategy>();
 	public Map<ChatStates, BotChatStrategy> chatStrategies = new HashMap<ChatStates, BotChatStrategy>();
 
@@ -81,7 +79,7 @@ public class MyFirstBot extends TelegramLongPollingBot {
 				}
 
 				if (message.getText().equals("/voice")) {
-					this.sendVoiceTo(message);
+					this.sendVoiceTo(message,"presentacion_diego.opus");
 					return;
 				}
 
@@ -177,15 +175,16 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	 * 
 	 * 
 	 * @param message
+	 * @param filename 
 	 */
-	public void sendVoiceTo(Message message) {
+	public void sendVoiceTo(Message message, String filename) {
 
 		SendVoice sendVoiceRequest = new SendVoice();
 		sendVoiceRequest.setChatId(message.getChatId().toString());
 		// sendVoiceRequest.setNewVoice("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/opus_sample.opus",
 		// "presentacion");
 		try {
-			InputStream inputStreamPresentacion = new ClassPathResource("sound/presentacion.opus").getInputStream();
+			InputStream inputStreamPresentacion = new ClassPathResource("sound/"+filename).getInputStream();
 			sendVoiceRequest.setNewVoice("presentacion", inputStreamPresentacion);
 			sendVoiceRequest.setDuration(7);
 			sendVoice(sendVoiceRequest);
