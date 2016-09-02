@@ -14,9 +14,10 @@ public class ReplyKeyboardSmoke extends ReplyKeyboardMarkup {
 	private static final long serialVersionUID = 1L;
 	public static final String SI="Si";
 	public static final String NO="No";
+	public static final String NO_GRCIAS="No, gracias";
 	public static final String NO_PERO_LO_FUI="No, pero lo fui";
 	public static final String FUMADOR_SOCIAL="Soy fumador social";
-	public static final String HABITOS_SALUDABLES="Hábitos saludables...";
+	public static final String HABITOS_SALUDABLES="Consejos saludables";
 	
 	
 	private static KeyboardRow buildRow(String text) {

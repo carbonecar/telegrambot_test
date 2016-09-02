@@ -40,6 +40,7 @@ public class BotDrinkWaterChatStrategy extends AbstractBotChatStrategy implement
 			for (Beneficio beneficio : beberAgua.getBeneficios()) {
 				bot.sendControlledMessage(sendMessage, beneficio.getDesripcion());
 			}
+			bot.sendControlledMessage(sendMessage, "https://www.youtube.com/watch?v=OvvmJbGTR6M");
 			return;
 		}
 
@@ -62,6 +63,7 @@ public class BotDrinkWaterChatStrategy extends AbstractBotChatStrategy implement
 		}
 
 		if (messageFromUser.equals("No, gracias")) {
+			bot.sendControlledMessage(sendMessage, "Perfecto, de todas te envío algo más de información. ");
 			bot.sendControlledMessage(sendMessage, "http://institutoaguaysalud.es/hidratacion-y-agua-mineral/ingesta-de-agua-recomendada/");
 			this.finishChat(sendMessage, message, bot);
 			return;

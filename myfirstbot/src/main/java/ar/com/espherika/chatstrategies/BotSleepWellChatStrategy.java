@@ -5,7 +5,7 @@ import org.telegram.telegrambots.api.objects.Message;
 
 import ar.com.espherika.MyFirstBot;
 
-public class BotSleepWellChatStrategy implements BotChatStrategy {
+public class BotSleepWellChatStrategy extends AbstractBotChatStrategy implements BotChatStrategy {
 
 	@Override
 	public void run(Message message, MyFirstBot bot) {
@@ -13,11 +13,18 @@ public class BotSleepWellChatStrategy implements BotChatStrategy {
 		sendMessage.setChatId(message.getChatId().toString());
 		bot.sendControlledMessage(sendMessage, "Duermes bien?");
 
-		
+	
 		bot.sendControlledMessage(sendMessage, "todavía estamos agregando hábitos saludables.");
 		//bot.setRandomChatStrategy(sendMessage, message);
+		this.finishChat(sendMessage, message, bot);
 	
 
+	}
+
+	@Override
+	protected void setInitialState(Long chatId) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

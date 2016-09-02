@@ -73,7 +73,7 @@ public class MenuKeyboardFactory {
 		keyboard.add(buildRow("Por qué?"));
 		keyboard.add(buildRow("Adoptar hábito"));
 		keyboard.add(buildRow("Ya tengo el hábito"));
-		keyboard.add(buildRow("Mas hábitos..."));
+		keyboard.add(buildRow("Consejos saludables"));
 
 		replyKeyboardMarkup.setKeyboard(keyboard);
 		return replyKeyboardMarkup;
@@ -89,7 +89,7 @@ public class MenuKeyboardFactory {
 
 		keyboard.add(buildRow("1 vez por día"));
 		keyboard.add(buildRow("2 veces por día"));
-		keyboard.add(buildRow("1 vez cada 3 días"));
+		//keyboard.add(buildRow("1 vez cada 3 días"));
 		keyboard.add(buildRow("No, gracias"));
 
 		replyKeyboardMarkup.setKeyboard(keyboard);
@@ -148,7 +148,7 @@ public class MenuKeyboardFactory {
 		keyboard.add(buildRow("Quiero dejar"));
 		keyboard.add(buildRow("Quiero reducir"));
 		keyboard.add(buildRow("No, gracias"));
-		keyboard.add(buildRow("Mas hábitos..."));
+		keyboard.add(buildRow("Consejos saludables"));
 		replyKeyboardMarkup.setKeyboard(keyboard);
 		return replyKeyboardMarkup;
 	}
