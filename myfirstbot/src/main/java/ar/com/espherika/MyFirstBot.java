@@ -278,14 +278,22 @@ public class MyFirstBot extends TelegramLongPollingBot {
 		}
 	}
 
+	
+	public void setRandomChatStrategy(SendMessage sendMessage, Message message) {
+		 setRandomChatStrategy(sendMessage, message,this.safeGetStates(message.getChatId()));
+
+	}
+
 	/**
 	 * TODO validar que ya se hubiera presentado.
 	 * 
 	 * @param chatId
 	 */
-	public void setRandomChatStrategy(SendMessage sendMessage, Message message) {
+	public void setRandomChatStrategy(SendMessage sendMessage, Message message,ChatStates exclude) {
 		sendMessage.setChatId(message.getChatId().toString());
-		int chatStrategiesCount = this.chatStrategies.keySet().size() - 1;
+		int statesToExcludeCount=exclude==null?0:1;
+		statesToExcludeCount+=1;
+		int chatStrategiesCount = this.chatStrategies.keySet().size() - statesToExcludeCount;
 		int indexRandomState = ((int) (Math.random() * chatStrategiesCount));
 
 		ChatStates[] keySetArray = new ChatStates[chatStrategiesCount];
@@ -293,7 +301,7 @@ public class MyFirstBot extends TelegramLongPollingBot {
 		int index = 0;
 		for (ChatStates chatState : this.chatStrategies.keySet()) {
 
-			if (!chatState.equals(ChatStates.PRESENTACION)) {
+			if (!chatState.equals(ChatStates.PRESENTACION) && !chatState.equals(exclude)) {
 				keySetArray[index++] = chatState;
 			}	
 		}

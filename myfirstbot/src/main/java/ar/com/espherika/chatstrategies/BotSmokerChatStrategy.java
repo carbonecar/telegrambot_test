@@ -6,6 +6,7 @@ import java.util.Map;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Message;
 
+import ar.com.espherika.ChatStates;
 import ar.com.espherika.MenuKeyboardFactory;
 import ar.com.espherika.MyFirstBot;
 import ar.com.espherika.keyboard.ReplyKeyboardSmoke;
@@ -135,7 +136,7 @@ public class BotSmokerChatStrategy extends AbstractBotChatStrategy implements Bo
 		sendMessage.setReplyMarkup(MenuKeyboardFactory.getMainMenuKeyboard());
 		this.chatIdStates.put(message.getChatId(), SMOKER_STATES.INTRODUCE);
 		bot.sendControlledMessage(sendMessage, "qué otro hábito saludable te gustaría adoptar?");
-
+		bot.setRandomChatStrategy(sendMessage, message);
 	}
 
 	private SMOKER_STATES getSafeState(Message message) {
