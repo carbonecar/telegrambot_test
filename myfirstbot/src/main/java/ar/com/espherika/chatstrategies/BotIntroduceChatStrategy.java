@@ -35,7 +35,7 @@ public class BotIntroduceChatStrategy implements BotChatStrategy {
 			if (!ciudadano.getPreferenciasChat().isPresentacionApagada()) {
 				bot.sendVoiceTo(message);
 			}
-			bot.sendControlledMessage(sendMessage, "En qué puedo ayudarte?");
+			bot.sendControlledMessage(sendMessage, "Comencemos con algunas preguntas así nos conocemos un poco más.");
 
 			sendMessage.setReplyMarkup(MenuKeyboardFactory.getGenderMenuKeyboard());
 			sendMessage.setChatId(message.getChatId().toString());
@@ -60,6 +60,8 @@ public class BotIntroduceChatStrategy implements BotChatStrategy {
 			}
 
 			bot.sendControlledMessage(sendMessage, " Muchas gracias " + message.getFrom().getFirstName() + ".");
+			bot.sendControlledMessage(sendMessage, "Voy a sugerirte algunos hábitos saludables. A medida que nos conozcamos mas, intentaré recomendarte los que mejor son para tí.");
+
 			bot.iniciarBeberAgua(sendMessage, message);
 
 			return;

@@ -8,6 +8,8 @@ import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardHide;
 import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
 
+import ar.com.espherika.keyboard.ReplyKeyboardSmoke;
+
 /**
  * Aca
  * 
@@ -102,11 +104,9 @@ public class MenuKeyboardFactory {
 
 		List<KeyboardRow> keyboard = new ArrayList<KeyboardRow>();
 		
-		keyboard.add(buildRow("8","9 ","10 "));
-		keyboard.add(buildRow("11 ","12 ", "13 "));
-		keyboard.add(buildRow("14 ","15 ", "16"));
-		keyboard.add(buildRow("17 ", "18 ","19 "));
-		keyboard.add(buildRow("20 ", "21 ", "22 "));
+		keyboard.add(buildRow("4","5","6","7","8","9 ","10 "));
+		keyboard.add(buildRow("11","12", "13","14","15","16","17"));
+		keyboard.add(buildRow("18 ","19 ", "20","21","22","23","24"));
 
 		
 		replyKeyboardMarkup.setKeyboard(keyboard);
@@ -134,21 +134,7 @@ public class MenuKeyboardFactory {
 	}
 
 	public static ReplyKeyboard getSmokeKeyboard() {
-		ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
-		replyKeyboardMarkup.setSelective(true);
-		replyKeyboardMarkup.setResizeKeyboard(true);
-		replyKeyboardMarkup.setOneTimeKeyboad(true);
-
-		List<KeyboardRow> keyboard = new ArrayList<KeyboardRow>();
-
-		keyboard.add(buildRow("Si"));
-		keyboard.add(buildRow("No"));
-		keyboard.add(buildRow("No, pero lo fui"));
-		keyboard.add(buildRow("Soy fumador social"));
-		keyboard.add(buildRow("Mas hábitos..."));
-
-		replyKeyboardMarkup.setKeyboard(keyboard);
-		return replyKeyboardMarkup;
+		return new ReplyKeyboardSmoke();
 	}
 
 	public static ReplyKeyboard getReduceSmokeKeyboard() {

@@ -8,6 +8,7 @@ import org.telegram.telegrambots.api.objects.Message;
 
 import ar.com.espherika.MenuKeyboardFactory;
 import ar.com.espherika.MyFirstBot;
+import ar.com.espherika.keyboard.ReplyKeyboardSmoke;
 
 public class BotSmokerChatStrategy implements BotChatStrategy {
 
@@ -31,23 +32,14 @@ public class BotSmokerChatStrategy implements BotChatStrategy {
 		}
 
 		if (this.getSafeState(message).equals(SMOKER_STATES.REQUEST_TARGET)) {
-			sendMessage.setReplyMarkup(MenuKeyboardFactory.getReduceSmokeKeyboard());
-			if(message.getText().equals("No")){
-				this.endChatStrategy(message, bot, sendMessage);
-			}else{
-				bot.sendControlledMessage(sendMessage,
-						"Quieres que te ayude a dejar o reducir el consumo de tabaco diario?");
-				this.chatIdStates.put(message.getChatId(), SMOKER_STATES.REQUEST_TARGET_ACTUAL_NUMBER);
-			}
+			requestTarget(message, bot, sendMessage);
 			return;
 		}
 
 		if(this.getSafeState(message).equals(SMOKER_STATES.REQUEST_TARGET_ACTUAL_NUMBER)){
 			sendMessage.setReplyMarkup(MenuKeyboardFactory.getMainMenuKeyboard());
-			
 			bot.sendControlledMessage(sendMessage,"Cuantos cigarrilos fumas?");
 			this.chatIdStates.put(message.getChatId(), SMOKER_STATES.WAITING_TARGET_ACTUAL_NUMBER);
-			
 			return ;
 		}
 		
@@ -88,11 +80,45 @@ public class BotSmokerChatStrategy implements BotChatStrategy {
 
 	}
 
+	private void requestTarget(Message message, MyFirstBot bot, SendMessage sendMessage) {
+		sendMessage.setReplyMarkup(MenuKeyboardFactory.getReduceSmokeKeyboard());
+		String userMessage=message.getText();
+		switch (userMessage) {
+		case ReplyKeyboardSmoke.NO:
+			this.endChatStrategy(message, bot, sendMessage);
+			break;
+		case ReplyKeyboardSmoke.NO_PERO_LO_FUI:
+			bot.sendPhotoTo(message, "pulmon.jpg");
+			bot.sendControlledMessage(sendMessage, "Incluso habiendo fuamodo algunos años es posible que exista un daño");
+			this.endChatStrategy(message, bot, sendMessage);
+			break;
+		case ReplyKeyboardSmoke.SI :
+			bot.sendControlledMessage(sendMessage, "https://www.youtube.com/watch?v=71wtRD76vpc");
+			bot.sendControlledMessage(sendMessage,
+					"Quieres que te ayude a dejar o reducir el consumo de tabaco diario?");
+			this.chatIdStates.put(message.getChatId(), SMOKER_STATES.REQUEST_TARGET_ACTUAL_NUMBER);
+			break;
+		case ReplyKeyboardSmoke.FUMADOR_SOCIAL:
+			bot.sendControlledMessage(sendMessage,
+					"Incluso en bajas cantidades el tabaco sigue siendo perjidicial para la salud");
+			
+			bot.sendControlledMessage(sendMessage,
+					"http://www.who.int/mediacentre/factsheets/fs339/es/");
+			this.chatIdStates.put(message.getChatId(), SMOKER_STATES.REQUEST_TARGET_ACTUAL_NUMBER);
+			break;
+		case ReplyKeyboardSmoke.HABITOS_SALUDABLES:
+			this.endChatStrategy(message, bot, sendMessage);
+			break;
+		default:
+			break;
+		}
+	}
+
 	private void endChatStrategy(Message message, MyFirstBot bot, SendMessage sendMessage) {
 		sendMessage.setReplyMarkup(MenuKeyboardFactory.getMainMenuKeyboard());
-		bot.sendControlledMessage(sendMessage,"qué otro hábito saludable te gustaría adoptar?)");
-		
 		this.chatIdStates.put(message.getChatId(), SMOKER_STATES.INTRODUCE);
+		bot.sendControlledMessage(sendMessage,"qué otro hábito saludable te gustaría adoptar?");
+		
 	}
 
 	private SMOKER_STATES getSafeState(Message message) {

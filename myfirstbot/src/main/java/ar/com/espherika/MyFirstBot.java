@@ -18,6 +18,7 @@ import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.api.methods.send.SendAudio;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.methods.send.SendPhoto;
+import org.telegram.telegrambots.api.methods.send.SendVideo;
 import org.telegram.telegrambots.api.methods.send.SendVoice;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
@@ -40,7 +41,7 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	private Map<Long, KieSession> chatIdKieSession = new HashMap<Long, KieSession>();
 
 	// TODO es evidente que esto va a pinchar feo con mas de 1 usuario, no?
-	public Map<Long, ChatStates> chatIdStates = new HashMap<Long, ChatStates>();
+	public Map<Long, StateStrategy> chatIdStates = new HashMap<Long, StateStrategy>();
 	public Map<ChatStates, BotChatStrategy> chatStrategies = new HashMap<ChatStates, BotChatStrategy>();
 
 	private HabitoRepository habitoRepository;
@@ -92,20 +93,27 @@ public class MyFirstBot extends TelegramLongPollingBot {
 					return;
 				}
 
+				if (message.getText().equals("/presentacion_on")) {
+					Ciudadano ciudadano = this.getCiudadano(message.getChatId().toString());
+					ciudadano.getPreferenciasChat().setPresentacionApagada(false);
+					this.ciudadanoRepository.save(ciudadano);
+					return;
+				}
+
 				if (message.getText().equals("/audio")) {
 					this.sendAudioTo(message);
 					return;
 				}
 
 				if (message.getText().equals("/photo")) {
-					this.sendPhotoTo(message);
+					this.sendPhotoTo(message, "test.jpg");
 					return;
 				}
 				if (message.getText().equals("Mas hábitos...") || message.getText().equals("Consejos saludables")) {
 					this.setRandomChatStrategy(new SendMessage(), message);
 					return;
 				}
-				BotChatStrategy strategy = this.chatStrategies.get(state);
+				BotChatStrategy strategy = this.chatIdStates.get(message.getChatId()).getBotChatStrategy();
 				if (strategy != null) {
 					strategy.run(message, this);
 					return;
@@ -124,29 +132,23 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	private void showNews(Message message) {
 		SendMessage sendMessage = new SendMessage();
 		sendMessage.setChatId(message.getChatId().toString());
-		this.sendControlledMessage(sendMessage, "Agregado de preferencias de chat del usuario (en memoria)");
-		this.sendControlledMessage(sendMessage, "Parametrizacion del bot (username y token)");
+		this.sendControlledMessage(sendMessage, "Solucion al problema de concurrencia. Map de estado por cliente. Refactor urgente a drools");
+		this.sendControlledMessage(sendMessage, "Agregado de algunas fotos y videos");
 		this.sendControlledMessage(sendMessage, "Borrado de la hora y la alerta de prueba en el habito 'Tomar agua'");
-		this.sendControlledMessage(sendMessage, "Funcion de off para el apagado de la presentacion");
-		this.sendControlledMessage(sendMessage, "Si no se es fumador sugiere otro habito en lugar de continuar como si lo fuera");
-
 
 	}
 
-	private void sendPhotoTo(Message message) {
+	public void sendPhotoTo(Message message, String photoName) {
 		SendPhoto sendPhotoRequest = new SendPhoto();
 		sendPhotoRequest.setChatId(message.getChatId().toString());
-		// path: String, photoName: String
-		sendPhotoRequest.setNewPhoto("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/te_verde.jpg",
-				"te_verde.jpg"); //
 		try {
-			sendPhoto(sendPhotoRequest);
-		} catch (TelegramApiException e) {
-
+			InputStream inputStreamPhoto = new ClassPathResource("pictures/" + photoName).getInputStream();
+			sendPhotoRequest.setNewPhoto(photoName, inputStreamPhoto);
+			this.sendPhoto(sendPhotoRequest);
+		} catch (IOException e) {
 			LOG.error(e);
-			/*
-			 * Do some error handling e.printStackTrace();
-			 */
+		} catch (TelegramApiException e) {
+			e.printStackTrace();
 		}
 
 	}
@@ -172,7 +174,7 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	}
 
 	/**
-	 * For testing..
+	 * 
 	 * 
 	 * @param message
 	 */
@@ -184,10 +186,7 @@ public class MyFirstBot extends TelegramLongPollingBot {
 		// "presentacion");
 		try {
 			InputStream inputStreamPresentacion = new ClassPathResource("sound/presentacion.opus").getInputStream();
-			// this.getClass().getClassLoader().getResourceAsStream("presentacion.opus");
 			sendVoiceRequest.setNewVoice("presentacion", inputStreamPresentacion);
-			// sendVoiceRequest.setNewVoice(new
-			// File("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/presentacion.opus"));
 			sendVoiceRequest.setDuration(7);
 			sendVoice(sendVoiceRequest);
 		} catch (TelegramApiException tae) {
@@ -198,22 +197,43 @@ public class MyFirstBot extends TelegramLongPollingBot {
 
 	}
 
+	public void sendVideoTo(Message message) {
+		SendVideo sendVideoMessage = new SendVideo();
+		sendVideoMessage.setChatId(message.getChatId().toString());
+		// sendVoiceRequest.setNewVoice("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/opus_sample.opus",
+		// "presentacion");
+		try {
+			InputStream inputStreamPresentacion = new ClassPathResource("pictures/pulmon.mp4").getInputStream();
+			// this.getClass().getClassLoader().getResourceAsStream("presentacion.opus");
+			sendVideoMessage.setNewVideo("pulmon dañado", inputStreamPresentacion);
+			// sendVoiceRequest.setNewVoice(new
+			// File("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/presentacion.opus"));
+			sendVideo(sendVideoMessage);
+		} catch (TelegramApiException tae) {
+			LOG.error(tae);
+		} catch (IOException e) {
+			LOG.error(e);
+		}
+
+	}
+
 	private ChatStates safeGetStates(Long chatId) {
-		ChatStates state = this.chatIdStates.get(chatId);
-		if (state == null) {
-			state = ChatStates.PRESENTACION;
-			this.chatIdStates.put(chatId, ChatStates.PRESENTACION);
+		StateStrategy stateStrategy = this.chatIdStates.get(chatId);
+		if (stateStrategy == null) {
+			stateStrategy = new StateStrategy(ChatStates.PRESENTACION,
+					this.chatStrategies.get(ChatStates.PRESENTACION));
+			this.chatIdStates.put(chatId, stateStrategy);
 			Ciudadano ciudadano = new Ciudadano(chatId.toString());
 			ciudadano.setPreferenciasChat(new PreferenciasChat());
 			this.ciudadanoRepository.save(ciudadano);
 		}
-		return state;
+		return stateStrategy.getChatState();
 	}
 
-	
-	public Ciudadano getCiudadano(String id){
+	public Ciudadano getCiudadano(String id) {
 		return ciudadanoRepository.findOne(id);
 	}
+
 	public Habito getHabitoBeberAgua() {
 		return habitoRepository.findByCodigo("BEBER_AGUA");
 	}
@@ -276,11 +296,20 @@ public class MyFirstBot extends TelegramLongPollingBot {
 
 			if (!chatState.equals(ChatStates.PRESENTACION)) {
 				keySetArray[index++] = chatState;
-			}
+			}	
 		}
-		this.chatIdStates.put(message.getChatId(), keySetArray[indexRandomState]);
-		BotChatStrategy chatStrategy = this.chatStrategies.get(this.chatIdStates.get(message.getChatId()));
-		chatStrategy.run(message, this);
+		ChatStates chatState = keySetArray[indexRandomState];
+		BotChatStrategy botChatStrategy;
+		try {
+			botChatStrategy = this.chatStrategies.get(chatState).getClass().newInstance();
+			this.chatIdStates.put(message.getChatId(), new StateStrategy(chatState, botChatStrategy));
+			BotChatStrategy chatStrategy = this.chatIdStates.get(message.getChatId()).getBotChatStrategy();
+			chatStrategy.run(message, this);
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -288,7 +317,8 @@ public class MyFirstBot extends TelegramLongPollingBot {
 		Habito beberAgua = getHabitoBeberAgua();
 		sendMessage.setReplyMarkup(getWaterBenefitKeyboard());
 		sendControlledMessage(sendMessage, beberAgua.getMensajeIntroductorio());
-		chatIdStates.put(message.getChatId(), ChatStates.HABITO_BEBER_AGUA_INICIADO);
+		chatIdStates.put(message.getChatId(),
+				new StateStrategy(ChatStates.HABITO_BEBER_AGUA_INICIADO, new BotDrinkWaterChatStrategy()));
 
 	}
 
