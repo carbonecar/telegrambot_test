@@ -8,6 +8,7 @@ import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardHide;
 import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
 
+import ar.com.espherika.keyboard.ReplyKeyboardSleep;
 import ar.com.espherika.keyboard.ReplyKeyboardSmoke;
 
 /**
@@ -24,6 +25,8 @@ public class MenuKeyboardFactory {
 		return replyKeyboardHide;
 	}
 
+	
+	
 	public static ReplyKeyboard getMainMenuKeyboard() {
 		ReplyKeyboardMarkup replyKeyboard = new ReplyKeyboardMarkup();
 		List<KeyboardRow> keyboard = new ArrayList<KeyboardRow>();
@@ -151,5 +154,9 @@ public class MenuKeyboardFactory {
 		keyboard.add(buildRow("Consejos saludables"));
 		replyKeyboardMarkup.setKeyboard(keyboard);
 		return replyKeyboardMarkup;
+	}
+
+	public static ReplyKeyboard getRequestInfoSleep() {
+		return new ReplyKeyboardSleep();
 	}
 }

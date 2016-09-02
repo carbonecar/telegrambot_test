@@ -3,10 +3,9 @@ package ar.com.espherika.keyboard;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
 
-public class ReplyKeyboardSmoke extends ReplyKeyboardMarkup {
+public class ReplyKeyboardSmoke extends AbstractCustomKeyboard {
 
 	/**
 	 * 
@@ -19,12 +18,6 @@ public class ReplyKeyboardSmoke extends ReplyKeyboardMarkup {
 	public static final String FUMADOR_SOCIAL="Soy fumador social";
 	public static final String HABITOS_SALUDABLES="Consejos saludables";
 	
-	
-	private static KeyboardRow buildRow(String text) {
-		KeyboardRow keyboardRow = new KeyboardRow();
-		keyboardRow.add(text);
-		return keyboardRow;
-	}
 	
 	public ReplyKeyboardSmoke (){
 		
