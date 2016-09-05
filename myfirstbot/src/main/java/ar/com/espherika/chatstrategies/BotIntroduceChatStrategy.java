@@ -33,14 +33,14 @@ public class BotIntroduceChatStrategy implements BotChatStrategy {
 		if (INTRODUCE_STATE.GENDER.equals(state)) {
 			Ciudadano ciudadano = bot.getCiudadano((message.getChatId().toString()));
 			if (!ciudadano.getPreferenciasChat().isPresentacionApagada()) {
-				bot.sendVoiceTo(message,"presentacion.opus");
+				bot.sendVoiceTo(message,"presentacion_diego.opus");
 			}
 			bot.sendControlledMessage(sendMessage, "Comencemos con algunas preguntas así nos conocemos un poco más.");
 
 			sendMessage.setReplyMarkup(MenuKeyboardFactory.getGenderMenuKeyboard());
 			sendMessage.setChatId(message.getChatId().toString());
 
-			bot.sendControlledMessage(sendMessage, "Qué sexo eres?");
+			bot.sendControlledMessage(sendMessage, "¿Qué sexo eres?");
 			this.chatIdStates.put(message.getChatId(), INTRODUCE_STATE.AGE_REQUEST);
 
 			return;
@@ -48,7 +48,7 @@ public class BotIntroduceChatStrategy implements BotChatStrategy {
 
 		if (INTRODUCE_STATE.AGE_REQUEST.equals(state)) {
 			sendMessage.setReplyMarkup(getHideKeyboard());
-			bot.sendControlledMessage(sendMessage, "Qué edad tienes?");
+			bot.sendControlledMessage(sendMessage, "¿Qué edad tienes?");
 			this.chatIdStates.put(message.getChatId(), INTRODUCE_STATE.AGE);
 		}
 		if (INTRODUCE_STATE.AGE.equals(state)) {

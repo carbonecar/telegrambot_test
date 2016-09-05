@@ -20,7 +20,8 @@ public class ReplyKeyboardSleep extends AbstractCustomKeyboard {
 
 	public enum SLEEP_WELL_STATE {
 		INTRODUCE_SLEEP("INTRODUCE_SLEEP"), REQUEST_INFO_SLEEP("REQUEST_INFO_SLEEP"), MENOS_7(
-				"Menos de 7 hs"), REQUEST_NO_HELPS("Entre 7 y 8 hs"), MAS_9("Mas de 9 hs");
+				"Menos de 7 hs"), REQUEST_NO_HELPS("Entre 7 y 8 hs"), MAS_9("Mas de 9 hs"),
+		YES_INCREASE_HOUR("Si, quiero dormir más"),NO_INCREASE_HOUR("No tengo interes en eso"), WAIT_INCREASE_HOUR("WAIT_INCREASE_HOUR"),WAIT_REDUCE_HOUR("WAIT_REDUCE_HOUR");
 		private SLEEP_WELL_STATE(String myName) {
 			name = myName;
 		}
@@ -49,8 +50,19 @@ public class ReplyKeyboardSleep extends AbstractCustomKeyboard {
 			case "Mas de 9 hs":
 				state=MAS_9;
 				break;
-			default:
+			case "Si, quiero dormir más":
+				state= SLEEP_WELL_STATE.YES_INCREASE_HOUR;
 				break;
+			case "No tengo interes en eso":
+				state=NO_INCREASE_HOUR;
+			case "WAIT_INCREASE_HOUR":
+				state=SLEEP_WELL_STATE.WAIT_INCREASE_HOUR;
+				break;
+			case "WAIT_REDUCE_HOUR":
+				state=WAIT_REDUCE_HOUR;
+				break;
+			default:
+				break;	
 			}
 			return state;
 		}
@@ -72,6 +84,11 @@ public class ReplyKeyboardSleep extends AbstractCustomKeyboard {
 			validResponses.add(MENOS_7);
 			validResponses.add(CANTIDAD_SALUDABLE);
 			validResponses.add(MAS_9);
+			validResponses.add(SLEEP_WELL_STATE.WAIT_INCREASE_HOUR.getName());
+			validResponses.add(SLEEP_WELL_STATE.WAIT_REDUCE_HOUR.getName());
+			validResponses.add(SLEEP_WELL_STATE.YES_INCREASE_HOUR.getName());
+			validResponses.add(SLEEP_WELL_STATE.NO_INCREASE_HOUR.getName());
+			
 		}
 
 		return validResponses;
@@ -87,7 +104,8 @@ public class ReplyKeyboardSleep extends AbstractCustomKeyboard {
 		keyboard.add(buildRow(MENOS_7));
 		keyboard.add(buildRow(CANTIDAD_SALUDABLE));
 		keyboard.add(buildRow(MAS_9));
+		keyboard.add(buildRow("Consejos saludables"));
 		setKeyboard(keyboard);
 
 	}
-}
+}	

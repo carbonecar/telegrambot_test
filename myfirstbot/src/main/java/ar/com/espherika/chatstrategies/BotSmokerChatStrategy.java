@@ -29,7 +29,7 @@ public class BotSmokerChatStrategy extends AbstractBotChatStrategy implements Bo
 		if (this.getSafeState(message).equals(SMOKER_STATES.INTRODUCE)) {
 			sendMessage.setReplyMarkup(MenuKeyboardFactory.getSmokeKeyboard());
 			bot.sendControlledMessage(sendMessage,
-					"Sos fumador actualmente  " + message.getFrom().getFirstName() + "?");
+					"¿Sos fumador actualmente " + message.getFrom().getFirstName() + "?");
 			this.chatIdStates.put(message.getChatId(), SMOKER_STATES.REQUEST_TARGET);
 			return;
 		}
@@ -44,7 +44,7 @@ public class BotSmokerChatStrategy extends AbstractBotChatStrategy implements Bo
 				this.endChatStrategy(message, bot, sendMessage);
 			} else {
 				sendMessage.setReplyMarkup(MenuKeyboardFactory.getMainMenuKeyboard());
-				bot.sendControlledMessage(sendMessage, "Cuántos cigarrilos fumas?");
+				bot.sendControlledMessage(sendMessage, "¿Cuántos cigarrilos fumas?");
 				this.chatIdStates.put(message.getChatId(), SMOKER_STATES.WAITING_TARGET_ACTUAL_NUMBER);
 			}
 			return;
@@ -55,12 +55,12 @@ public class BotSmokerChatStrategy extends AbstractBotChatStrategy implements Bo
 				new Integer(message.getText());
 				this.chatIdStates.put(message.getChatId(), SMOKER_STATES.REQUEST_TARGET_REDUCE_NUMBER);
 			} catch (NumberFormatException nfe) {
-				bot.sendControlledMessage(sendMessage, "Cuántos cigarrilos fumás? (Debe ser un número)");
+				bot.sendControlledMessage(sendMessage, "¿Cuántos cigarrilos fumás? (Debe ser un número)");
 			}
 		}
 
 		if (this.getSafeState(message).equals(SMOKER_STATES.REQUEST_TARGET_REDUCE_NUMBER)) {
-			bot.sendControlledMessage(sendMessage, "A cuántos cigarrillos diarios te gustaría reducir)");
+			bot.sendControlledMessage(sendMessage, "¿A cuántos cigarrillos diarios te gustaría reducir?");
 			this.chatIdStates.put(message.getChatId(), SMOKER_STATES.WAITING_TARGET_REDUCE_NUMBER);
 			return;
 
@@ -71,12 +71,12 @@ public class BotSmokerChatStrategy extends AbstractBotChatStrategy implements Bo
 				new Integer(message.getText());
 				int targetCigaretteNumber = new Integer(message.getText());
 				bot.sendControlledMessage(sendMessage,
-						"Excelente, a partir de ahora te preguntará a lo largo del día para saber cuántos vas?)");
+						"Excelente. A partir de ahora te preguntará a lo largo del día para saber cuántos vas.");
 				endChatStrategy(message, bot, sendMessage);
 				return;
 			} catch (NumberFormatException nfe) {
 				bot.sendControlledMessage(sendMessage,
-						"A cuántos cigarrillos diarios te gustaría reducir? (Debe ser un número)");
+						"¿A cuántos cigarrillos diarios te gustaría reducir? (Debe ser un número)");
 			}
 		}
 
@@ -98,7 +98,7 @@ public class BotSmokerChatStrategy extends AbstractBotChatStrategy implements Bo
 			sendMessage.setReplyMarkup(MenuKeyboardFactory.getReduceSmokeKeyboard());
 			bot.sendControlledMessage(sendMessage, "https://www.youtube.com/watch?v=71wtRD76vpc");
 			bot.sendControlledMessage(sendMessage,
-					"Quieres que te ayude a dejar o reducir el consumo de tabaco diario?");
+					"¿Quieres que te ayude a dejar o reducir el consumo de tabaco diario?");
 
 			this.chatIdStates.put(message.getChatId(), SMOKER_STATES.REQUEST_TARGET_ACTUAL_NUMBER);
 			break;

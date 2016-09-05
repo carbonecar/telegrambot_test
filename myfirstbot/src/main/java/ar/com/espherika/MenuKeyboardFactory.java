@@ -10,6 +10,7 @@ import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import ar.com.espherika.keyboard.ReplyKeyboardSleep;
 import ar.com.espherika.keyboard.ReplyKeyboardSmoke;
+import ar.com.espherika.keyboard.ReplyYesNoKeyBoard;
 
 /**
  * Aca
@@ -158,5 +159,9 @@ public class MenuKeyboardFactory {
 
 	public static ReplyKeyboard getRequestInfoSleep() {
 		return new ReplyKeyboardSleep();
+	}
+	
+	public static ReplyKeyboard getRequestYesNo(){
+		return new ReplyYesNoKeyBoard();
 	}
 }
