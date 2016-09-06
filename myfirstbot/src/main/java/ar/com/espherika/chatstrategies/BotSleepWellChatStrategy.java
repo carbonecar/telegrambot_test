@@ -1,5 +1,9 @@
 package ar.com.espherika.chatstrategies;
 
+import static ar.com.espherika.MenuKeyboardFactory.getRequestInfoSleep;
+import static ar.com.espherika.keyboard.ReplyKeyboardSleep.getValidResponsesSleepTime;
+
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,12 +12,8 @@ import org.telegram.telegrambots.api.objects.Message;
 
 import ar.com.espherika.MenuKeyboardFactory;
 import ar.com.espherika.MyFirstBot;
-import ar.com.espherika.keyboard.ReplyKeyboardSleep;
-import ar.com.espherika.keyboard.ReplyYesNoKeyBoard;
-import ar.com.espherika.utils.Time24HoursValidator;
-
-import static  ar.com.espherika.MenuKeyboardFactory.*;
-import static ar.com.espherika.keyboard.ReplyKeyboardSleep.*;
+import ar.com.espherika.keyboard.ReplyKeyboardSleep.SLEEP_WELL_STATE;
+import ar.com.espherika.utils.Time24HoursUtils;
 
 public class BotSleepWellChatStrategy extends AbstractBotChatStrategy implements BotChatStrategy {
 
@@ -38,7 +38,7 @@ public class BotSleepWellChatStrategy extends AbstractBotChatStrategy implements
 				return;
 			}
 		}
-		if(SLEEP_WELL_STATE.getByName(message.getText()).equals(SLEEP_WELL_STATE.REQUEST_NO_HELPS)){
+		if(SLEEP_WELL_STATE.REQUEST_NO_HELPS.equals(SLEEP_WELL_STATE.getByName(message.getText()))){
 			bot.sendControlledMessage(sendMessage, "Según la OMS duermes bien!");
 			this.finishChat(sendMessage, message, bot);
 		}
@@ -52,15 +52,19 @@ public class BotSleepWellChatStrategy extends AbstractBotChatStrategy implements
 		
 		if(SLEEP_WELL_STATE.YES_INCREASE_HOUR.equals(SLEEP_WELL_STATE.getByName(message.getText()))){
 			
-			bot.sendControlledMessage(sendMessage, "A qué hora te despertás habitualmente?");
+			bot.sendControlledMessage(sendMessage, "A qué hora te despertás habitualmente? (usa el formato hh:mm)");
 			chatIdStates.put(message.getChatId(), SLEEP_WELL_STATE.WAIT_INCREASE_HOUR);
 			return;
 		}
 		
 		if(SLEEP_WELL_STATE.WAIT_INCREASE_HOUR.equals(this.getSafeState(message))){
 			String horaActualDespierta=message.getText();
-			if(new Time24HoursValidator().validate(horaActualDespierta)){
-				bot.sendControlledMessage(sendMessage, "te despierto a las 10:45?");
+			if(new Time24HoursUtils().validate(horaActualDespierta)){
+				try {
+					bot.sendControlledMessage(sendMessage, "te despierto a las :"+Time24HoursUtils.increase(horaActualDespierta,2)+"?");
+				} catch (ParseException e) {
+					bot.sendControlledMessage(sendMessage, "Dime una hora en formato hh:mm");
+				}
 				chatIdStates.put(message.getChatId(), SLEEP_WELL_STATE.WAIT_INCREASE_HOUR);
 			}else{
 				bot.sendControlledMessage(sendMessage, "Dime una hora en formato hh:mm");
