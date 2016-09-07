@@ -28,5 +28,12 @@ public class ReplyYesNoKeyBoard extends AbstractCustomKeyboard {
 			setKeyboard(keyboard);
 			
 	 }
+	
+	protected KeyboardRow buildRow(String text) {
+		KeyboardRow keyboardRow = new KeyboardRow();
+		keyboardRow.add(text);
+		return keyboardRow;
+	}
+	
 
 }

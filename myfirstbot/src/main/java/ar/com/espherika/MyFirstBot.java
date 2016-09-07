@@ -67,6 +67,10 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	public void onUpdateReceived(Update update) {
 		if (update.hasMessage()) {
 			Message message = update.getMessage();
+			LOG.info(message.getFrom().getFirstName());
+			LOG.info(message.getFrom().getLastName());
+			LOG.info(message.getFrom().getUserName());
+
 
 			// KieSession kieSession =
 			// this.safeGetKieSession(message.getChatId());
@@ -130,9 +134,7 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	private void showNews(Message message) {
 		SendMessage sendMessage = new SendMessage();
 		sendMessage.setChatId(message.getChatId().toString());
-		this.sendControlledMessage(sendMessage, "Solucion al problema de concurrencia. Map de estado por cliente. Refactor urgente a drools");
-		this.sendControlledMessage(sendMessage, "Agregado de algunas fotos y videos");
-		this.sendControlledMessage(sendMessage, "Borrado de la hora y la alerta de prueba en el habito 'Tomar agua'");
+		this.sendControlledMessage(sendMessage, "Agregado del hábito Dormir");
 
 	}
 

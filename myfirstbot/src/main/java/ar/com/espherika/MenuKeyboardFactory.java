@@ -157,7 +157,21 @@ public class MenuKeyboardFactory {
 		replyKeyboardMarkup.setKeyboard(keyboard);
 		return replyKeyboardMarkup;
 	}
+	
+	public static ReplyKeyboard moreHealtyHabit(String caption){
+		ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+		replyKeyboardMarkup.setSelective(true);
+		replyKeyboardMarkup.setResizeKeyboard(true);
+		replyKeyboardMarkup.setOneTimeKeyboad(true);
 
+		List<KeyboardRow> keyboard = new ArrayList<KeyboardRow>();
+
+		
+		keyboard.add(buildRow(caption));
+		
+		replyKeyboardMarkup.setKeyboard(keyboard);
+		return replyKeyboardMarkup;
+	}
 	public static ReplyKeyboard getRequestInfoSleep() {
 		return new ReplyKeyboardSleep();
 	}

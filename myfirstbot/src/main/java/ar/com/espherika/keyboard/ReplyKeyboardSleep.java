@@ -16,14 +16,14 @@ public class ReplyKeyboardSleep extends AbstractCustomKeyboard {
 	private static final long serialVersionUID = 1L;
 	private static final String MENOS_7 = "Menos de 7 hs";
 	private static final String CANTIDAD_SALUDABLE = "Entre 7 y 8 hs";
-	private static final String MAS_9 = "Más de 9 hs";
 
 	public enum SLEEP_WELL_STATE {
 		INTRODUCE_SLEEP("INTRODUCE_SLEEP"), REQUEST_INFO_SLEEP("REQUEST_INFO_SLEEP"), MENOS_7(
 				"Menos de 7 hs"), REQUEST_NO_HELPS("Entre 7 y 8 hs"), MAS_9("Mas de 9 hs"),
 		YES_INCREASE_HOUR("Si, quiero dormir más"),NO_INCREASE_HOUR("No tengo interes en eso"), 
 		WAIT_INCREASE_HOUR("WAIT_INCREASE_HOUR"),WAIT_REDUCE_HOUR("WAIT_REDUCE_HOUR"),
-		CONSEJOS_SALUDABLE("Otro Consejo saludable");
+		CONSEJOS_SALUDABLE("Otro Consejo saludable"), CONFIRM_WAKE_UP_HOUR("Si, despiertame a esa hora"),
+		YES_REDUCE_HOUR("Si, quiero dormir menos");
 		private SLEEP_WELL_STATE(String myName) {
 			name = myName;
 		}
@@ -66,6 +66,9 @@ public class ReplyKeyboardSleep extends AbstractCustomKeyboard {
 			case "Otro Consejo saludable":
 				state=CONSEJOS_SALUDABLE;
 				break;
+			case "Si, despiertame a esa hora":
+				state=SLEEP_WELL_STATE.CONFIRM_WAKE_UP_HOUR;
+				break;
 			default:
 				break;	
 			}
@@ -88,7 +91,7 @@ public class ReplyKeyboardSleep extends AbstractCustomKeyboard {
 			validResponses = new ArrayList<String>();
 			validResponses.add(MENOS_7);
 			validResponses.add(CANTIDAD_SALUDABLE);
-			validResponses.add(MAS_9);
+			validResponses.add(SLEEP_WELL_STATE.MAS_9.getName());
 			validResponses.add(SLEEP_WELL_STATE.WAIT_INCREASE_HOUR.getName());
 			validResponses.add(SLEEP_WELL_STATE.WAIT_REDUCE_HOUR.getName());
 			validResponses.add(SLEEP_WELL_STATE.YES_INCREASE_HOUR.getName());
@@ -108,7 +111,7 @@ public class ReplyKeyboardSleep extends AbstractCustomKeyboard {
 		List<KeyboardRow> keyboard = new ArrayList<KeyboardRow>();
 		keyboard.add(buildRow(MENOS_7));
 		keyboard.add(buildRow(CANTIDAD_SALUDABLE));
-		keyboard.add(buildRow(MAS_9));
+		keyboard.add(buildRow(SLEEP_WELL_STATE.MAS_9.getName()));
 		keyboard.add(buildRow("Consejos saludables"));
 		setKeyboard(keyboard);
 
