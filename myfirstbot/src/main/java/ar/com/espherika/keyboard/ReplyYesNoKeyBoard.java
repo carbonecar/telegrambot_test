@@ -23,7 +23,8 @@ public class ReplyYesNoKeyBoard extends AbstractCustomKeyboard {
 			
 			keyboard.add(buildRow(ReplyKeyboardSleep.SLEEP_WELL_STATE.YES_INCREASE_HOUR.getName()));
 			keyboard.add(buildRow(ReplyKeyboardSleep.SLEEP_WELL_STATE.NO_INCREASE_HOUR.getName()));
-			
+			keyboard.add(buildRow(ReplyKeyboardSleep.SLEEP_WELL_STATE.CONSEJOS_SALUDABLE.getName()));
+		
 			setKeyboard(keyboard);
 			
 	 }

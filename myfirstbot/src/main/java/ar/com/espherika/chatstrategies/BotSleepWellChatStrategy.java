@@ -24,6 +24,10 @@ public class BotSleepWellChatStrategy extends AbstractBotChatStrategy implements
 	public void run(Message message, MyFirstBot bot) {
 		SendMessage sendMessage = new SendMessage();
 		sendMessage.setChatId(message.getChatId().toString());
+		if(message.getText().endsWith(SLEEP_WELL_STATE.CONSEJOS_SALUDABLE.getName())){
+			this.finishChat(sendMessage, message, bot);
+			return;
+		}
 		if (SLEEP_WELL_STATE.INTRODUCE_SLEEP.equals(getSafeState(message))) {
 			sendMessage.setReplyMarkup(getRequestInfoSleep());
 			bot.sendControlledMessage(sendMessage, "Cuántas horas duermes por dia?");
@@ -41,7 +45,7 @@ public class BotSleepWellChatStrategy extends AbstractBotChatStrategy implements
 		if(SLEEP_WELL_STATE.REQUEST_NO_HELPS.equals(SLEEP_WELL_STATE.getByName(message.getText()))){
 			bot.sendControlledMessage(sendMessage, "Según la OMS duermes bien!");
 			this.finishChat(sendMessage, message, bot);
-		}
+		}	
 		
 		if(SLEEP_WELL_STATE.MENOS_7.equals(SLEEP_WELL_STATE.getByName(message.getText()))){ 
 			sendMessage.setReplyMarkup(MenuKeyboardFactory.getRequestYesNo());
@@ -51,7 +55,7 @@ public class BotSleepWellChatStrategy extends AbstractBotChatStrategy implements
 		
 		
 		if(SLEEP_WELL_STATE.YES_INCREASE_HOUR.equals(SLEEP_WELL_STATE.getByName(message.getText()))){
-			
+			sendMessage.setReplayMarkup(MenuKeyboardFactory)
 			bot.sendControlledMessage(sendMessage, "A qué hora te despertás habitualmente? (usa el formato hh:mm)");
 			chatIdStates.put(message.getChatId(), SLEEP_WELL_STATE.WAIT_INCREASE_HOUR);
 			return;
@@ -61,6 +65,7 @@ public class BotSleepWellChatStrategy extends AbstractBotChatStrategy implements
 			String horaActualDespierta=message.getText();
 			if(new Time24HoursUtils().validate(horaActualDespierta)){
 				try {
+					sendMessage.setReplyMarkup(MenuKeyboardFactory.getRequestYesNo());
 					bot.sendControlledMessage(sendMessage, "te despierto a las :"+Time24HoursUtils.increase(horaActualDespierta,2)+"?");
 				} catch (ParseException e) {
 					bot.sendControlledMessage(sendMessage, "Dime una hora en formato hh:mm");
