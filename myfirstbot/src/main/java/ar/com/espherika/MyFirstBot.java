@@ -52,6 +52,7 @@ public class MyFirstBot extends TelegramLongPollingBot {
 		this.chatStrategies.put(ChatStates.HABITO_BEBER_AGUA_INICIADO, new BotDrinkWaterChatStrategy());
 		this.chatStrategies.put(ChatStates.HABITO_FUMAR, new BotSmokerChatStrategy());
 		this.chatStrategies.put(ChatStates.HABITO_DORMIR, new BotSleepWellChatStrategy());
+	
 
 	}
 
@@ -67,16 +68,19 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	public void onUpdateReceived(Update update) {
 		if (update.hasMessage()) {
 			Message message = update.getMessage();
-			LOG.info(message.getFrom().getFirstName());
-			LOG.info(message.getFrom().getLastName());
-			LOG.info(message.getFrom().getUserName());
-
-
+			
 			// KieSession kieSession =
 			// this.safeGetKieSession(message.getChatId());
 			ChatStates state = this.safeGetStates(message.getChatId());
-
+			StringBuilder loginUser = buildLoginUser(message);
+			LOG.info(loginUser);
+			if(state.equals(ChatStates.PRESENTACION)){
+				SendMessage sendMessage=new SendMessage();
+				sendMessage.setChatId("253489205");
+				this.sendControlledMessage(sendMessage, loginUser.toString());
+			}
 			if (message.hasText()) {
+				
 				if (message.getText().equals("/news")) {
 					this.showNews(message);
 					return;
@@ -123,6 +127,18 @@ public class MyFirstBot extends TelegramLongPollingBot {
 			}
 		}
 
+	}
+
+	private StringBuilder buildLoginUser(Message message) {
+		StringBuilder loginUser=new StringBuilder(100);
+		
+		loginUser.append("\n*********************usuario probando*******************\n");
+		loginUser.append("Nombre: "+message.getFrom().getFirstName()+"\n");
+		loginUser.append("Apellido: "+message.getFrom().getLastName()+"\n");
+		loginUser.append("UserName: "+message.getFrom().getUserName()+"\n");
+		loginUser.append("Chat id: " +message.getFrom().getId()+"\n");
+		loginUser.append("*****************FIN usuario probando*******************\n");
+		return loginUser;
 	}
 
 	/**
