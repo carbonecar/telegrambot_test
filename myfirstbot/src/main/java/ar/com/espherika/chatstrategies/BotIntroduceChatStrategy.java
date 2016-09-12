@@ -31,12 +31,15 @@ public class BotIntroduceChatStrategy implements BotChatStrategy {
 			if (!ciudadano.getPreferenciasChat().isPresentacionApagada()) {
 				String userFirstName=message.getFrom().getFirstName();
 					try {
-						Runtime.getRuntime().exec("./saludo.sh "+userFirstName);
+						Runtime.getRuntime().exec("./saludo.sh "+userFirstName).waitFor();
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
-					bot.sendVoiceTo(message,"presentacion_"+userFirstName+".opus");
+					bot.sendVoiceTo(message,"./presentacion_"+userFirstName+".opus");
 				
 			}
 			bot.sendControlledMessage(sendMessage, "Comencemos con algunas preguntas así nos conocemos un poco más.");
