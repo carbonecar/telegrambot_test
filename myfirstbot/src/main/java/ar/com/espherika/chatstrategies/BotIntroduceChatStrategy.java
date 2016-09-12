@@ -2,13 +2,9 @@ package ar.com.espherika.chatstrategies;
 
 import static ar.com.espherika.MenuKeyboardFactory.getHideKeyboard;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.transaction.Transactional;
 
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Message;
@@ -33,7 +29,15 @@ public class BotIntroduceChatStrategy implements BotChatStrategy {
 		if (INTRODUCE_STATE.GENDER.equals(state)) {
 			Ciudadano ciudadano = bot.getCiudadano((message.getChatId().toString()));
 			if (!ciudadano.getPreferenciasChat().isPresentacionApagada()) {
-				bot.sendVoiceTo(message,"presentacion_diego.opus");
+				String userFirstName=message.getFrom().getFirstName();
+					try {
+						Runtime.getRuntime().exec("./saludo.sh "+userFirstName);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					bot.sendVoiceTo(message,"presentacion_"+userFirstName+".opus");
+				
 			}
 			bot.sendControlledMessage(sendMessage, "Comencemos con algunas preguntas así nos conocemos un poco más.");
 

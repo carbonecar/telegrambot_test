@@ -3,6 +3,8 @@ package ar.com.espherika;
 import static ar.com.espherika.MenuKeyboardFactory.getWaterBenefitKeyboard;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -194,24 +196,40 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	 * 
 	 * @param message
 	 * @param filename 
+	 * @throws IOException 
 	 */
-	public void sendVoiceTo(Message message, String filename) {
+	public void sendVoiceTo(Message message, String filename)  {
 
 		SendVoice sendVoiceRequest = new SendVoice();
 		sendVoiceRequest.setChatId(message.getChatId().toString());
 		// sendVoiceRequest.setNewVoice("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/opus_sample.opus",
 		// "presentacion");
 		try {
-			InputStream inputStreamPresentacion = new ClassPathResource("sound/"+filename).getInputStream();
+			
+			InputStream inputStreamPresentacion = this.findInputStream(filename);
 			sendVoiceRequest.setNewVoice("presentacion", inputStreamPresentacion);
 			sendVoiceRequest.setDuration(7);
 			sendVoice(sendVoiceRequest);
 		} catch (TelegramApiException tae) {
 			LOG.error(tae);
-		} catch (IOException e) {
-			LOG.error(e);
-		}
+		} 
 
+	}
+
+	private InputStream findInputStream(String filename) {
+		InputStream inputStream=null;
+		try {
+			inputStream=new FileInputStream(new File(filename));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			try {
+				inputStream=new ClassPathResource("sound/presentacion_diego.opus").getInputStream();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		} 
+
+		return inputStream;
 	}
 
 	public void sendVideoTo(Message message) {
