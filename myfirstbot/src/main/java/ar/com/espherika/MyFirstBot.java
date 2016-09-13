@@ -152,7 +152,7 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	private void showNews(Message message) {
 		SendMessage sendMessage = new SendMessage();
 		sendMessage.setChatId(message.getChatId().toString());
-		this.sendControlledMessage(sendMessage, "Agregado del hábito Dormir");
+		this.sendControlledMessage(sendMessage, "Saludo individualizado");
 
 	}
 
