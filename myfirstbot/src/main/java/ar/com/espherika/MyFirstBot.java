@@ -42,7 +42,7 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	private Map<Long, KieSession> chatIdKieSession = new HashMap<Long, KieSession>();
 
 	public Map<Long, StateStrategy> chatIdStates = new HashMap<Long, StateStrategy>();
-	public Map<ChatStates, BotChatStrategy> chatStrategies = new HashMap<ChatStates, BotChatStrategy>();
+	public Map<ChatStates, Class<? extends BotChatStrategy>> chatStrategies = new HashMap<ChatStates,  Class<? extends BotChatStrategy>>();
 
 	private HabitoRepository habitoRepository;
 	private CiudadanoRepository ciudadanoRepository;
@@ -50,11 +50,10 @@ public class MyFirstBot extends TelegramLongPollingBot {
 
 	public MyFirstBot(BotIdentifier botIdentifier) {
 		this.botIdentifier = botIdentifier;
-		this.chatStrategies.put(ChatStates.PRESENTACION, new BotIntroduceChatStrategy());
-		this.chatStrategies.put(ChatStates.HABITO_BEBER_AGUA_INICIADO, new BotDrinkWaterChatStrategy());
-		this.chatStrategies.put(ChatStates.HABITO_FUMAR, new BotSmokerChatStrategy());
-		this.chatStrategies.put(ChatStates.HABITO_DORMIR, new BotSleepWellChatStrategy());
-	
+		this.chatStrategies.put(ChatStates.PRESENTACION, BotIntroduceChatStrategy.class);
+		this.chatStrategies.put(ChatStates.HABITO_BEBER_AGUA_INICIADO,  BotDrinkWaterChatStrategy.class);
+		this.chatStrategies.put(ChatStates.HABITO_FUMAR, BotSmokerChatStrategy.class);
+		this.chatStrategies.put(ChatStates.HABITO_DORMIR, BotSleepWellChatStrategy.class);
 
 	}
 
@@ -70,26 +69,31 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	public void onUpdateReceived(Update update) {
 		if (update.hasMessage()) {
 			Message message = update.getMessage();
-			
+
 			// KieSession kieSession =
 			// this.safeGetKieSession(message.getChatId());
 			ChatStates state = this.safeGetStates(message.getChatId());
 			StringBuilder loginUser = buildLoginUser(message);
 			LOG.info(loginUser);
-			if(state.equals(ChatStates.PRESENTACION)){
-				SendMessage sendMessage=new SendMessage();
+			if (state.equals(ChatStates.PRESENTACION)) {
+				SendMessage sendMessage = new SendMessage();
 				sendMessage.setChatId("253489205");
 				this.sendControlledMessage(sendMessage, loginUser.toString());
 			}
 			if (message.hasText()) {
-				
+
+				if (message.getText().equals("/stop")) {
+					this.chatIdStates.remove(message.getChatId());
+					this.chatStrategies.remove(message.getChatId());
+					return;
+				}
 				if (message.getText().equals("/news")) {
 					this.showNews(message);
 					return;
 				}
 
 				if (message.getText().equals("/voice")) {
-					this.sendVoiceTo(message,"presentacion_diego.opus");
+					this.sendVoiceTo(message, "presentacion_diego.opus");
 					return;
 				}
 
@@ -132,13 +136,13 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	}
 
 	private StringBuilder buildLoginUser(Message message) {
-		StringBuilder loginUser=new StringBuilder(100);
-		
+		StringBuilder loginUser = new StringBuilder(100);
+
 		loginUser.append("\n*********************usuario probando*******************\n");
-		loginUser.append("Nombre: "+message.getFrom().getFirstName()+"\n");
-		loginUser.append("Apellido: "+message.getFrom().getLastName()+"\n");
-		loginUser.append("UserName: "+message.getFrom().getUserName()+"\n");
-		loginUser.append("Chat id: " +message.getFrom().getId()+"\n");
+		loginUser.append("Nombre: " + message.getFrom().getFirstName() + "\n");
+		loginUser.append("Apellido: " + message.getFrom().getLastName() + "\n");
+		loginUser.append("UserName: " + message.getFrom().getUserName() + "\n");
+		loginUser.append("Chat id: " + message.getFrom().getId() + "\n");
 		loginUser.append("*****************FIN usuario probando*******************\n");
 		return loginUser;
 	}
@@ -153,6 +157,8 @@ public class MyFirstBot extends TelegramLongPollingBot {
 		SendMessage sendMessage = new SendMessage();
 		sendMessage.setChatId(message.getChatId().toString());
 		this.sendControlledMessage(sendMessage, "Saludo individualizado");
+		this.sendControlledMessage(sendMessage,
+				"Fix del issue #2 https://github.com/carbonecar/telegrambot_test/issues/2");
 
 	}
 
@@ -195,39 +201,39 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	 * 
 	 * 
 	 * @param message
-	 * @param filename 
-	 * @throws IOException 
+	 * @param filename
+	 * @throws IOException
 	 */
-	public void sendVoiceTo(Message message, String filename)  {
+	public void sendVoiceTo(Message message, String filename) {
 
 		SendVoice sendVoiceRequest = new SendVoice();
 		sendVoiceRequest.setChatId(message.getChatId().toString());
 		// sendVoiceRequest.setNewVoice("/Users/carbonecar/testprojects/testbot/telegrambotosde/pictures/opus_sample.opus",
 		// "presentacion");
 		try {
-			
+
 			InputStream inputStreamPresentacion = this.findInputStream(filename);
 			sendVoiceRequest.setNewVoice("presentacion", inputStreamPresentacion);
 			sendVoiceRequest.setDuration(7);
 			sendVoice(sendVoiceRequest);
 		} catch (TelegramApiException tae) {
 			LOG.error(tae);
-		} 
+		}
 
 	}
 
 	private InputStream findInputStream(String filename) {
-		InputStream inputStream=null;
+		InputStream inputStream = null;
 		try {
-			inputStream=new FileInputStream(new File(filename));
+			inputStream = new FileInputStream(new File(filename));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			try {
-				inputStream=new ClassPathResource("sound/presentacion_diego.opus").getInputStream();
+				inputStream = new ClassPathResource("sound/presentacion_diego.opus").getInputStream();
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-		} 
+		}
 
 		return inputStream;
 	}
@@ -255,8 +261,12 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	private ChatStates safeGetStates(Long chatId) {
 		StateStrategy stateStrategy = this.chatIdStates.get(chatId);
 		if (stateStrategy == null) {
-			stateStrategy = new StateStrategy(ChatStates.PRESENTACION,
-					this.chatStrategies.get(ChatStates.PRESENTACION));
+			try {
+				stateStrategy = new StateStrategy(ChatStates.PRESENTACION,
+						this.chatStrategies.get(ChatStates.PRESENTACION).newInstance());
+			} catch (InstantiationException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
 			this.chatIdStates.put(chatId, stateStrategy);
 			Ciudadano ciudadano = new Ciudadano(chatId.toString());
 			ciudadano.setPreferenciasChat(new PreferenciasChat());
@@ -314,9 +324,8 @@ public class MyFirstBot extends TelegramLongPollingBot {
 		}
 	}
 
-	
 	public void setRandomChatStrategy(SendMessage sendMessage, Message message) {
-		 setRandomChatStrategy(sendMessage, message,this.safeGetStates(message.getChatId()));
+		setRandomChatStrategy(sendMessage, message, this.safeGetStates(message.getChatId()));
 
 	}
 
@@ -325,10 +334,10 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	 * 
 	 * @param chatId
 	 */
-	public void setRandomChatStrategy(SendMessage sendMessage, Message message,ChatStates exclude) {
+	public void setRandomChatStrategy(SendMessage sendMessage, Message message, ChatStates exclude) {
 		sendMessage.setChatId(message.getChatId().toString());
-		int statesToExcludeCount=exclude==null?0:1;
-		statesToExcludeCount+=1;
+		int statesToExcludeCount = exclude == null ? 0 : 1;
+		statesToExcludeCount += 1;
 		int chatStrategiesCount = this.chatStrategies.keySet().size() - statesToExcludeCount;
 		int indexRandomState = ((int) (Math.random() * chatStrategiesCount));
 
@@ -339,12 +348,12 @@ public class MyFirstBot extends TelegramLongPollingBot {
 
 			if (!chatState.equals(ChatStates.PRESENTACION) && !chatState.equals(exclude)) {
 				keySetArray[index++] = chatState;
-			}	
+			}
 		}
 		ChatStates chatState = keySetArray[indexRandomState];
 		BotChatStrategy botChatStrategy;
 		try {
-			botChatStrategy = this.chatStrategies.get(chatState).getClass().newInstance();
+			botChatStrategy = this.chatStrategies.get(chatState).newInstance();
 			this.chatIdStates.put(message.getChatId(), new StateStrategy(chatState, botChatStrategy));
 			BotChatStrategy chatStrategy = this.chatIdStates.get(message.getChatId()).getBotChatStrategy();
 			chatStrategy.run(message, this);
