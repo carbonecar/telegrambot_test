@@ -74,7 +74,7 @@ public class MenuKeyboardFactory {
 
 		List<KeyboardRow> keyboard = new ArrayList<KeyboardRow>();
 
-		keyboard.add(buildRow("Por qué?"));
+		keyboard.add(buildRow("¿Por qué?"));
 		keyboard.add(buildRow("Adoptar hábito"));
 		keyboard.add(buildRow("Ya tengo el hábito"));
 		keyboard.add(buildRow("Consejos saludables"));
