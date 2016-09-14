@@ -165,6 +165,8 @@ public class MyFirstBot extends TelegramLongPollingBot {
 				"Fix de las correcciones ortograficas");
 		this.sendControlledMessage(sendMessage,
 				"Fix del issue #2 ");
+		this.sendControlledMessage(sendMessage,
+				"Fix del problema que no adopta el habito de beber agua");
 
 	}
 
