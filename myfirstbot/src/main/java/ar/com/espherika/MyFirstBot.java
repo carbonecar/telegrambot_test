@@ -159,7 +159,11 @@ public class MyFirstBot extends TelegramLongPollingBot {
 		sendMessage.setChatId(message.getChatId().toString());
 		this.sendControlledMessage(sendMessage, "Saludo individualizado");
 		this.sendControlledMessage(sendMessage,
-				"Fix del issue #2 https://github.com/carbonecar/telegrambot_test/issues/2");
+				"Permite reiniciar la conversación usando /stop para \"olvidar\" el usuario");
+		this.sendControlledMessage(sendMessage,
+				"Fix de las correcciones ortograficas");
+		this.sendControlledMessage(sendMessage,
+				"Fix del issue #2 ");
 
 	}
 
