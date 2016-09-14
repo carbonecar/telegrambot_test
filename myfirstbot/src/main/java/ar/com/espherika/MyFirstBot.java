@@ -42,7 +42,7 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	private Map<Long, KieSession> chatIdKieSession = new HashMap<Long, KieSession>();
 
 	public Map<Long, StateStrategy> chatIdStates = new HashMap<Long, StateStrategy>();
-	public Map<ChatStates, Class<? extends BotChatStrategy>> chatStrategies = new HashMap<ChatStates,  Class<? extends BotChatStrategy>>();
+	public Map<ChatStates, Class<? extends BotChatStrategy>> chatStrategies = new HashMap<ChatStates, Class<? extends BotChatStrategy>>();
 
 	private HabitoRepository habitoRepository;
 	private CiudadanoRepository ciudadanoRepository;
@@ -51,7 +51,7 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	public MyFirstBot(BotIdentifier botIdentifier) {
 		this.botIdentifier = botIdentifier;
 		this.chatStrategies.put(ChatStates.PRESENTACION, BotIntroduceChatStrategy.class);
-		this.chatStrategies.put(ChatStates.HABITO_BEBER_AGUA_INICIADO,  BotDrinkWaterChatStrategy.class);
+		this.chatStrategies.put(ChatStates.HABITO_BEBER_AGUA_INICIADO, BotDrinkWaterChatStrategy.class);
 		this.chatStrategies.put(ChatStates.HABITO_FUMAR, BotSmokerChatStrategy.class);
 		this.chatStrategies.put(ChatStates.HABITO_DORMIR, BotSleepWellChatStrategy.class);
 
@@ -121,7 +121,8 @@ public class MyFirstBot extends TelegramLongPollingBot {
 					this.sendPhotoTo(message, "test.jpg");
 					return;
 				}
-				if (message.getText().equals("Mas hábitos...") || message.getText().equals("Consejos saludables")) {
+				if (message.getText().equals("Mas hábitos...") || (message.getText().equals("Consejos saludables")
+						&& !this.safeGetStates(message.getChatId()).equals(ChatStates.PRESENTACION))) {
 					this.setRandomChatStrategy(new SendMessage(), message);
 					return;
 				}

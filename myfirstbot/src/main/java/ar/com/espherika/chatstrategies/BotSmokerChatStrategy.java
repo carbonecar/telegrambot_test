@@ -108,6 +108,7 @@ public class BotSmokerChatStrategy extends AbstractBotChatStrategy implements Bo
 			break;
 		case ReplyKeyboardSmoke.NO_GRCIAS:
 			this.endChatStrategy(message, bot, sendMessage);
+			break;
 		case ReplyKeyboardSmoke.NO_PERO_LO_FUI:
 			bot.sendPhotoTo(message, "pulmon.jpg");
 			bot.sendControlledMessage(sendMessage,

@@ -33,9 +33,13 @@ public class BotDrinkWaterChatStrategy extends AbstractBotChatStrategy implement
 		SendMessage sendMessage = new SendMessage();
 		sendMessage.setChatId(message.getChatId().toString());
 		String messageFromUser=message.getText();
+
+		if (SET_CRON_STATE.INTRODUCE.equals(this.getSafeState(message.getChatId()))) {
+			bot.iniciarBeberAgua(sendMessage, message);
+			return;
+		}
 		
-		
-		if (messageFromUser.equals("Por qué?")) {
+		if (messageFromUser.equals("¿Por qué?")) {
 			Habito beberAgua = bot.getHabitoBeberAgua();
 			for (Beneficio beneficio : beberAgua.getBeneficios()) {
 				bot.sendControlledMessage(sendMessage, beneficio.getDesripcion());
@@ -87,9 +91,6 @@ public class BotDrinkWaterChatStrategy extends AbstractBotChatStrategy implement
 			return;
 		}
 
-		if (SET_CRON_STATE.INTRODUCE.equals(this.getSafeState(message.getChatId()))) {
-			bot.iniciarBeberAgua(sendMessage, message);
-		}
 
 	}
 

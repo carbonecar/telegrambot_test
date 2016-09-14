@@ -46,6 +46,7 @@ public class BotSleepWellChatStrategy extends AbstractBotChatStrategy implements
 		if (SLEEP_WELL_STATE.REQUEST_NO_HELPS.equals(SLEEP_WELL_STATE.getByName(message.getText()))) {
 			bot.sendControlledMessage(sendMessage, "Según la OMS duermes bien!");
 			this.finishChat(sendMessage, message, bot);
+			return;
 		}
 
 		if (SLEEP_WELL_STATE.MENOS_7.equals(SLEEP_WELL_STATE.getByName(message.getText()))) {
@@ -116,10 +117,7 @@ public class BotSleepWellChatStrategy extends AbstractBotChatStrategy implements
 		}
 		this.finishChat(sendMessage, message, bot);
 
-		// bot.sendControlledMessage(sendMessage, "todavía estamos agregando
-		// hábitos saludables.");
-		// bot.setRandomChatStrategy(sendMessage, message);
-		// this.finishChat(sendMessage, message, bot);
+		
 
 	}
 
