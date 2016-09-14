@@ -157,6 +157,7 @@ public class MyFirstBot extends TelegramLongPollingBot {
 	private void showNews(Message message) {
 		SendMessage sendMessage = new SendMessage();
 		sendMessage.setChatId(message.getChatId().toString());
+		
 		this.sendControlledMessage(sendMessage, "Saludo individualizado");
 		this.sendControlledMessage(sendMessage,
 				"Permite reiniciar la conversación usando /stop para \"olvidar\" el usuario");
@@ -374,8 +375,11 @@ public class MyFirstBot extends TelegramLongPollingBot {
 		Habito beberAgua = getHabitoBeberAgua();
 		sendMessage.setReplyMarkup(getWaterBenefitKeyboard());
 		sendControlledMessage(sendMessage, beberAgua.getMensajeIntroductorio());
+		BotDrinkWaterChatStrategy botDrinkWater=new BotDrinkWaterChatStrategy();
+		botDrinkWater.transitionToIntorduceDone(message.getChatId());
 		chatIdStates.put(message.getChatId(),
-				new StateStrategy(ChatStates.HABITO_BEBER_AGUA_INICIADO, new BotDrinkWaterChatStrategy()));
+				new StateStrategy(ChatStates.HABITO_BEBER_AGUA_INICIADO, botDrinkWater));
+
 
 	}
 

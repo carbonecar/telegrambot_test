@@ -3,6 +3,7 @@ package ar.com.espherika.chatstrategies;
 import static ar.com.espherika.MenuKeyboardFactory.getAdoptHabitWaterKeyboard;
 import static ar.com.espherika.MenuKeyboardFactory.getHideKeyboard;
 import static ar.com.espherika.MenuKeyboardFactory.getSubscribeHabit;
+import static ar.com.espherika.MenuKeyboardFactory.getWaterBenefitKeyboard;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -14,6 +15,7 @@ import org.telegram.telegrambots.api.objects.Message;
 
 import ar.com.espherika.ChatStates;
 import ar.com.espherika.MyFirstBot;
+import ar.com.espherika.StateStrategy;
 import ar.com.espherika.healthbot.model.Beneficio;
 import ar.com.espherika.healthbot.model.Habito;
 import ar.com.espherika.service.CustomTimerTask;
@@ -22,7 +24,7 @@ import ar.com.espherika.service.TimerExecutor;
 public class BotDrinkWaterChatStrategy extends AbstractBotChatStrategy implements BotChatStrategy {
 
 	enum SET_CRON_STATE {
-		INTRODUCE, CRON_REQUEST, CRON, CRON_TWICE;
+		INTRODUCE,INTRODUCE_DONE, CRON_REQUEST, CRON, CRON_TWICE;
 	}
 
 	Map<Long, SET_CRON_STATE> chatIdStates = new HashMap<Long, SET_CRON_STATE>();
@@ -35,7 +37,10 @@ public class BotDrinkWaterChatStrategy extends AbstractBotChatStrategy implement
 		String messageFromUser=message.getText();
 
 		if (SET_CRON_STATE.INTRODUCE.equals(this.getSafeState(message.getChatId()))) {
-			bot.iniciarBeberAgua(sendMessage, message);
+			Habito beberAgua = bot.getHabitoBeberAgua();
+			sendMessage.setReplyMarkup(getWaterBenefitKeyboard());
+			bot.sendControlledMessage(sendMessage, beberAgua.getMensajeIntroductorio());
+			this.chatIdStates.put(message.getChatId(), SET_CRON_STATE.INTRODUCE_DONE);
 			return;
 		}
 		
@@ -161,6 +166,10 @@ public class BotDrinkWaterChatStrategy extends AbstractBotChatStrategy implement
 		return state;
 	}
 
+	public void transitionToIntorduceDone(Long chatId){
+		this.chatIdStates.put(chatId, SET_CRON_STATE.INTRODUCE_DONE);
+
+	}
 	@Override
 	protected void setInitialState(Long chatId) {
 		this.chatIdStates.put(chatId, SET_CRON_STATE.INTRODUCE);
