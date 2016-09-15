@@ -6,7 +6,7 @@ import org.telegram.telegrambots.api.objects.Message;
 import ar.com.espherika.MenuKeyboardFactory;
 import ar.com.espherika.MyFirstBot;
 
-public abstract class AbstractBotChatStrategy {
+public abstract class AbstractBotChatStrategy  implements BotChatStrategy {
 
 	public AbstractBotChatStrategy() {
 		super();

@@ -49,6 +49,7 @@ public class BotDrinkWaterChatStrategy extends AbstractBotChatStrategy implement
 			for (Beneficio beneficio : beberAgua.getBeneficios()) {
 				bot.sendControlledMessage(sendMessage, beneficio.getDesripcion());
 			}
+			sendMessage.setReplyMarkup(getWaterBenefitKeyboard());
 			bot.sendControlledMessage(sendMessage, "https://www.youtube.com/watch?v=OvvmJbGTR6M");
 			return;
 		}

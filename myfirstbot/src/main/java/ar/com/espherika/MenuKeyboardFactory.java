@@ -33,9 +33,13 @@ public class MenuKeyboardFactory {
 		List<KeyboardRow> keyboard = new ArrayList<KeyboardRow>();
 		KeyboardRow keyboardFirsRow = new KeyboardRow();
 		keyboardFirsRow.add("Consejos saludables");
+		KeyboardRow keyboardSecondRow =new KeyboardRow();
+		keyboardSecondRow.add("Sugerencias");
+		
 		replyKeyboard.setSelective(true);
 		replyKeyboard.setResizeKeyboard(true);
 		keyboard.add(keyboardFirsRow);
+		//keyboard.add(keyboardSecondRow);
 
 		replyKeyboard.setKeyboard(keyboard);
 		return replyKeyboard;

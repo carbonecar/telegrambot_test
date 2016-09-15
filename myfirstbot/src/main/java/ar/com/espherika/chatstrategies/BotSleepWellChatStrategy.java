@@ -19,7 +19,9 @@ import ar.com.espherika.utils.Time24HoursUtils;
 public class BotSleepWellChatStrategy extends AbstractBotChatStrategy implements BotChatStrategy {
 
 	private Map<Long, SLEEP_WELL_STATE> chatIdStates = new HashMap<Long, SLEEP_WELL_STATE>();
+	private Map<Long, Target> charIdTarget=new HashMap<Long,Target>();
 
+	
 	@Override
 	public void run(Message message, MyFirstBot bot) {
 		SendMessage sendMessage = new SendMessage();
@@ -119,6 +121,13 @@ public class BotSleepWellChatStrategy extends AbstractBotChatStrategy implements
 
 	}
 
+
+	@Override
+	protected void setInitialState(Long chatId) {
+		this.chatIdStates.put(chatId, SLEEP_WELL_STATE.INTRODUCE_SLEEP);
+
+	}
+
 	private String computeHourToWakeUp(SLEEP_WELL_STATE state, String hour) throws ParseException {
 		String computedHour;
 		if (state.equals(SLEEP_WELL_STATE.WAIT_INCREASE_HOUR)) {
@@ -129,16 +138,10 @@ public class BotSleepWellChatStrategy extends AbstractBotChatStrategy implements
 		} else {
 			computedHour = hour;
 		}
-
+		
 		return computedHour;
 	}
-
-	@Override
-	protected void setInitialState(Long chatId) {
-		this.chatIdStates.put(chatId, SLEEP_WELL_STATE.INTRODUCE_SLEEP);
-
-	}
-
+	
 	private SLEEP_WELL_STATE getSafeState(Message message) {
 		SLEEP_WELL_STATE myState = chatIdStates.get(message.getChatId());
 
@@ -149,4 +152,31 @@ public class BotSleepWellChatStrategy extends AbstractBotChatStrategy implements
 		return myState;
 	}
 
+	
+	private class Target{
+		private String hourWakeup;
+		private String newHourWakeup;
+		private SLEEP_WELL_STATE state;
+		
+		
+		public String getHourWakeup() {
+			return hourWakeup;
+		}
+		public void setHourWakeup(String hourWakeup) {
+			this.hourWakeup = hourWakeup;
+		}
+		public String getNewHourWakeup() {
+			return newHourWakeup;
+		}
+		public void setNewHourWakeup(String newHourWakeup) {
+			this.newHourWakeup = newHourWakeup;
+		}
+		public SLEEP_WELL_STATE getState() {
+			return state;
+		}
+		public void setState(SLEEP_WELL_STATE state) {
+			this.state = state;
+		}
+		
+	}
 }

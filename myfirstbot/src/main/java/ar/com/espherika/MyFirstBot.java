@@ -30,6 +30,7 @@ import ar.com.espherika.chatstrategies.BotDrinkWaterChatStrategy;
 import ar.com.espherika.chatstrategies.BotIntroduceChatStrategy;
 import ar.com.espherika.chatstrategies.BotSleepWellChatStrategy;
 import ar.com.espherika.chatstrategies.BotSmokerChatStrategy;
+import ar.com.espherika.chatstrategies.BotSuggestionsChatStrategy;
 import ar.com.espherika.healthbot.model.BotIdentifier;
 import ar.com.espherika.healthbot.model.Ciudadano;
 import ar.com.espherika.healthbot.model.Habito;
@@ -54,6 +55,7 @@ public class MyFirstBot extends TelegramLongPollingBot {
 		this.chatStrategies.put(ChatStates.HABITO_BEBER_AGUA_INICIADO, BotDrinkWaterChatStrategy.class);
 		this.chatStrategies.put(ChatStates.HABITO_FUMAR, BotSmokerChatStrategy.class);
 		this.chatStrategies.put(ChatStates.HABITO_DORMIR, BotSleepWellChatStrategy.class);
+		//this.chatStrategies.put(ChatStates.SUGGESTIONS, BotSuggestionsChatStrategy.class);
 
 	}
 
@@ -158,15 +160,10 @@ public class MyFirstBot extends TelegramLongPollingBot {
 		SendMessage sendMessage = new SendMessage();
 		sendMessage.setChatId(message.getChatId().toString());
 		
-		this.sendControlledMessage(sendMessage, "Saludo individualizado");
+		this.sendControlledMessage(sendMessage, "Agregado de alertas durante el dia para dejar de fumar");
 		this.sendControlledMessage(sendMessage,
-				"Permite reiniciar la conversación usando /stop para \"olvidar\" el usuario");
-		this.sendControlledMessage(sendMessage,
-				"Fix de las correcciones ortograficas");
-		this.sendControlledMessage(sendMessage,
-				"Fix del issue #2 ");
-		this.sendControlledMessage(sendMessage,
-				"Fix del problema que no adopta el habito de beber agua");
+				"Fix del circuito del hábito dormir");
+		
 
 	}
 

@@ -10,8 +10,10 @@ import ar.com.espherika.ChatStates;
 import ar.com.espherika.MenuKeyboardFactory;
 import ar.com.espherika.MyFirstBot;
 import ar.com.espherika.keyboard.ReplyKeyboardSmoke;
+import ar.com.espherika.service.CustomTimerTask;
+import ar.com.espherika.service.TimerExecutor;
 
-public class BotSmokerChatStrategy extends AbstractBotChatStrategy implements BotChatStrategy {
+public class BotSmokerChatStrategy extends AbstractBotChatStrategy  {
 
 	private enum SMOKER_STATES {
 		INTRODUCE, REQUEST_TARGET, REQUEST_TARGET_ACTUAL_NUMBER, WAITING_TARGET_REDUCE_NUMBER, REQUEST_TARGET_REDUCE_NUMBER, WAITING_TARGET_ACTUAL_NUMBER, STOP_SMOKING_TARGET, REDUCE_SMOKING_TARGET;
@@ -71,7 +73,13 @@ public class BotSmokerChatStrategy extends AbstractBotChatStrategy implements Bo
 				new Integer(message.getText());
 				int targetCigaretteNumber = new Integer(message.getText());
 				bot.sendControlledMessage(sendMessage,
-						"Excelente. A partir de ahora te preguntará a lo largo del día para saber cuántos vas.");
+						"Excelente. A partir de ahora te recordare a lo largo del dia tu objetivo para ayudarte a regular tu cantidad");
+				this.cronMessage("Recuerda que tu objetivo es fumar "+targetCigaretteNumber+" cigarrillos.",10,00,0,bot,sendMessage);
+				this.cronMessage("Recuerda que tu objetivo es fumar "+targetCigaretteNumber+" cigarrillos diarios.",13,00,0,bot,sendMessage);
+				this.cronMessage("Recuerda que tu objetivo es fumar "+targetCigaretteNumber+" cigarrillos diarios.",17,00,0,bot,sendMessage);
+				this.cronMessage("Recuerda que tu objetivo es fumar "+targetCigaretteNumber+" cigarrillos diarios nada más.",20,00,0,bot,sendMessage);
+
+
 				endChatStrategy(message, bot, sendMessage);
 				return;
 			} catch (NumberFormatException nfe) {
@@ -82,6 +90,18 @@ public class BotSmokerChatStrategy extends AbstractBotChatStrategy implements Bo
 
 		// bot.setRandomChatStrategy(sendMessage, message);
 
+	}
+
+	private void cronMessage(String string, int hora, int min, int seg, MyFirstBot bot, SendMessage sendMessage) {
+		TimerExecutor.getInstance().startExecutionEveryDayAt(
+				new CustomTimerTask("Recordatorio programado para las : " + hora + " hs", 1) {
+
+					@Override
+					public void execute() {
+						bot.sendControlledMessage(sendMessage, string);
+					}
+				}, hora, min, seg);
+		
 	}
 
 	/**
