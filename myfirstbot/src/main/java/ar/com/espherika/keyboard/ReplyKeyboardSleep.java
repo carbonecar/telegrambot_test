@@ -24,7 +24,7 @@ public class ReplyKeyboardSleep extends AbstractCustomKeyboard {
 		WAIT_INCREASE_HOUR("WAIT_INCREASE_HOUR"),WAIT_DECREASE_HOUR("WAIT_DECREASE_HOUR"),
 		CONSEJOS_SALUDABLE("Otro Consejo saludable"), CONFIRM_WAKE_UP_HOUR("Si, despiertame a esa hora"),
 		DENY_WAKE_UP_HOUR("No, no me despiertes a esa hora"),
-		YES_REDUCE_HOUR("Si, quiero dormir menos");
+		YES_REDUCE_HOUR("Si, quiero dormir menos"), WAIT_CUSTOM_HOUR("WAIT_CUSTOM_HOUR");
 		private SLEEP_WELL_STATE(String myName) {
 			name = myName;
 		}
@@ -72,6 +72,9 @@ public class ReplyKeyboardSleep extends AbstractCustomKeyboard {
 				break;
 			case "Si, quiero dormir menos":
 				state=SLEEP_WELL_STATE.YES_REDUCE_HOUR;
+				break;
+			case "WAIT_CUSTOM_HOUR":
+				state=SLEEP_WELL_STATE.WAIT_CUSTOM_HOUR;
 				break;
 			default:
 				break;	

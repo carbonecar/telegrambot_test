@@ -24,7 +24,7 @@ public class BotSleepWellChatStrategy extends AbstractBotChatStrategy implements
 	public void run(Message message, MyFirstBot bot) {
 		SendMessage sendMessage = new SendMessage();
 		sendMessage.setChatId(message.getChatId().toString());
-		if (message.getText().endsWith(SLEEP_WELL_STATE.CONSEJOS_SALUDABLE.getName())) {
+		if (message.getText().equals(SLEEP_WELL_STATE.CONSEJOS_SALUDABLE.getName())) {
 			this.finishChat(sendMessage, message, bot);
 			return;
 		}
@@ -64,19 +64,19 @@ public class BotSleepWellChatStrategy extends AbstractBotChatStrategy implements
 		}
 
 		if (SLEEP_WELL_STATE.WAIT_INCREASE_HOUR.equals(this.getSafeState(message))
-				|| SLEEP_WELL_STATE.WAIT_DECREASE_HOUR.equals(this.getSafeState(message))) {
+				|| SLEEP_WELL_STATE.WAIT_DECREASE_HOUR.equals(this.getSafeState(message))
+				|| SLEEP_WELL_STATE.WAIT_CUSTOM_HOUR.equals(this.getSafeState(message))) {
+
 			String horaActualDespierta = message.getText();
 
 			if (new Time24HoursUtils().validate(horaActualDespierta)) {
 				try {
-					sendMessage.setReplyMarkup(
-							MenuKeyboardFactory.moreHealtyHabit(SLEEP_WELL_STATE.CONSEJOS_SALUDABLE.getName()));
 					sendMessage
 							.setReplyMarkup(new KeyboardBuilder().with(SLEEP_WELL_STATE.CONFIRM_WAKE_UP_HOUR.getName())
 									.with(SLEEP_WELL_STATE.DENY_WAKE_UP_HOUR.getName())
 									.with(SLEEP_WELL_STATE.CONSEJOS_SALUDABLE.getName()).build());
-					bot.sendControlledMessage(sendMessage,
-							"te despierto a las :" + this.computeHourToWakeUp(this.getSafeState(message),horaActualDespierta) + "?");
+					bot.sendControlledMessage(sendMessage, "te despierto a las :"
+							+ this.computeHourToWakeUp(this.getSafeState(message), horaActualDespierta) + "?");
 					this.chatIdStates.put(message.getChatId(), SLEEP_WELL_STATE.CONFIRM_WAKE_UP_HOUR);
 				} catch (ParseException e) {
 					bot.sendControlledMessage(sendMessage, "Dime una hora en formato hh:mm");
@@ -109,17 +109,27 @@ public class BotSleepWellChatStrategy extends AbstractBotChatStrategy implements
 			return;
 		}
 
+		if (SLEEP_WELL_STATE.DENY_WAKE_UP_HOUR.getName().equals(message.getText())) {
+			sendMessage.setReplyMarkup(MenuKeyboardFactory.getMainMenuKeyboard());
+			bot.sendControlledMessage(sendMessage, "Dime a que hora quieres despertarte? (usa el formato hh:mm)");
+			chatIdStates.put(message.getChatId(), SLEEP_WELL_STATE.WAIT_CUSTOM_HOUR);
+			return;
+		}
 		this.finishChat(sendMessage, message, bot);
 
 	}
 
-	private String computeHourToWakeUp(SLEEP_WELL_STATE state,String hour) throws ParseException {
+	private String computeHourToWakeUp(SLEEP_WELL_STATE state, String hour) throws ParseException {
 		String computedHour;
-		if(state.equals(SLEEP_WELL_STATE.WAIT_INCREASE_HOUR)){
-			computedHour=Time24HoursUtils.increase(hour, 2);
-		}else{
-			computedHour=Time24HoursUtils.increase(hour, -2);
+		if (state.equals(SLEEP_WELL_STATE.WAIT_INCREASE_HOUR)) {
+			computedHour = Time24HoursUtils.increase(hour, 2);
 		}
+		if (state.equals(SLEEP_WELL_STATE.WAIT_DECREASE_HOUR)) {
+			computedHour = Time24HoursUtils.increase(hour, -2);
+		} else {
+			computedHour = hour;
+		}
+
 		return computedHour;
 	}
 
