@@ -21,8 +21,9 @@ public class ReplyKeyboardSleep extends AbstractCustomKeyboard {
 		INTRODUCE_SLEEP("INTRODUCE_SLEEP"), REQUEST_INFO_SLEEP("REQUEST_INFO_SLEEP"), MENOS_7(
 				"Menos de 7 hs"), REQUEST_NO_HELPS("Entre 7 y 8 hs"), MAS_9("Mas de 9 hs"),
 		YES_INCREASE_HOUR("Si, quiero dormir más"),NO_INCREASE_HOUR("No tengo interes en eso"), 
-		WAIT_INCREASE_HOUR("WAIT_INCREASE_HOUR"),WAIT_REDUCE_HOUR("WAIT_REDUCE_HOUR"),
+		WAIT_INCREASE_HOUR("WAIT_INCREASE_HOUR"),WAIT_DECREASE_HOUR("WAIT_DECREASE_HOUR"),
 		CONSEJOS_SALUDABLE("Otro Consejo saludable"), CONFIRM_WAKE_UP_HOUR("Si, despiertame a esa hora"),
+		DENY_WAKE_UP_HOUR("No, no me despiertes a esa hora"),
 		YES_REDUCE_HOUR("Si, quiero dormir menos");
 		private SLEEP_WELL_STATE(String myName) {
 			name = myName;
@@ -61,13 +62,16 @@ public class ReplyKeyboardSleep extends AbstractCustomKeyboard {
 				state=SLEEP_WELL_STATE.WAIT_INCREASE_HOUR;
 				break;
 			case "WAIT_REDUCE_HOUR":
-				state=WAIT_REDUCE_HOUR;
+				state=WAIT_DECREASE_HOUR;
 				break;
 			case "Otro Consejo saludable":
 				state=CONSEJOS_SALUDABLE;
 				break;
 			case "Si, despiertame a esa hora":
 				state=SLEEP_WELL_STATE.CONFIRM_WAKE_UP_HOUR;
+				break;
+			case "Si, quiero dormir menos":
+				state=SLEEP_WELL_STATE.YES_REDUCE_HOUR;
 				break;
 			default:
 				break;	
@@ -93,9 +97,10 @@ public class ReplyKeyboardSleep extends AbstractCustomKeyboard {
 			validResponses.add(CANTIDAD_SALUDABLE);
 			validResponses.add(SLEEP_WELL_STATE.MAS_9.getName());
 			validResponses.add(SLEEP_WELL_STATE.WAIT_INCREASE_HOUR.getName());
-			validResponses.add(SLEEP_WELL_STATE.WAIT_REDUCE_HOUR.getName());
+			validResponses.add(SLEEP_WELL_STATE.WAIT_DECREASE_HOUR.getName());
 			validResponses.add(SLEEP_WELL_STATE.YES_INCREASE_HOUR.getName());
 			validResponses.add(SLEEP_WELL_STATE.NO_INCREASE_HOUR.getName());
+			validResponses.add(SLEEP_WELL_STATE.YES_REDUCE_HOUR.getName());
 			
 		}
 
